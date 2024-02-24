@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.mcx.modules.blog.admin.mapper.ImMessageMapper">
+
+
+    <update id="updateRead">
+        update blog_im_message set is_read = 1 where from_user_id = #{fromUserId} and to_user_id=#{toUserId} and is_read = 0
+    </update>
+
+
+    <select id="selectPublicHistoryList" resultType="me.mcx.modules.blog.domain.vo.ImMessageVO">
+        SELECT ui.avatar as fromUserAvatar, ui.nickname as fromUserNickname,im.*
+        FROM blog_im_message im
+                 left join sys_user u on im.from_user_id = u.user_id
+                 left join blog_user_info ui on u.user_info_id = ui.id
+        where im.to_user_id is null
+        order by im.create_time desc
+    </select>
+    <select id="selectPublicOnlineUserList" resultType="me.mcx.modules.blog.domain.vo.ImOnlineUserVO">
+        SELECT ui.avatar as avatar, ui.nickname,u.id
+        FROM  sys_user u left join blog_user_info ui on u.user_info_id = ui.id
+        where u.user_id in
+        <foreach collection="keys"  item="userId" separator="," open="(" close=")">
+        #{userId}
+        </foreach>
+    </select>
+    <select id="selectPublicUserImHistoryList" resultType="me.mcx.modules.blog.domain.vo.ImMessageVO">
+        SELECT ui.avatar as fromUserAvatar, ui.nickname as fromUserNickname, im.*
+        FROM blog_im_message im
+                 left join sys_user u on im.from_user_id = u.user_id
+                 left join blog_user_info ui on u.user_info_id = ui.id
+        where (im.to_user_id = #{fromUserId} OR im.from_user_id = #{fromUserId})
+          and (im.to_user_id = #{toUserId} OR im.from_user_id = #{toUserId})
+        order by im.create_time desc
+    </select>
+    <select id="selectListReadByUserId" resultType="java.lang.Integer">
+        select count(id) from blog_im_message where to_user_id=#{fromUserId} and from_user_id=#{toUserId} and is_read = 0
+    </select>
+
+    <select id="getMessageNotice" resultType="me.mcx.modules.blog.domain.vo.ImMessageVO">
+        SELECT ui.avatar as fromUserAvatar, ui.nickname as fromUserNickname,a.id as articleId,a.title as articleTitle, im.*
+        FROM blog_im_message im
+                 left join sys_user u on im.from_user_id = u.user_id
+                 left join blog_user_info ui on u.user_info_id = ui.id
+                 left join blog_article a on a.id = im.article_id
+        where im.to_user_id = #{userId}
+
+        <choose>
+            <when test="noticeType != null">
+                and notice_type=#{noticeType}
+            </when>
+
+            <otherwise>
+                and notice_type = 5
+            </otherwise>
+        </choose>
+        order by im.create_time desc
+    </select>
+</mapper>

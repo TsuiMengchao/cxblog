@@ -1,0 +1,11 @@
+sql/*_backup/
+# Editor directories and files
+.git
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+

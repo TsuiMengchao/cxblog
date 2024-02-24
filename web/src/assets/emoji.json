@@ -1,0 +1,422 @@
+[
+  {
+    "name": "[微笑]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/0.gif"
+  },
+  {
+    "name": "[撇嘴]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/1.gif"
+  },
+  {
+    "name": "[色]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/2.gif"
+  },
+  {
+    "name": "[发呆]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/3.gif"
+  },
+  {
+    "name": "[得意]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/4.gif"
+  },
+  {
+    "name": "[流泪]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/5.gif"
+  },
+  {
+    "name": "[害羞]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/6.gif"
+  },
+  {
+    "name": "[闭嘴]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/7.gif"
+  },
+  {
+    "name": "[睡]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/8.gif"
+  },
+  {
+    "name": "[大哭]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/9.gif"
+  },
+  {
+    "name": "[尴尬]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/10.gif"
+  },
+  {
+    "name": "[发怒]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/11.gif"
+  },
+  {
+    "name": "[调皮]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/12.gif"
+  },
+  {
+    "name": "[呲牙]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/13.gif"
+  },
+  {
+    "name": "[惊讶]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/14.gif"
+  },
+  {
+    "name": "[难过]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/15.gif"
+  },
+  {
+    "name": "[酷]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/16.gif"
+  },
+  {
+    "name": "[冷汗]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/17.gif"
+  },
+  {
+    "name": "[抓狂]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/18.gif"
+  },
+  {
+    "name": "[吐]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/19.gif"
+  },
+  {
+    "name": "[偷笑]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/20.gif"
+  },
+  {
+    "name": "[可爱]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/21.gif"
+  },
+  {
+    "name": "[白眼]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/22.gif"
+  },
+  {
+    "name": "[傲慢]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/23.gif"
+  },
+  {
+    "name": "[饥饿]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/24.gif"
+  },
+  {
+    "name": "[困]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/25.gif"
+  },
+  {
+    "name": "[惊恐]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/26.gif"
+  },
+  {
+    "name": "[流汗]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/27.gif"
+  },
+  {
+    "name": "[憨笑]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/28.gif"
+  },
+  {
+    "name": "[大兵]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/29.gif"
+  },
+  {
+    "name": "[奋斗]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/30.gif"
+  },
+  {
+    "name": "[咒骂]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/31.gif"
+  },
+  {
+    "name": "[疑问]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/32.gif"
+  },
+  {
+    "name": "[嘘]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/33.gif"
+  },
+  {
+    "name": "[晕]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/34.gif"
+  },
+  {
+    "name": "[折磨]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/35.gif"
+  },
+  {
+    "name": "[衰]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/36.gif"
+  },
+  {
+    "name": "[骷髅]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/37.gif"
+  },
+  {
+    "name": "[敲打]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/38.gif"
+  },
+  {
+    "name": "[再见]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/39.gif"
+  },
+  {
+    "name": "[擦汗]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/40.gif"
+  },
+  {
+    "name": "[抠鼻]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/41.gif"
+  },
+  {
+    "name": "[鼓掌]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/42.gif"
+  },
+  {
+    "name": "[糗大了]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/43.gif"
+  },
+  {
+    "name": "[坏笑]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/44.gif"
+  },
+  {
+    "name": "[左哼哼]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/45.gif"
+  },
+  {
+    "name": "[右哼哼]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/46.gif"
+  },
+  {
+    "name": "[哈欠]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/47.gif"
+  },
+  {
+    "name": "[鄙视]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/48.gif"
+  },
+  {
+    "name": "[委屈]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/49.gif"
+  },
+  {
+    "name": "[快哭了]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/50.gif"
+  },
+  {
+    "name": "[阴险]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/51.gif"
+  },
+  {
+    "name": "[亲亲]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/52.gif"
+  },
+  {
+    "name": "[吓]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/53.gif"
+  },
+  {
+    "name": "[可怜]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/54.gif"
+  },
+  {
+    "name": "[菜刀]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/55.gif"
+  },
+  {
+    "name": "[西瓜]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/56.gif"
+  },
+  {
+    "name": "[啤酒]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/57.gif"
+  },
+  {
+    "name": "[篮球]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/58.gif"
+  },
+  {
+    "name": "[乒乓]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/59.gif"
+  },
+  {
+    "name": "[咖啡]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/60.gif"
+  },
+  {
+    "name": "[饭]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/61.gif"
+  },
+  {
+    "name": "[猪头]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/62.gif"
+  },
+  {
+    "name": "[玫瑰]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/63.gif"
+  },
+  {
+    "name": "[凋谢]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/64.gif"
+  },
+  {
+    "name": "[示爱]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/65.gif"
+  },
+  {
+    "name": "[爱心]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/66.gif"
+  },
+  {
+    "name": "[心碎]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/67.gif"
+  },
+  {
+    "name": "[蛋糕]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/68.gif"
+  },
+  {
+    "name": "[闪电]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/69.gif"
+  },
+  {
+    "name": "[炸弹]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/70.gif"
+  },
+  {
+    "name": "[刀]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/71.gif"
+  },
+  {
+    "name": "[足球]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/72.gif"
+  },
+  {
+    "name": "[瓢虫]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/73.gif"
+  },
+  {
+    "name": "[便便]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/74.gif"
+  },
+  {
+    "name": "[月亮]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/75.gif"
+  },
+  {
+    "name": "[太阳]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/76.gif"
+  },
+  {
+    "name": "[礼物]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/77.gif"
+  },
+  {
+    "name": "[拥抱]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/78.gif"
+  },
+  {
+    "name": "[强]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/79.gif"
+  },
+  {
+    "name": "[弱]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/80.gif"
+  },
+  {
+    "name": "[握手]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/81.gif"
+  },
+  {
+    "name": "[胜利]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/82.gif"
+  },
+  {
+    "name": "[抱拳]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/83.gif"
+  },
+  {
+    "name": "[勾引]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/84.gif"
+  },
+  {
+    "name": "[拳头]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/85.gif"
+  },
+  {
+    "name": "[差劲]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/86.gif"
+  },
+  {
+    "name": "[爱你]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/87.gif"
+  },
+  {
+    "name": "[NO]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/88.gif"
+  },
+  {
+    "name": "[OK]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/89.gif"
+  },
+  {
+    "name": "[爱情]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/90.gif"
+  },
+  {
+    "name": "[飞吻]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/91.gif"
+  },
+  {
+    "name": "[跳跳]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/92.gif"
+  },
+  {
+    "name": "[发抖]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/93.gif"
+  },
+  {
+    "name": "[怄火]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/94.gif"
+  },
+  {
+    "name": "[转圈]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/95.gif"
+  },
+  {
+    "name": "[磕头]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/96.gif"
+  },
+  {
+    "name": "[回头]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/97.gif"
+  },
+  {
+    "name": "[跳绳]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/98.gif"
+  },
+  {
+    "name": "[挥手]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/99.gif"
+  },
+  {
+    "name": "[激动]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/100.gif"
+  },
+  {
+    "name": "[街舞]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/101.gif"
+  },
+  {
+    "name": "[献吻]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/102.gif"
+  },
+  {
+    "name": "[左太极]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/103.gif"
+  },
+  {
+    "name": "[右太极]",
+    "url": "https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/104.gif"
+  }
+]
