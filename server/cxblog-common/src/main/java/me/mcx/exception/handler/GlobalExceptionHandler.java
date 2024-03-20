@@ -16,10 +16,13 @@
 package me.mcx.exception.handler;
 
 import lombok.extern.slf4j.Slf4j;
+import me.mcx.common.ResponseResult;
 import me.mcx.exception.BadRequestException;
+import me.mcx.exception.BusinessException;
 import me.mcx.exception.EntityExistException;
 import me.mcx.exception.EntityNotFoundException;
 import me.mcx.utils.ThrowableUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -27,7 +30,10 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import static me.mcx.common.ResultCode.ERROR;
 import static org.springframework.http.HttpStatus.*;
 
 /**
@@ -102,6 +108,19 @@ public class GlobalExceptionHandler {
             message = ((FieldError) objectError).getField() + ": " + message;
         }
         return buildResponseEntity(ApiError.error(message));
+    }
+
+    // 业务异常
+    @ExceptionHandler(BusinessException.class)
+    @ResponseBody
+    public ResponseResult BusinessExceptionHandler(BusinessException ex) {
+        if (ex.getStatus() != -1) {
+            log.error("code : " + ex.getStatus() + " msg : " + ex.getMsg(), ex);
+        }
+        if(StringUtils.isBlank(ex.getLocalizedMessage())||StringUtils.isBlank(ex.getMsg())){
+            return ResponseResult.error(ERROR.getCode(), ERROR.getDesc());
+        }
+        return ResponseResult.error(ex.getStatus(), ex.getMsg());
     }
 
     /**

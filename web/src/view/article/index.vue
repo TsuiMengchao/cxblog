@@ -1,7 +1,7 @@
 <template>
     <div class="article-container container">
         <!-- 左侧点赞和打赏 -->
-        <div class="left-sidbarnav" :style="{ left: left }">
+        <div class="left-sidbarnav" :style="{ left: left}">
             <el-tooltip class="item" effect="dark" content="点赞" placement="left">
                 <div class="left-item" title="点赞" @click="like(article.id)">
                     <el-badge :value="article.likeCount" class="item">

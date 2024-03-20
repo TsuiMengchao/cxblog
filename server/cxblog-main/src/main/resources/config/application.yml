@@ -3,6 +3,9 @@ server:
   compression:
     enabled: true
     mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+  servlet:
+    # 应用的访问路径
+    context-path: /
 
 mybatis-plus:
   configuration:

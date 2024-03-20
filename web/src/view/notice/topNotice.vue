@@ -27,7 +27,7 @@ export default {
             noticeFlag: true,
             notice: {
                 id: 3,
-                msg: '欢迎您的到来，如果在使用过程中发现bug，麻烦请及时向辰雪反馈。如果本项目对你有帮助，请前往<a href="https://gitee.com/mcxgitee">码云</a>给仓库点上您的小星星》》',
+                msg: '欢迎您的到来，如果在使用过程中发现bug，麻烦请及时向辰雪反馈。如果本项目对你有帮助，请前往<a href="https://gitee.com/Tsuimengchao">码云</a>给仓库点上您的小星星》》',
             }
         }
     },

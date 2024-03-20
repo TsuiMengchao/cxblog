@@ -14,7 +14,6 @@ const getters = {
   addRouters: state => state.permission.addRouters,
   imagesUploadApi: state => state.api.imagesUploadApi,
   baseApi: state => state.api.baseApi,
-  imgApi: state => state.api.imgApi,
   fileUploadApi: state => state.api.fileUploadApi,
   updateAvatarApi: state => state.api.updateAvatarApi,
   qiNiuUploadApi: state => state.api.qiNiuUploadApi,

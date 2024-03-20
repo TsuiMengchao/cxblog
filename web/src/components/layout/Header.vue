@@ -76,7 +76,7 @@
                 <li :class="path == '/forum' ? 'active' : ''">
                     <span>
                         <router-link :to="'/forum'">
-                            <svg-icon icon-class="talk"></svg-icon> 瞬间
+                            <svg-icon icon-class="talk"></svg-icon> 论坛
                         </router-link>
                     </span>
                 </li>
@@ -88,6 +88,14 @@
                         </router-link>
                     </span>
                 </li>
+
+              <li :class="path == '/tipsoon' ? 'active' : ''">
+                    <span>
+                        <router-link :to="'/tipsoon'">
+                            <svg-icon icon-class="tipsoon"></svg-icon> 简讯
+                        </router-link>
+                    </span>
+              </li>
 
                 <li :class="path == '/navigation' ? 'active' : ''">
                     <span>
@@ -131,7 +139,7 @@
                                 </el-dropdown-item>
                             </router-link>
 
-                            <a style="text-decoration: none;color: #71777c;" href="https://gitee.com/mcxgitee/"
+                            <a style="text-decoration: none;color: #71777c;" href="https://gitee.com/Tsuimengchao/"
                                 target="_blank">
                                 <el-dropdown-item>
                                     <i class="iconfont icon-code"></i>网站源码
@@ -172,8 +180,7 @@
                                     style="width: 20px;height: 20px;vertical-align: -5px;"></svg-icon> 发布文章
                             </el-dropdown-item>
                         </router-link>
-                        <router-link v-if="$store.state.userInfo && $store.state.userInfo.id == 1"
-                            style="text-decoration: none;color: #71777c;" :to="'/newSays'">
+                        <router-link style="text-decoration: none;color: #71777c;" :to="'/newSays'">
                             <el-dropdown-item>
                                 <svg-icon icon-class="say"
                                     style="width: 20px;height: 20px;vertical-align: -5px;"></svg-icon> 发布说说
@@ -183,7 +190,7 @@
                         <router-link style="text-decoration: none;color: #71777c;" :to="'/forum'">
                             <el-dropdown-item>
                                 <svg-icon icon-class="talk"
-                                    style="width: 20px;height: 20px;vertical-align: -5px;"></svg-icon> 发布瞬间
+                                    style="width: 20px;height: 20px;vertical-align: -5px;"></svg-icon> 发布讨论
                             </el-dropdown-item>
                         </router-link>
                     </el-dropdown-menu>

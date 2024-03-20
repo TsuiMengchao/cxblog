@@ -168,10 +168,10 @@
         </el-table-column>
         <el-table-column width="220" fixed="right" align="center" label="操作">
           <template slot-scope="scope">
-            <el-button v-if="canUpdate && scope.row.isPublish === 1" type="info" size="mini" @click="offShelf(scope)">
+            <el-button v-if="canUpdate && (scope.row.isPublish === 1 || scope.row.isPublish === 2)" type="info" size="mini" @click="offShelf(scope)">
               下架
             </el-button>
-            <el-button v-if="canUpdate && scope.row.isPublish === 0" type="success" size="mini" @click="release(scope)">
+            <el-button v-if="canUpdate && (scope.row.isPublish === 0 || scope.row.isPublish === 2)" type="success" size="mini" @click="release(scope)">
               发布
             </el-button>
             <el-button v-if="canUpdate" type="primary" size="mini" @click="handleUpdate(scope)">编辑</el-button>

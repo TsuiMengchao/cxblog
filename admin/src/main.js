@@ -31,7 +31,7 @@ Vue.prototype.Clipboard = Clipboard
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 import VueParticles from 'vue-particles'
-import tagCloud from '@/utils/tag-cloud'
+import tagCloud from 'v-tag-cloud'
 Vue.use(tagCloud)
 Vue.component('RightToolbar', RightToolbar)
 Vue.use(VueParticles)

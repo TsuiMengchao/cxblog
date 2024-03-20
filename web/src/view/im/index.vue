@@ -747,12 +747,14 @@ export default {
             getRoomList().then(res => {
                 this.roomList.push(...res.data)
             })
+          console.log("userid" + this.userId)
             if (this.userId != null) {
                 addRoom(this.userId).then(res => {
                     if (res.data != null) {
                         this.roomList.push(res.data)
                     }
                 }).catch(err => {
+                  console.log(err)
                 })
             }
             //连接成功后获取历史聊天记录

@@ -34,7 +34,7 @@
                 </div>
                 <div class="menus-item">
                     <a @click="handleClike('/forum')">
-                        <i class="el-icon-mobile-phone" /> 瞬间
+                        <i class="el-icon-mobile-phone" /> 论坛
                     </a>
                 </div>
                 <div class="menus-item">
@@ -51,6 +51,11 @@
                     <a @click="handleClike('/say')">
                         <i class="iconfont icon-pinglun" /> 说说
                     </a>
+                </div>
+                <div class="menus-item">
+                  <a @click="handleClike('/tipsoon')">
+                    <i class="iconfont icon-pinglun" /> 简讯
+                  </a>
                 </div>
                 <div class="menus-item">
                     <a @click="handleClike('/links')">

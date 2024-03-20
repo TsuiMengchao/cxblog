@@ -86,6 +86,7 @@ public class RedisConfig extends CachingConfigurerSupport {
         ParserConfig.getGlobalInstance().addAccept("me.mcx.modules.mnt.domain");
         ParserConfig.getGlobalInstance().addAccept("me.mcx.modules.quartz.domain");
         ParserConfig.getGlobalInstance().addAccept("me.mcx.modules.system.domain");
+        ParserConfig.getGlobalInstance().addAccept("me.mcx.modules.blog.domain");
         // 模块内的 Dto
         ParserConfig.getGlobalInstance().addAccept("me.mcx.modules.security.service.dto");
         // key的序列化采用StringRedisSerializer

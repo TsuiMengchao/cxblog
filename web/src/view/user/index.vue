@@ -300,8 +300,8 @@ export default {
                 pageSize: 10,
                 index: 0
             },
-            statusList: ["下架", "上架", "待审核", "草稿"],
-            statusStyle: ["#F56C6C", "#67C23A", "#909399", "#E6A23C"],
+            statusList: ["下架", "", "待审核", "草稿"],
+            statusStyle: ["#F56C6C", "#ffffffff", "#909399", "#E6A23C"],
             form: {},
             files: {},
             dialogTableVisible: false,

@@ -1,0 +1,161 @@
+{
+	"easycom": {
+		"^tn-(.*)": "@/tuniao-ui/components/tn-$1/tn-$1.vue"
+	},
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	  {
+	    "path": "pages/index",
+	    "style": {
+	      "mp-weixin": {
+	        "disableScroll": true
+	      },
+	      "app-plus": {
+	        "bounce": "none"
+	      },
+	      "mp-alipay": {
+	        "allowsBounceVertical": "NO"
+	      },
+	      "mp-baidu": {
+	        "disableScroll": true
+	      }
+	    }
+	  },
+	  {
+	      "path": "pages/article/index",
+	      "style": {
+	        "enablePullDownRefresh": false
+	      }
+	  }
+	],
+	"subPackages": [{
+    "root": "homePages",
+    "pages": [
+		
+		{
+        "path": "about",
+        "style": {
+          "navigationBarTitleText": "关于我们",
+          "enablePullDownRefresh": false
+        }
+      },
+      {
+        "path": "search",
+        "style": {
+          "navigationBarTitleText": "全局搜索",
+          "enablePullDownRefresh": false
+        }
+      }
+    ]
+  },
+		{
+		  "root": "minePages",
+		  "pages": [{
+		      "path": "article",
+		      "style": {
+		        "navigationBarTitleText": "我的文章",
+		        "enablePullDownRefresh": false
+		      }
+		    },{
+		      "path": "protocol",
+		      "style": {
+		        "navigationBarTitleText": "使用协议",
+		        "enablePullDownRefresh": false
+		      }
+		    },
+		    {
+		      "path": "login",
+		      "style": {
+		        "navigationBarTitleText": "授权登录",
+		        "enablePullDownRefresh": false
+		      }
+		    },
+		    {
+		      "path": "set",
+		      "style": {
+		        "navigationBarTitleText": "全局设置",
+		        "enablePullDownRefresh": false
+		      }
+		    },
+
+		    {
+		      "path": "thanks",
+		      "style": {
+		        "navigationBarTitleText": "感谢名单",
+		        "enablePullDownRefresh": false
+		      }
+		    },
+		    {
+		      "path": "help",
+		      "style": {
+		        "navigationBarTitleText": "帮助中心",
+		        "enablePullDownRefresh": false
+		      }
+		    },
+		    {
+		      "path": "avatar",
+		      "style": {
+		        "navigationBarTitleText": "头像上传",
+		        "enablePullDownRefresh": false
+		      }
+		    },
+		    {
+		      "path": "integral",
+		      "style": {
+		        "navigationBarTitleText": "积分明细",
+		        "enablePullDownRefresh": false
+		      }
+		    },
+		    {
+		      "path": "signed",
+		      "style": {
+		        "navigationBarTitleText": "积分签到",
+		        "enablePullDownRefresh": false
+		      }
+		    },
+		    {
+		      "path": "collect",
+		      "style": {
+		        "navigationBarTitleText": "好物收藏",
+		        "enablePullDownRefresh": false
+		      }
+		    },
+		    {
+		      "path": "safety",
+		      "style": {
+		        "navigationBarTitleText": "账号安全",
+		        "enablePullDownRefresh": false
+		      }
+		    },
+		    {
+		      "path": "default",
+		      "style": {
+		        "navigationBarTitleText": "缺省页",
+		        "enablePullDownRefresh": false
+		      }
+		    },
+		    {
+		      "path": "reward",
+		      "style": {
+		        "navigationBarTitleText": "赞赏作者",
+		        "enablePullDownRefresh": false
+		      }
+		    },
+		    {
+		      "path": "content",
+		      "style": {
+		        "navigationBarTitleText": "富文本",
+		        "enablePullDownRefresh": false
+		      }
+		    }
+		  ]
+		}
+	],
+	"globalStyle": {
+		"navigationStyle": "custom",
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "梦辰雪",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	}
+
+}

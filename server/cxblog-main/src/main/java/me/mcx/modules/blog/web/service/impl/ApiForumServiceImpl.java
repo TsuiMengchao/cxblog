@@ -1,6 +1,5 @@
 package me.mcx.modules.blog.web.service.impl;
 
-import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import me.mcx.common.ResponseResult;
@@ -17,11 +16,13 @@ import me.mcx.modules.blog.domain.vo.talk.ApiForumCommentListVO;
 import me.mcx.modules.blog.domain.vo.talk.ApiForumLikeListVO;
 import me.mcx.modules.blog.domain.vo.talk.ApiForumListVO;
 import lombok.RequiredArgsConstructor;
+import me.mcx.utils.RequestHolder;
 import me.mcx.utils.SecurityUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -44,7 +45,7 @@ public class ApiForumServiceImpl implements ApiForumService {
     @Override
     public ResponseResult selectForumListByTalkId(Integer talkId, String orderBy) {
         Page<ApiForumListVO> page = new Page<>();
-        if (StringUtils.isNotBlank(orderBy) && orderBy.equals("followed") &&  StpUtil.isLogin()) {
+        if (StringUtils.isNotBlank(orderBy) && orderBy.equals("followed") &&  SecurityUtils.isLogin()) {
             List<Followed>  followedList = followedMapper.selectList(new LambdaQueryWrapper<Followed>().eq(Followed::getUserId, SecurityUtils.getCurrentUserId()));
             if (followedList.size() > 0) {
                 page = forumMapper.selectForumListByTalkId(new Page<>(PageUtils.getPageNo(),PageUtils.getPageSize()),talkId,followedList);
@@ -59,7 +60,7 @@ public class ApiForumServiceImpl implements ApiForumService {
             item.setCommentCount(count);
             int likeCount = forumMapper.countForumLike(item.getId());
             item.setLikeCount(likeCount);
-            if (StpUtil.getLoginIdDefaultNull() != null) {
+            if (SecurityUtils.getLoginIdDefaultNull() != null) {
                 int flag = forumMapper.selectForumUserIsLike(item.getId(), String.valueOf(SecurityUtils.getCurrentUserId()));
                 item.setIsLike(flag);
             }
@@ -82,7 +83,8 @@ public class ApiForumServiceImpl implements ApiForumService {
     @Transactional(rollbackFor = Exception.class)
     public ResponseResult comment(ForumComment forumComment) {
         forumComment.setUserId(String.valueOf(SecurityUtils.getCurrentUserId()));
-        String ip = IpUtil.getIp();
+        HttpServletRequest request = RequestHolder.getHttpServletRequest();
+        String ip = me.mcx.utils.StringUtils.getIp(request);
         String address = IpUtil.getIp2region(ip);
         forumComment.setIp(ip);
         forumComment.setAddress(address);
@@ -133,7 +135,7 @@ public class ApiForumServiceImpl implements ApiForumService {
 
     @Override
     public ResponseResult likeList(Integer forumId) {
-        Object userId = StpUtil.getLoginIdDefaultNull();
+        Object userId = SecurityUtils.getLoginIdDefaultNull();
         Page<ApiForumLikeListVO> likePages = forumMapper.selectForumLikeList(new Page<>(PageUtils.getPageNo(),PageUtils.getPageSize()),forumId);
         likePages.getRecords().forEach(item ->{
             if (userId != null){

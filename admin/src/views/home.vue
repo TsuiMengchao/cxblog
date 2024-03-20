@@ -39,7 +39,7 @@
           <el-card style="height: 417px">
             <div class="e-title">文章标签统计</div>
             <div>
-              <tag-cloud style="margin-top:1.5rem" :data="tagDTOList" />
+              <tag-cloud style="margin-top:1.5rem" :data="tagDTOList" :config="{hover: false}" @clickTag="clickTagItem"/>
             </div>
           </el-card>
         </el-col>
@@ -346,8 +346,12 @@ export default {
       done()
     },
     onClick: function (row) {
-      window.open(this.BLOG_WEB_URL + "articleInfo?articleId=" + row.id);
+      window.open(this.BLOG_WEB_URL + 'article/' + row.id)
     },
+    clickTagItem (tag) {
+      window.open(this.BLOG_WEB_URL + 'tag')
+
+    }
   }
 }
 </script>

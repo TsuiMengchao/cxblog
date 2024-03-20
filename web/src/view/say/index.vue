@@ -13,9 +13,12 @@
                     <div class="rigthBox">
                         <div class="nickname">
                             {{ item.nickname }}
-                            <el-tooltip class="item" effect="dark" content="博主" placement="right">
+                            <el-tooltip v-if="item.userId==='1'" class="item" effect="dark" content="博客主" placement="right">
                                 <svg-icon icon-class="bozhu"></svg-icon>
                             </el-tooltip>
+                          <el-tooltip v-else class="item" effect="dark" content="博主" placement="right">
+                            <svg-icon icon-class="yuanchuang"></svg-icon>
+                          </el-tooltip>
                         </div>
                         <p class="content" v-highlight v-html="item.content"></p>
                         <div v-if="item.imgUrl" :class="ckeckImgClass(item.imgUrl)">

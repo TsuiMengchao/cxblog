@@ -68,7 +68,7 @@ public class AppRun {
         String path = env.getProperty("server.servlet.context-path");
         System.out.println("\n----------------------------------------------------------\n\t" +
                 "blog is running! Access URLs:\n\t" +
-                "Local: \t\thttp:// localhost:" + port + path + "/\n\t" +
+                "Local: \t\thttp://localhost:" + port + path + "/\n\t" +
                 "External: \thttp://" + ip + ":" + port + path + "/\n\t" +
                 "Knife4j-ui: \thttp://" + ip + ":" + port + path + "/doc.html\n\t" +
                 "----------------------------------------------------------");

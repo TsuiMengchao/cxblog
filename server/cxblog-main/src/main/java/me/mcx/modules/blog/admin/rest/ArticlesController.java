@@ -23,7 +23,7 @@ public class ArticlesController {
     private final ArticleService articleService;
 
 
-    @PreAuthorize("@cx.check('articles:list')")
+    @PreAuthorize("@cx.check('article:list')")
     @PostMapping(value = "/list")
     @ApiOperation(value = "文章列表", httpMethod = "POST", response = ResponseResult.class, notes = "文章列表")
     public ResponseResult selectArticleList(@RequestBody Map<String,Object> map) {

@@ -20,9 +20,12 @@ import eu.bitwalker.useragentutils.Browser;
 import eu.bitwalker.useragentutils.OperatingSystem;
 import eu.bitwalker.useragentutils.UserAgent;
 import lombok.RequiredArgsConstructor;
+import me.mcx.utils.RequestHolder;
+import me.mcx.utils.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,7 +50,8 @@ public class ApiHomeServiceImpl implements ApiHomeService {
 
     public ResponseResult report() {
         // 获取ip
-        String ipAddress = IpUtil.getIp();
+        HttpServletRequest request = RequestHolder.getHttpServletRequest();
+        String ipAddress = StringUtils.getIp(request);
         // 通过浏览器解析工具类UserAgent获取访问设备信息
         UserAgent userAgent = IpUtil.getUserAgent(IpUtil.getRequest());
         Browser browser = userAgent.getBrowser();

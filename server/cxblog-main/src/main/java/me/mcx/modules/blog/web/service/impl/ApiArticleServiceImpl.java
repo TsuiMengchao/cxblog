@@ -1,6 +1,5 @@
 package me.mcx.modules.blog.web.service.impl;
 
-import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -15,14 +14,11 @@ import me.mcx.modules.blog.web.handle.RelativeDateFormat;
 import me.mcx.modules.blog.web.handle.SystemNoticeHandle;
 import me.mcx.modules.blog.web.im.MessageConstant;
 import me.mcx.modules.system.mapper.UserMapper;
-import me.mcx.utils.SecurityUtils;
+import me.mcx.utils.*;
 import me.mcx.utils.enums.ReadTypeEnum;
 import me.mcx.exception.BusinessException;
 import me.mcx.modules.blog.web.service.ApiArticleService;
-import me.mcx.utils.BeanCopyUtils;
 import me.mcx.modules.blog.utils.ElasticsearchUtil;
-import me.mcx.utils.IpUtil;
-import me.mcx.utils.PageUtils;
 import me.mcx.modules.blog.domain.vo.ApiArchiveVO;
 import me.mcx.modules.blog.domain.vo.ApiArticleInfoVO;
 import me.mcx.modules.blog.domain.vo.ApiArticleListVO;
@@ -34,6 +30,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
@@ -76,7 +73,7 @@ public class ApiArticleServiceImpl implements ApiArticleService {
             int collectCount = Math.toIntExact(collectMapper.selectCount(new LambdaQueryWrapper<Collect>().eq(Collect::getArticleId, item.getId())));
             item.setCollectCount(collectCount);
             //判断当前登录用户是否收藏该文章 标记为收藏
-            if (StpUtil.getLoginIdDefaultNull() != null) {
+            if (SecurityUtils.getLoginIdDefaultNull() != null) {
                 collectCount = Math.toIntExact(collectMapper.selectCount(new LambdaQueryWrapper<Collect>().eq(Collect::getArticleId, item.getId())
                         .eq(Collect::getUserId, SecurityUtils.getCurrentUserId())));
                 item.setIsCollect(collectCount > 0);
@@ -113,7 +110,7 @@ public class ApiArticleServiceImpl implements ApiArticleService {
             apiArticleInfoVO.setLikeCount(map.get(id.toString()));
         }
         //获取当前登录用户是否点赞该文章
-        Object userId = StpUtil.getLoginIdDefaultNull();
+        Object userId = SecurityUtils.getLoginIdDefaultNull();
         if (userId != null){
             String articleLikeKey = ARTICLE_USER_LIKE + userId;
             if (redisService.sIsMember(articleLikeKey, id)) {
@@ -144,14 +141,16 @@ public class ApiArticleServiceImpl implements ApiArticleService {
         //校验文章是否已经进行过扫码验证
         if(apiArticleInfoVO.getReadType() == ReadTypeEnum.CODE.index){
             List<Object> cacheList = redisService.getCacheList(RedisConstants.CHECK_CODE_IP);
-            String ip = IpUtil.getIp();
+            HttpServletRequest request = RequestHolder.getHttpServletRequest();
+            String ip = me.mcx.utils.StringUtils.getIp(request);
             if (cacheList.contains(ip)) {
                 apiArticleInfoVO.setActiveReadType(true);
             }
         }
 
         //增加文章阅读量
-        redisService.incrArticle(id.longValue(),ARTICLE_READING,IpUtil.getIp());
+        HttpServletRequest request = RequestHolder.getHttpServletRequest();
+        redisService.incrArticle(id.longValue(),ARTICLE_READING,me.mcx.utils.StringUtils.getIp(request));
         return ResponseResult.success(apiArticleInfoVO);
     }
 
@@ -226,7 +225,7 @@ public class ApiArticleServiceImpl implements ApiArticleService {
 
             //构建通知消息
             Article article = articleMapper.selectById(articleId);
-            SystemNoticeHandle.sendNotice(article.getUserId(), MessageConstant.MESSAGE_LIKE_NOTICE,MessageConstant.SYSTEM_MESSAGE_CODE,articleId,null,null);
+            SystemNoticeHandle.sendNotice(article.getUserId(), MessageConstant.MESSAGE_LIKE_NOTICE,MessageConstant.SYSTEM_MESSAGE_CODE,articleId.toString(),null,null);
         }
 
         return ResponseResult.success();
@@ -373,7 +372,8 @@ public class ApiArticleServiceImpl implements ApiArticleService {
         if (cacheList.isEmpty()) {
             cacheList = new ArrayList<>();
         }
-        cacheList.add(IpUtil.getIp());
+        HttpServletRequest request = RequestHolder.getHttpServletRequest();
+        cacheList.add(me.mcx.utils.StringUtils.getIp(request));
         redisService.setCacheList(CHECK_CODE_IP,cacheList);
         //通过删除验证码
         redisService.deleteObject(key);

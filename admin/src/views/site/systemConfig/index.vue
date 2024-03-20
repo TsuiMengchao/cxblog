@@ -99,31 +99,31 @@
         </el-form>
       </el-tab-pane>
 
-      <el-tab-pane label="本地文件存储" name="tow">
-        <span slot="label">
-          <i class="el-icon-date" /> 本地文件存储
-        </span>
+<!--      <el-tab-pane label="本地文件存储" name="tow">-->
+<!--        <span slot="label">-->
+<!--          <i class="el-icon-date" /> 本地文件存储-->
+<!--        </span>-->
 
-        <el-form
-          ref="form"
-          style="margin-left: 20px;"
-          label-position="left"
-          :model="form"
-          label-width="120px"
-          :rules="rules"
-        >
-          <aside>
-            使用IO流将文件存储本地磁盘中
-          </aside>
+<!--        <el-form-->
+<!--          ref="form"-->
+<!--          style="margin-left: 20px;"-->
+<!--          label-position="left"-->
+<!--          :model="form"-->
+<!--          label-width="120px"-->
+<!--          :rules="rules"-->
+<!--        >-->
+<!--          <aside>-->
+<!--            使用IO流将文件存储本地磁盘中-->
+<!--          </aside>-->
 
-          <el-form-item label="本地文件域名" prop="localFileUrl">
-            <el-input v-model="form.localFileUrl" auto-complete="new-password" style="width: 400px" />
-          </el-form-item>
-          <el-form-item>
-            <el-button v-if="canUpdate" type="primary" @click="submitForm()">保 存</el-button>
-          </el-form-item>
-        </el-form>
-      </el-tab-pane>
+<!--          <el-form-item label="本地文件域名" prop="localFileUrl">-->
+<!--            <el-input v-model="form.localFileUrl" auto-complete="new-password" style="width: 400px" />-->
+<!--          </el-form-item>-->
+<!--          <el-form-item>-->
+<!--            <el-button v-if="canUpdate" type="primary" @click="submitForm()">保 存</el-button>-->
+<!--          </el-form-item>-->
+<!--        </el-form>-->
+<!--      </el-tab-pane>-->
 
 <!--      <el-tab-pane label="七牛云对象存储" name="three">-->
 <!--        <span slot="label">-->
@@ -306,20 +306,14 @@ export default {
     },
     submitForm: function() {
       console.log('开始提交表单')
-      this.$refs.form.validate((valid) => {
-        if (!valid) {
-          console.log('校验出错')
-        } else {
-          // 获取文本编辑器中的内容【只有在切换到仪表盘通知的时候，才需要获取】
-          if (this.index === '4') {
-            this.form.dashboardNotification = this.$refs.md.d_render
-          }
-          updateSystemConfig(this.form).then(res => {
-            this.$message.success(res.message)
-          }).catch(err => {
-            console.error(err)
-          })
-        }
+      // 获取文本编辑器中的内容【只有在切换到仪表盘通知的时候，才需要获取】
+      if (this.index === '4') {
+        this.form.dashboardNotification = this.$refs.md.d_render
+      }
+      updateSystemConfig(this.form).then(res => {
+        this.$message.success(res.message)
+      }).catch(err => {
+        console.error(err)
       })
     }
   }

@@ -30,8 +30,7 @@ public class TagsController {
     private final TagsService tagsService;
 
     @AnonymousGetMapping(value = "/list")
-    @PreAuthorize("@cx.check('\t\n" +
-            "tag:list')")
+    @PreAuthorize("@cx.check('tag:list')")
     @ApiOperation(value = "标签列表", httpMethod = "GET", response = ResponseResult.class, notes = "标签列表")
     public ResponseResult list(String name){
         return tagsService.listTags(name);

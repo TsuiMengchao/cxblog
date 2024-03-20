@@ -1,6 +1,5 @@
 package me.mcx.modules.blog.web.service.impl;
 
-import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import me.mcx.common.RedisConstants;
@@ -11,6 +10,8 @@ import me.mcx.modules.blog.domain.SayComment;
 import me.mcx.exception.BusinessException;
 import me.mcx.modules.blog.admin.service.RedisService;
 import me.mcx.modules.blog.web.handle.RelativeDateFormat;
+import me.mcx.modules.blog.web.handle.SystemNoticeHandle;
+import me.mcx.modules.blog.web.im.MessageConstant;
 import me.mcx.modules.blog.web.service.ApiSayService;
 import me.mcx.modules.system.mapper.UserMapper;
 import me.mcx.modules.blog.admin.mapper.SayCommentMapper;
@@ -21,12 +22,15 @@ import me.mcx.modules.blog.domain.vo.ApiSayCommentVO;
 import me.mcx.modules.blog.domain.vo.ApiSayVO;
 import me.mcx.modules.blog.domain.vo.UserInfoVO;
 import lombok.RequiredArgsConstructor;
+import me.mcx.utils.RequestHolder;
 import me.mcx.utils.SecurityUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -47,7 +51,7 @@ public class ApiSayServiceImpl implements ApiSayService {
     public ResponseResult selectSayList() {
 
         //是否显示未公开的说说 登录用户id为1时显示所有说说
-        boolean showPrivate = StpUtil.isLogin()  && SecurityUtils.getCurrentUserId().equals("1");
+        boolean showPrivate = SecurityUtils.isLogin()  && SecurityUtils.getCurrentUserId().equals("1");
 
         Page<ApiSayVO>  sayPage = sayMapper.selectPublicSayList(new Page<>(PageUtils.getPageNo(), PageUtils.getPageSize()),showPrivate);
         for (ApiSayVO item : sayPage.getRecords()) {
@@ -60,7 +64,7 @@ public class ApiSayServiceImpl implements ApiSayService {
             }
             item.setCreateTimeStr(RelativeDateFormat.format(item.getCreateTime()));
             item.setUserLikeList(likeUserList);
-            if (StpUtil.isLogin()){
+            if (SecurityUtils.isLogin()){
                 item.setIsLike(redisService.sIsMember(RedisConstants.SAY_LIKE_USER + SecurityUtils.getCurrentUserId(), item.getId()));
             }
             List<SayComment> sayComments = sayCommentMapper.selectList(new LambdaQueryWrapper<SayComment>().eq(SayComment::getSayId, item.getId()));
@@ -99,8 +103,8 @@ public class ApiSayServiceImpl implements ApiSayService {
             redisService.sAdd(sayLike, userId);
 
             //构建通知消息
-//            Article article = articleMapper.selectById(articleId);
-//            SystemNoticeHandle.sendNotice(article.getUserId(), MessageConstant.MESSAGE_LIKE_NOTICE,MessageConstant.SYSTEM_MESSAGE_CODE,articleId,null,null);
+            Say article = sayMapper.selectById(sayId);
+            SystemNoticeHandle.sendNotice(article.getUserId(), MessageConstant.MESSAGE_LIKE_NOTICE,MessageConstant.SYSTEM_MESSAGE_CODE,sayId,null,null);
         return ResponseResult.success("点赞成功");
     }
 
@@ -108,7 +112,8 @@ public class ApiSayServiceImpl implements ApiSayService {
     @Transactional(rollbackFor = Exception.class)
     public ResponseResult comment(SayComment sayComment) {
         sayComment.setUserId(String.valueOf(SecurityUtils.getCurrentUserId()));
-        sayComment.setIp(IpUtil.getIp());
+        HttpServletRequest request = RequestHolder.getHttpServletRequest();
+        sayComment.setIp(me.mcx.utils.StringUtils.getIp(request));
         sayComment.setIpAddress(IpUtil.getIp2region(sayComment.getIp()));
         sayCommentMapper.insert(sayComment);
         return ResponseResult.success();
@@ -118,10 +123,8 @@ public class ApiSayServiceImpl implements ApiSayService {
     @Transactional(rollbackFor = Exception.class)
     public ResponseResult insertSay(Say say) {
         String userId = String.valueOf(SecurityUtils.getCurrentUserId());
-        if (!userId.equals("1")) {
-            throw new BusinessException(ResultCode.NO_PERMISSION);
-        }
         say.setUserId(userId);
+        say.setCreateTime(new Date());
         sayMapper.insert(say);
         return ResponseResult.success();
     }

@@ -84,10 +84,17 @@ const routes = [
                 }
             },
             {
+                path: "/tipsoon",
+                component: resolve => require(["@/view/tipsoon/index"], resolve),
+                meta: {
+                    title: "简讯"
+                }
+            },
+            {
                 path: "/forum",
                 component: resolve => require(["@/view/forum/index"], resolve),
                 meta: {
-                    title: "瞬间"
+                    title: "论坛"
                 }
             },
             {

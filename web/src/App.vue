@@ -83,12 +83,14 @@ export default {
     getUserInfo() {
       let flag = window.location.href.indexOf("token") != -1
       if (flag) {
-        let token = window.location.href.split("token=")[1]
+        let token = window.location.href.split("token=")[1].replace("%20", " ")
         setToken(token)
+        this.$router.push("/")
       }
 
       // 从cookie中获取token
       let token = getToken()
+      console.log(token)
       if (token != null) {
         selectUserInfoByToken(token).then(res => {
           this.userInfo = res.data

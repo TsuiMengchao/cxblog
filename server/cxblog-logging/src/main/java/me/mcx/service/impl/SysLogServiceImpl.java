@@ -71,13 +71,20 @@ public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> impleme
         }
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
-        me.mcx.annotation.Log aopLog = method.getAnnotation(me.mcx.annotation.Log.class);
+        String description = null;
+        if (sysLog.getLogType().contains("WEB-")){
+            me.mcx.annotation.WebLog aopLog = method.getAnnotation(me.mcx.annotation.WebLog.class);
+            description = aopLog.value();
+        } else {
+            me.mcx.annotation.Log aopLog = method.getAnnotation(me.mcx.annotation.Log.class);
+            description = aopLog.value();
+        }
 
         // 方法路径
         String methodName = joinPoint.getTarget().getClass().getName() + "." + signature.getName() + "()";
 
         // 描述
-        sysLog.setDescription(aopLog.value());
+        sysLog.setDescription(description);
         
         sysLog.setRequestIp(ip);
         sysLog.setAddress(StringUtils.getCityInfo(sysLog.getRequestIp()));

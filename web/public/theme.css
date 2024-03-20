@@ -20,6 +20,7 @@ html[data-theme='dark'] {
     --friend-tip-color: #606266;
     --article-srect-background: repeating-linear-gradient(145deg, #000, #000 15px, #303133 0, #303133 25px);
     --say-background: #303133;
+    --tipsoon-background: #303133;
     --footer-background-color: #232323e0;
     --forum-background-color: #303133;
     --article-table-back-color: #000;
@@ -48,6 +49,7 @@ html[data-theme='dark'] {
     --friend-tip-color: #f5f5f5;
     --article-srect-background: repeating-linear-gradient(145deg, #f2f6fc, #f2f6fc 15px, #fff 0, #fff 25px);
     --say-background: #f7f7f7;
+    --tipsoon-background: #f7f7f7;
     --footer-background-color: rgba(255, 255, 255, 0.8);
     --forum-background-color: #f2f3f5;
     --article-table-border-color: #fffdf9;

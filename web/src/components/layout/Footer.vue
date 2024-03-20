@@ -12,7 +12,7 @@
                     </span>
                 </p>
                 <p>
-                    Copyright©2023-2023 <a href="https://gitee.com/mcxgitee" target="_blank">辰雪博客</a>
+                    Copyright©2023-2023 <a href="https://gitee.com/Tsuimengchao" target="_blank">辰雪博客</a>
                     <a href="https://beian.miit.gov.cn/" target="_blank" style="margin-left: 10px">{{
                         $store.state.webSiteInfo.recordNum
                     }}</a>

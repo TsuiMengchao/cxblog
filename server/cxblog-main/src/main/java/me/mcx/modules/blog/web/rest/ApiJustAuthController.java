@@ -16,12 +16,6 @@ import me.mcx.modules.blog.domain.dto.EmailRegisterDTO;
 import me.mcx.modules.blog.web.service.ApiUserService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-//import me.zhyd.oauth.config.AuthConfig;
-//import me.zhyd.oauth.exception.AuthException;
-//import me.zhyd.oauth.model.AuthCallback;
-//import me.zhyd.oauth.model.AuthResponse;
-//import me.zhyd.oauth.request.*;
-//import me.zhyd.oauth.utils.AuthStateUtils;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
@@ -91,8 +85,8 @@ public class ApiJustAuthController {
 
     @ApiOperation(value = "判断用户是否微信登录成功", httpMethod = "GET", response = ResponseResult.class, notes = "判断用户是否微信登录成功")
     @AnonymousGetMapping("/wechat/is_login")
-    public ResponseResult wxIsLogin( String loginCode) {
-        return userService.wxIsLogin(loginCode);
+    public ResponseResult wxIsLogin( String loginCode, HttpServletRequest request) {
+        return userService.wxIsLogin(loginCode, request);
     }
 
     @ApiOperation(value = "获取微信登录验证码", httpMethod = "GET", response = ResponseResult.class, notes = "获取微信登录验证码")

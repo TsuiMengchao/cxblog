@@ -127,6 +127,14 @@
   content: "\e777";
 }
 
+.icon-collect:before {
+  content: "\e797";
+}
+
+.icon-uncollect:before {
+  content: "\e717";
+}
+
 .icon-menu_normal:before {
   content: "\e62d";
 }

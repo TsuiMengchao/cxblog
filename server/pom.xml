@@ -7,7 +7,7 @@
     <groupId>me.mcx</groupId>
     <artifactId>cxblog</artifactId>
     <packaging>pom</packaging>
-    <version>1.1</version>
+    <version>1.0.0</version>
 
     <modules>
         <module>cxblog-common</module>
@@ -17,7 +17,7 @@
         <module>cxblog-generator</module>
     </modules>
 
-    <name>CXBLOG 后台管理</name>
+    <name>辰雪博客 后台管理</name>
     <url>https://cxblog.vip</url>
 
     <parent>
@@ -209,7 +209,19 @@
         <dependency>
             <groupId>com.github.binarywang</groupId>
             <artifactId>weixin-java-mp</artifactId>
-            <version>2.9.8.BETA</version>
+            <version>3.4.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.web3j</groupId>
+            <artifactId>core</artifactId>
+            <version>5.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>4.3.1</version>
         </dependency>
 
     </dependencies>

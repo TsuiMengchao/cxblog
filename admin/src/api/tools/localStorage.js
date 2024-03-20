@@ -24,4 +24,19 @@ export function edit(data) {
   })
 }
 
+export function get() {
+  return request({
+    url: 'api/localStorage/config',
+    method: 'get'
+  })
+}
+
+export function update(data) {
+  return request({
+    url: 'api/localStorage/config',
+    data,
+    method: 'put'
+  })
+}
+
 export default { add, edit, del }

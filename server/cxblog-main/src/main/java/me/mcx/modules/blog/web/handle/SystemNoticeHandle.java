@@ -2,10 +2,10 @@ package me.mcx.modules.blog.web.handle;
 
 import me.mcx.modules.blog.domain.ImMessage;
 import me.mcx.modules.blog.admin.mapper.ImMessageMapper;
-import me.mcx.utils.IpUtil;
-import me.mcx.utils.SecurityUtils;
-import me.mcx.utils.SpringUtils;
+import me.mcx.utils.*;
 import lombok.extern.slf4j.Slf4j;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 @Slf4j
@@ -19,10 +19,11 @@ public class SystemNoticeHandle {
      * @param noticeType
      * @param noticeCode
      */
-    public static void sendNotice(String toUserId,Integer noticeType,Integer noticeCode,Integer articleId,Integer commentMark,String content) {
+    public static void sendNotice(String toUserId,Integer noticeType,Integer noticeCode,String articleId,Integer commentMark,String content) {
         ImMessageMapper imMessageMapper = SpringUtils.getBean(ImMessageMapper.class);
         try {
-            String ip = IpUtil.getIp();
+            HttpServletRequest request = RequestHolder.getHttpServletRequest();
+            String ip = StringUtils.getIp(request);
 
             ImMessage message = ImMessage.builder().fromUserId(String.valueOf(SecurityUtils.getCurrentUserId())).toUserId(toUserId).content(content).commentMark(commentMark)
                     .noticeType(noticeType).code(noticeCode).ip(ip).ipSource(IpUtil.getIp2region(ip)).articleId(articleId).build();

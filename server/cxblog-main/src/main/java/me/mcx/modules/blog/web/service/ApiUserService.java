@@ -39,7 +39,7 @@ public interface ApiUserService {
      * @param loginCode 登录码
      * @return
      */
-    public ResponseResult wxIsLogin(String loginCode);
+    public ResponseResult wxIsLogin(String loginCode, HttpServletRequest request);
 
 
     /**

@@ -21,12 +21,14 @@ import me.mcx.modules.blog.domain.vo.ImRoomListVO;
 import me.mcx.modules.blog.domain.vo.UserInfoVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import me.mcx.utils.enums.YesOrNoEnum;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -188,7 +190,8 @@ public class ApiImMessageServiceImpl implements ApiImMessageService {
 //            obj.setContent(filterContent);
 //        }
 
-        obj.setIp(IpUtil.getIp());
+        HttpServletRequest request = RequestHolder.getHttpServletRequest();
+        obj.setIp(me.mcx.utils.StringUtils.getIp(request));
         obj.setIpSource(IpUtil.getIp2region(obj.getIp()));
         obj.setContent(content);
         ImMessage imMessage = BeanCopyUtils.copyObject(obj, ImMessage.class);
@@ -229,7 +232,8 @@ public class ApiImMessageServiceImpl implements ApiImMessageService {
             throw new BusinessException("只能撤回自己的消息哦！");
         }
         ImMessage imMessage = BeanCopyUtils.copyObject(message, ImMessage.class);
-        imMessage.setIp(IpUtil.getIp());
+        HttpServletRequest request = RequestHolder.getHttpServletRequest();
+        imMessage.setIp(me.mcx.utils.StringUtils.getIp(request));
         imMessage.setIpSource(IpUtil.getIp2region(imMessage.getIp()));
 
         //修改消息
@@ -320,8 +324,32 @@ public class ApiImMessageServiceImpl implements ApiImMessageService {
         return ResponseResult.success();
     }
 
+    @Override
+    public ResponseResult getMessageNoticeApplet(Integer type) {
+        Page<ImMessageVO> page = imMessageMapper.getMessageNotice(new Page<>(PageUtils.getPageNo(), PageUtils.getPageSize()),
+                SecurityUtils.getCurrentUserId().toString(), type);
+        page.getRecords().forEach(item -> {
+            item.setCreateTimeStr(RelativeDateFormat.format(item.getCreateTime()));
+        });
+        return ResponseResult.success(page);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public ResponseResult markReadMessageNoticeApplet(String id) {
+        if (StringUtils.isNotBlank(id)) {
+            imMessageMapper.updateById(ImMessage.builder().id(id).isRead(YesOrNoEnum.YES.getCode()).build());
+            return ResponseResult.success();
+        }
+        imMessageMapper.update(ImMessage.builder().isRead(YesOrNoEnum.YES.getCode()).build(),new LambdaQueryWrapper<ImMessage>()
+                .eq(ImMessage::getToUserId, SecurityUtils.getCurrentUserId().toString()));
+        return ResponseResult.success();
+    }
+
     private void formatCreateTime(Page<ImMessageVO> page) {
         page.getRecords().forEach(item -> item.setCreateTimeStr(RelativeDateFormat.format(item.getCreateTime())));
     }
+
+
 
 }

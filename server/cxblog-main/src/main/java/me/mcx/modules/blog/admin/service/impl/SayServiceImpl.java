@@ -1,6 +1,5 @@
 package me.mcx.modules.blog.admin.service.impl;
 
-import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -37,7 +36,7 @@ public class SayServiceImpl extends ServiceImpl<SayMapper, Say> implements SaySe
     @Override
     public ResponseResult selectSayList(String keywords) {
         LambdaQueryWrapper<Say> sayLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        if (!StpUtil.hasRole("admin")) {
+        if (!SecurityUtils.hasRole("admin")) {
             sayLambdaQueryWrapper.eq(Say::getIsPublic,1);
         }
         sayLambdaQueryWrapper.orderByDesc(Say::getCreateTime);

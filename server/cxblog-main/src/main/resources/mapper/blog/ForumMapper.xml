@@ -17,7 +17,7 @@
             info.intro,
             talk.name as talkName
         from blog_forum forum
-        left join sys_user user on forum.user_id = user.id
+        left join sys_user user on forum.user_id = user.user_id
         left join blog_user_info info on info.id = user.user_info_id
         left join blog_talk talk on forum.talk_id = talk.id
           <where>

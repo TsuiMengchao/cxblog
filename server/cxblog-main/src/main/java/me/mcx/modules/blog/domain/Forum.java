@@ -23,12 +23,14 @@ public class Forum implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-
     @ApiModelProperty(value = "用户id")
     private String userId;
 
     @ApiModelProperty(value = "话题id")
     private Integer talkId;
+
+    @ApiModelProperty(value = "标题")
+    private String title;
 
     @ApiModelProperty(value = "内容")
     private String content;
@@ -38,7 +40,6 @@ public class Forum implements Serializable {
 
     @ApiModelProperty(value = "关联图片地址")
     private String imgUrl;
-
 
     @ApiModelProperty(value = "创建时间")
     @TableField(fill = FieldFill.INSERT)

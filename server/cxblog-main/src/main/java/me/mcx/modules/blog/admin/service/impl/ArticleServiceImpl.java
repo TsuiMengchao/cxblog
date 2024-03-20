@@ -1,6 +1,5 @@
 package me.mcx.modules.blog.admin.service.impl;
 
-import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -141,7 +140,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         }
         //只能修改属于当前登录用户的文章
         String loginId = String.valueOf(SecurityUtils.getCurrentUserId());
-        if (!blogArticle.getUserId().equals(loginId) && !StpUtil.hasRole("admin")){
+        if (!blogArticle.getUserId().equals(loginId) && !SecurityUtils.hasRole("admin")){
             throw new BusinessException(ERROR);
         }
 

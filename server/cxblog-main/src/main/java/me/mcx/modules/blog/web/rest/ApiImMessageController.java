@@ -89,4 +89,15 @@ public class ApiImMessageController {
         return imMessageService.deleteByNoticeType(id,type);
     }
 
+    @GetMapping(value = "/getMessageNoticeApplet")
+    @ApiOperation(value = "获取系统通知-小程序", httpMethod = "GET", response = ResponseResult.class, notes = "获取系统通知-小程序")
+    public ResponseResult getMessageNoticeApplet(Integer type) {
+        return imMessageService.getMessageNoticeApplet(type);
+    }
+
+    @GetMapping(value = "/markReadMessageNoticeApplet")
+    @ApiOperation(value = "标记已读-小程序", httpMethod = "GET", response = ResponseResult.class, notes = "标记已读-小程序")
+    public ResponseResult markReadMessageNoticeApplet(String id) {
+        return imMessageService.markReadMessageNoticeApplet(id);
+    }
 }

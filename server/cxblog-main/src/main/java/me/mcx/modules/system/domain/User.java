@@ -126,14 +126,17 @@ public class User extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "qq")
     private String qq_id;
 
-    @ApiModelProperty(value = "qq")
+    @ApiModelProperty(value = "weibo")
     private String weibo_id;
 
-    @ApiModelProperty(value = "qq")
+    @ApiModelProperty(value = "gitee")
     private String gitee_id;
 
-    @ApiModelProperty(value = "qq")
+    @ApiModelProperty(value = "github")
     private String github_id;
+
+    @ApiModelProperty(value = "weixin")
+    private String weixin_id;
 
     @Override
     public boolean equals(Object o) {

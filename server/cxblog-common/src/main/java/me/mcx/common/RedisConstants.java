@@ -98,9 +98,17 @@ public class RedisConstants {
      */
     public static final String SAY_LIKE_KEY = "say_like:";
     /**
+     * 说说点赞key
+     */
+    public static final String TIPSOON_LIKE_KEY = "tipsoon_like:";
+    /**
      * 说说用户点赞key
      */
     public static final String SAY_LIKE_USER = "say_like_user:";
+    /**
+     * 说说用户点赞key
+     */
+    public static final String TIPSOON_LIKE_USER = "tipsoon_like_user:";
 
 
 }

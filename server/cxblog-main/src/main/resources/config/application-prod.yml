@@ -5,7 +5,7 @@ spring:
       db-type: com.alibaba.druid.pool.DruidDataSource
       driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
       url: jdbc:log4jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:cxblog}?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
-      username: ${Dsys_user:cxblog}
+      username: ${DB_user:cxblog}
       password: ${DB_PWD:@Mysql20010227}
       # 初始连接数
       initial-size: 5
@@ -113,18 +113,16 @@ swagger:
 file:
   mac:
     path: ~/file/
-    avatar: ~/avatar/
+    avatar: ~/file/avatar/
   linux:
-    path: /www/wwwroot/cxblog/file/
-    avatar: /www/wwwroot/cxblog/avatar/
+    path: /www/wwwroot/mcx/cxblog/file/
+    avatar: /www/wwwroot/mcx/cxblog/file/avatar/
   windows:
     path: C:\cxblog\file\
-    avatar: C:\cxblog\avatar\
+    avatar: C:\cxblog\file\avatar\
   # 文件大小 /M
   maxSize: 100
   avatarMaxSize: 5
-  #服务器上传文件地址
-  upload-folder: /www/wwwroot/cxblog/img/
 
 
 #============================第三方登录配置信息===================================
@@ -135,7 +133,7 @@ qq:
 weibo:
   app-id: 2822602162
   app-secret: 62e40dcc4eca4da7aa55ec5f574e7a3d
-  redirect-url: http://xn--zfr188b.xn--9krq6qgr9bpbg.xn--jduy7zg5y.xn--6qq986b3xl/callback/weibo
+  redirect-url: http://xn--zfr188b.xn--9krq6qgr9bpbg.xn--jduy7zg5y.xn--6qq986b3xl/oauth/callback/weibo
 
 gitee:
   app-id: f7f58611670a720a51524dc43be80814b2cac42139e63c4cd4a1003209cada68
@@ -147,4 +145,4 @@ github:
   app-secret: 9b5bf8edaa46cb54a11ccf3ce69e307242fc372b
   redirect-url: http://xn--zfr188b.xn--9krq6qgr9bpbg.xn--jduy7zg5y.xn--6qq986b3xl/oauth/callback/github
 
-oauth_callback_url: http://辰雪博客.赵浩悦.我爱你
+oauth_callback_url: http://xn--9krq6qgr9bpbg.xn--jduy7zg5y.xn--6qq986b3xl/

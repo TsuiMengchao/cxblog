@@ -70,7 +70,7 @@ public class ImMessage implements Serializable {
     private Integer noticeType;
 
     @ApiModelProperty(value = "文章id")
-    private Integer articleId;
+    private String articleId;
 
     @ApiModelProperty(value = "@用户id 多个逗号分隔")
     private String atUserId;

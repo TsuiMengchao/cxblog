@@ -21,7 +21,7 @@ public class UserInfoVO {
     /**
      * 用户账号id
      */
-    private String id;
+    private Integer id;
 
     /**
      * 用户信息id

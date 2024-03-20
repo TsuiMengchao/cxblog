@@ -1,6 +1,5 @@
 package me.mcx.modules.blog.admin.service.impl;
 
-import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import me.mcx.common.ResponseResult;
@@ -8,6 +7,7 @@ import me.mcx.modules.blog.domain.SystemConfig;
 import me.mcx.modules.blog.admin.mapper.SystemConfigMapper;
 import me.mcx.modules.blog.admin.service.SystemConfigService;
 import lombok.RequiredArgsConstructor;
+import me.mcx.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,7 +34,7 @@ public class SystemConfigServiceImpl extends ServiceImpl<SystemConfigMapper, Sys
     @Override
     public ResponseResult getConfig() {
         SystemConfig systemConfig = baseMapper.selectOne(new QueryWrapper<SystemConfig>().last(LIMIT_ONE));
-        if (!StpUtil.hasRole("admin")){
+        if (!SecurityUtils.hasRole("admin")){
             systemConfig.setQiNiuAccessKey(null);
             systemConfig.setQiNiuSecretKey(null);
             systemConfig.setEmailPassword(null);

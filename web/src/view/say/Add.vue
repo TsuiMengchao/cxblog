@@ -34,7 +34,7 @@
 
                     <div class="bottom">
                         <div class="btn-tips">Are you ready</div>
-                        <button v-if="$store.state.userInfo && $store.state.userInfo.id == 1" type="button" class="btn"
+                        <button v-if="$store.state.userInfo" type="button" class="btn"
                             @click="submitForm">发布</button>
                         <span v-else class="noBtn">
                             用户暂无发布权限或未登录,请先<a @click="$store.state.loginFlag = true">登录</a>

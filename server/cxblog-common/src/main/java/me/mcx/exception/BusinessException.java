@@ -6,6 +6,7 @@ import lombok.Data;
 
 import static me.mcx.common.ResultCode.ERROR;
 import static me.mcx.common.ResultCode.ERROR_DEFAULT;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 /**
  * @author MCX
@@ -19,10 +20,10 @@ public class BusinessException extends RuntimeException{
 
     /** 异常代码 */
     @Getter
-    protected Integer code;
+    protected Integer status = BAD_REQUEST.value();
 
     /** 异常消息 */
-    protected String message;
+    protected String msg;
 
     public BusinessException() {
         super();
@@ -30,36 +31,36 @@ public class BusinessException extends RuntimeException{
 
     public BusinessException(ResultCode resultCode) {
         super(resultCode.getDesc());
-        this.code = resultCode.getCode();
-        this.message = resultCode.getDesc();
+        this.status = resultCode.getCode();
+        this.msg = resultCode.getDesc();
     }
 
     public BusinessException(String msg) {
         super(msg);
-        this.code = ERROR_DEFAULT.getCode();
-        this.message = msg;
+        this.status = ERROR_DEFAULT.getCode();
+        this.msg = msg;
     }
 
     public BusinessException(Integer code, String msg) {
         super(msg);
-        this.code = code;
-        this.message = msg;
+        this.status = code;
+        this.msg = msg;
     }
 
     public BusinessException(Integer code, String msg, Throwable cause) {
         super(msg, cause);
-        this.code = code;
-        this.message = msg;
+        this.status = code;
+        this.msg = msg;
     }
 
     public BusinessException(Throwable cause) {
         super(cause);
-        this.code = ERROR.getCode();
-        this.message = cause.getMessage();
+        this.status = ERROR.getCode();
+        this.msg = cause.getMessage();
     }
 
     @Override
     public String toString() {
-        return "errorCode: " + code + ", message: " + message;
+        return "errorCode: " + status + ", message: " + msg;
     }
 }

@@ -1,9 +1,12 @@
 package me.mcx.modules.blog.strategy.imp;
 
 import me.mcx.common.ResponseResult;
+import me.mcx.config.FileProperties;
+import me.mcx.domain.LocalStorageConfig;
 import me.mcx.modules.blog.domain.SystemConfig;
 import me.mcx.modules.blog.admin.service.SystemConfigService;
 import me.mcx.modules.blog.strategy.FileUploadStrategy;
+import me.mcx.service.LocalStorageConfigService;
 import me.mcx.utils.UUIDUtils;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -25,15 +28,18 @@ public class LocalUploadStrategyImpl implements FileUploadStrategy {
 
     private final Logger logger = LoggerFactory.getLogger(LocalUploadStrategyImpl.class);
 
-    private final SystemConfigService systemConfigService;
-    @Value("${file.upload-folder}")
+    private final LocalStorageConfigService localStorageConfigService;
+
     private String UPLOAD_FOLDER;
 
     private String localFileUrl;
 
+    private final FileProperties properties;
+
     @PostConstruct
     private void init(){
-        SystemConfig systemConfig = systemConfigService.getCustomizeOne();
+        UPLOAD_FOLDER = properties.getPath().getPath();
+        LocalStorageConfig systemConfig = localStorageConfigService.getConfig();
         localFileUrl = systemConfig.getLocalFileUrl();
         logger.info("------初始化本地上传配置文件成功-----");
     }

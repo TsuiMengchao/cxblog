@@ -94,4 +94,18 @@ public interface ApiImMessageService {
      */
     ResponseResult deleteByNoticeType(String id,Integer type);
 
+    /**
+     * 获取系统通知-小程序
+     * @param type
+     * @return
+     */
+    ResponseResult getMessageNoticeApplet(Integer type);
+
+    /**
+     * 标记消息为已读
+     * @param id
+     * @return
+     */
+    ResponseResult markReadMessageNoticeApplet(String id);
+
 }

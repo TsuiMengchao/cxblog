@@ -23,10 +23,12 @@ import me.mcx.exception.BadRequestException;
 import me.mcx.utils.enums.DataScopeEnum;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 获取当前登录的用户
@@ -95,5 +97,32 @@ public class SecurityUtils {
             return "";
         }
         return DataScopeEnum.ALL.getValue();
+    }
+
+    public static boolean hasRole(String role) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getAuthorities().stream()
+                .anyMatch(authority -> authority.getAuthority().equals(role));
+    }
+
+    public static boolean isLogin() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication != null && authentication.isAuthenticated();
+    }
+
+    public static Long getLoginIdDefaultNull() {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null) {
+            return null;
+        }
+        if (authentication.getPrincipal() instanceof UserDetails) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            UserDetailsService userDetailsService = SpringContextHolder.getBean(UserDetailsService.class);
+            UserDetails userDetails2 = userDetailsService.loadUserByUsername(userDetails.getUsername());
+            // 将 Java 对象转换为 JSONObject 对象
+            JSONObject jsonObject = (JSONObject) JSON.toJSON(userDetails2);
+            return jsonObject.getJSONObject("user").getLong("id");
+        }
+        return null;
     }
 }

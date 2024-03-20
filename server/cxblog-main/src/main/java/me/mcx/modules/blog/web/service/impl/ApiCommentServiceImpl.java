@@ -14,18 +14,16 @@ import me.mcx.modules.blog.web.service.ApiCommentService;
 import me.mcx.modules.blog.admin.mapper.ArticleMapper;
 import me.mcx.modules.blog.admin.mapper.CommentMapper;
 import me.mcx.modules.blog.admin.mapper.UserInfoMapper;
-import me.mcx.utils.HTMLUtils;
-import me.mcx.utils.IpUtil;
-import me.mcx.utils.PageUtils;
+import me.mcx.utils.*;
 import me.mcx.modules.blog.domain.vo.ApiArticleListVO;
 import me.mcx.modules.blog.domain.vo.ApiCommentListVO;
 import eu.bitwalker.useragentutils.UserAgent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import me.mcx.utils.SecurityUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 
@@ -50,7 +48,8 @@ public class ApiCommentServiceImpl implements ApiCommentService {
     public ResponseResult insertComment(Comment comment) {
         UserAgent userAgent = UserAgent.parseUserAgentString(IpUtil.getRequest().getHeader("user-agent"));
         //获取ip地址
-        String ip = IpUtil.getIp();
+        HttpServletRequest request = RequestHolder.getHttpServletRequest();
+        String ip = StringUtils.getIp(request);
         String ipAddress = IpUtil.getIp2region(ip);
         String os = userAgent.getOperatingSystem().getName();
         if (os.contains("mac") || os.contains("Mac")) {
@@ -76,7 +75,7 @@ public class ApiCommentServiceImpl implements ApiCommentService {
             Article article = articleMapper.selectById(comment.getArticleId());
             toUserId =  article.getUserId();
         }
-        SystemNoticeHandle.sendNotice(toUserId, MessageConstant.MESSAGE_COMMENT_NOTICE,MessageConstant.SYSTEM_MESSAGE_CODE,comment.getArticleId(),mark,comment.getContent());
+        SystemNoticeHandle.sendNotice(toUserId, MessageConstant.MESSAGE_COMMENT_NOTICE,MessageConstant.SYSTEM_MESSAGE_CODE,comment.getArticleId().toString(),mark,comment.getContent());
         return ResponseResult.success(comment);
     }
 

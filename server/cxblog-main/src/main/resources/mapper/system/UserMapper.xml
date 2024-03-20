@@ -232,7 +232,7 @@
     </select>
     <select id="selectInfoByUserId" resultType="me.mcx.modules.blog.domain.vo.UserInfoVO">
         SELECT
-            u.user_id,
+            u.user_id as id,
             ui.nickname,
             ui.avatar,
             ui.intro,
@@ -261,7 +261,7 @@
         FROM
             sys_user u
                 LEFT JOIN blog_user_info ui ON u.user_info_id = ui.id
-        WHERE u.uesr_id = #{userId} group by u.user_id
+        WHERE u.user_id = #{userId} group by u.user_id
     </select>
 
     <select id="selectInfoByUserIdNew" resultType="me.mcx.modules.blog.domain.vo.UserInfoVO">

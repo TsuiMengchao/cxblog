@@ -48,28 +48,53 @@ service.interceptors.response.use(
      */
     response => {
         // window.vm.$bus.$emit('hideLoading');
-        const res = response.data
+        return response.data
+    },
+    error => {
         // store.commit('SET_LOADING',false);
         // if the custom code is not 20000, it is judged as an error.
 
-        if (res.code !== 200) {
-            if (res.code == 401) {
-                removeToken()
-                sessionStorage.removeItem("user")
-                store.state.userInfo = null
-                store.state.loginFlag = true
+        // 兼容blob下载出错json提示
+        if (error.response.data instanceof Blob && error.response.data.type.toLowerCase().indexOf('json') !== -1) {
+            const reader = new FileReader()
+            reader.readAsText(error.response.data, 'utf-8')
+            reader.onload = function(e) {
+                const errorMsg = JSON.parse(reader.result).message
+                Notification.error({
+                    title: errorMsg,
+                    duration: 5000
+                })
             }
-            //如果是校验微信登录是否授权的接口 则不进行错误输出
-            if (response.config.url !== "/oauth/wechat/is_login") {
-                window.vm.$toast.error(res.message);
-            }
-
-            return Promise.reject(new Error(res.message || 'Error'))
         } else {
-            return res
+            let code = 0
+            try {
+                code = error.response.data.status
+            } catch (e) {
+                if (error.toString().indexOf('Error: timeout') !== -1) {
+                    Notification.error({
+                        title: '网络请求超时',
+                        duration: 5000
+                    })
+                    return Promise.reject(error)
+                }
+            }
+            if (code) {
+                if (code === 401) {
+                    removeToken()
+                    sessionStorage.removeItem("user")
+                    store.state.userInfo = null
+                }
+                //如果是校验微信登录是否授权的接口 则不进行错误输出
+                if (error.response.config.url !== "/oauth/wechat/is_login") {
+                    window.vm.$toast.error(error.response.message);
+                }
+            } else {
+                Notification.error({
+                    title: '接口请求失败',
+                    duration: 5000
+                })
+            }
         }
-    },
-    error => {
         return Promise.reject(error)
     }
 )

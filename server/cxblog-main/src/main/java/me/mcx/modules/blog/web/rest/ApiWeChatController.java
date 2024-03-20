@@ -17,6 +17,8 @@ import me.chanjar.weixin.mp.bean.message.WxMpXmlOutTextMessage;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.text.MessageFormat;
@@ -47,16 +49,14 @@ public class ApiWeChatController {
 
     @ApiOperation("微信公众号服务器配置校验token")
     @AnonymousGetMapping(produces = "text/plain;charset=utf-8")
-    public String checkSignature(@RequestParam(name = "signature") String signature,
+    public void checkSignature(@RequestParam(name = "signature") String signature,
                                  @RequestParam(name = "timestamp") String timestamp,
                                  @RequestParam(name = "nonce") String nonce,
-                                 @RequestParam(name = "echostr") String echostr) {
+                                 @RequestParam(name = "echostr") String echostr,
+                                 HttpServletResponse response) throws IOException {
         if (wxMpService.checkSignature(timestamp, nonce, signature)) {
-            log.info("echostr:"+echostr);
-            return echostr;
+            response.getWriter().write(echostr);
         }
-        log.info("Invalid signature");
-        return "Invalid signature";
     }
 
     @AnonymousPostMapping(produces = "application/xml; charset=UTF-8")
@@ -66,6 +66,7 @@ public class ApiWeChatController {
             WxMpXmlMessage message = WxMpXmlMessage.fromXml(request.getInputStream());
             String content = message.getContent();
             log.info("公众号请求类型:{};内容为:{}", message.getMsgType(), content);
+
             if (WxConsts.XmlMsgType.TEXT.equals(message.getMsgType())){
                 if ("验证码".equals(content)) {
                     String code = RandomUtils.generationNumberChar(6);
@@ -73,19 +74,21 @@ public class ApiWeChatController {
                     redisService.setCacheObject(RedisConstants.WECHAT_CODE+code,code,30, TimeUnit.MINUTES);
                     return returnMsg(msg, message);
                 }
-                //登录逻辑
-                Matcher matcher = pattern.matcher(content);
-                if (!matcher.matches()) {
-                    return returnMsg("验证不正确或已过期", message);
-                }else {
-                    String msg = userService.wechatLogin(message);
-                    return returnMsg(msg, message);
+                if (content.indexOf("DL") != -1) {
+                    //登录逻辑
+                    Matcher matcher = pattern.matcher(content);
+                    if (!matcher.matches()) {
+                        return returnMsg("验证不正确或已过期", message);
+                    } else {
+                        String msg = userService.wechatLogin(message);
+                        return returnMsg(msg, message);
+                    }
                 }
-   
+                return returnMsg("暂时无法识别此请求，如需联系人工客服，请直接联系。", message);
             }
-
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("公众号消息请求遇到错误："+e.getMessage());
+            return "公众号消息请求遇到错误："+e.getMessage();
         }
         return "";
     }
@@ -97,7 +100,8 @@ public class ApiWeChatController {
      * @return
      */
     private static String returnMsg(String msg, WxMpXmlMessage message) {
-        WxMpXmlOutTextMessage outMessage = WxMpXmlOutTextMessage.TEXT().content(msg).fromUser(message.getToUser()).toUser(message.getFromUser()).build();
+        WxMpXmlOutTextMessage outMessage = WxMpXmlOutTextMessage.TEXT().content(msg)
+                .fromUser(message.getToUser()).toUser(message.getFromUser()).build();
         return outMessage.toXml();
     }
 

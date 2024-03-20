@@ -1,5 +1,7 @@
 <template>
   <div class="app-container" style="padding: 8px;">
+    <!--表单组件-->
+    <eForm ref="eform" />
     <!--工具栏-->
     <div class="head-container">
       <div v-if="crud.props.searchToggle">
@@ -20,6 +22,15 @@
           @click="crud.toAdd"
         >上传
         </el-button>
+        <!-- 配置 -->
+        <el-button
+          slot="left"
+          class="filter-item"
+          size="mini"
+          type="success"
+          icon="el-icon-s-tools"
+          @click="doConfig"
+        >配置</el-button>
       </crudOperation>
     </div>
     <!--表单组件-->
@@ -110,16 +121,19 @@ import rrOperation from '@crud/RR.operation'
 import crudOperation from '@crud/CRUD.operation'
 import pagination from '@crud/Pagination'
 import DateRangePicker from '@/components/DateRangePicker'
+import { get } from '@/api/tools/qiniu'
+import eForm from './form.vue'
 
 const defaultForm = { id: null, name: '' }
 export default {
-  components: { pagination, crudOperation, rrOperation, DateRangePicker },
+  components: { eForm, pagination, crudOperation, rrOperation, DateRangePicker },
   cruds() {
     return CRUD({ title: '文件', url: 'api/localStorage', crudMethod: { ...crudFile }})
   },
   mixins: [presenter(), header(), form(defaultForm), crud()],
   data() {
     return {
+      dialog: false,
       delAllLoading: false,
       loading: false,
       headers: { 'Authorization': getToken() },
@@ -139,9 +153,20 @@ export default {
     this.crud.optShow.add = false
   },
   methods: {
+    init() {
+      get().then(res => {
+        this.form = res
+      })
+    },
     // 上传文件
     upload() {
       this.$refs.upload.submit()
+    },
+    // 本地配置
+    doConfig() {
+      const _this = this.$refs.eform
+      _this.init()
+      _this.dialog = true
     },
     beforeUpload(file) {
       let isLt2M = true

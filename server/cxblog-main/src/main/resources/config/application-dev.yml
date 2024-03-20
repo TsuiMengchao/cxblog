@@ -9,8 +9,8 @@ spring:
     druid:
       db-type: com.alibaba.druid.pool.DruidDataSource
       driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-      url: jdbc:log4jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:cxblog}?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
-      username: ${Dsys_user:root}
+      url: jdbc:log4jdbc:mysql://${DB_HOST:127.0.0.1}:${DB_PORT:3306}/${DB_NAME:cxblog}?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
+      username: ${DB_user:root}
       password: ${DB_PWD:root}
       # 初始连接数
       initial-size: 5
@@ -109,25 +109,23 @@ swagger:
 file:
   mac:
     path: ~/file/
-    avatar: ~/avatar/
+    avatar: ~/file/avatar/
   linux:
-    path: /www/wwwroot/cxblog/file/
-    avatar: /www/wwwroot/cxblog/avatar/
+    path: /www/wwwroot/mcx/cxblog/file/
+    avatar: /www/wwwroot/mcx/cxblog/file/avatar/
   windows:
-    path: D:\Work\Program\Codes\cxblog\file\
-    avatar: D:\Work\Program\Codes\cxblog\avatar\
+    path: D:\Work\Program\Codes\mcx\cxblog\file\
+    avatar: D:\Work\Program\Codes\mcx\cxblog\file\avatar\
   # 文件大小 /M
   maxSize: 100
   avatarMaxSize: 5
-  # 本地上传文件地址
-  upload-folder: D://Work/Program/Codes/cxblog/img/
 
 
 #============================第三方登录配置信息===================================
 qq:
   app-id: 102089469
   app-secret: CKEuLXUDixznSu87
-  redirect-url: http://127.0.0.1:8000/oauth/callback/qq
+  redirect-url: http://3l1b455252.qicp.vip/oauth/callback/qq
 weibo:
   app-id: 2822602162
   app-secret: 62e40dcc4eca4da7aa55ec5f574e7a3d

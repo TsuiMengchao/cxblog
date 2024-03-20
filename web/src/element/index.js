@@ -37,7 +37,8 @@ import {
     Avatar,
     InfiniteScroll,
     Empty,
-    MessageBox
+    MessageBox,
+    Message
 } from 'element-ui';
 
 //封装组件
@@ -81,6 +82,7 @@ const element = {
         Vue.use(InfiniteScroll);
         Vue.use(Empty);
         Vue.prototype.$confirm = MessageBox.confirm
+        Vue.prototype.$message = Message
     }
 }
 //抛出整体按需引入的组件

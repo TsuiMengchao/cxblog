@@ -82,6 +82,7 @@ public class ConfigurerAdapter implements WebMvcConfigurer {
             add(MediaType.TEXT_HTML);
             add(MediaType.TEXT_XML);
             add(MediaType.APPLICATION_OCTET_STREAM);
+            add(MediaType.APPLICATION_XML);
         }};
 
         FastJsonConfig config = new FastJsonConfig();

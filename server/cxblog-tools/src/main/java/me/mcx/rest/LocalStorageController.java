@@ -19,7 +19,10 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
 import me.mcx.annotation.Log;
 import me.mcx.domain.LocalStorage;
+import me.mcx.domain.LocalStorageConfig;
+import me.mcx.domain.QiniuConfig;
 import me.mcx.exception.BadRequestException;
+import me.mcx.service.LocalStorageConfigService;
 import me.mcx.service.LocalStorageService;
 import me.mcx.domain.vo.LocalStorageQueryCriteria;
 import me.mcx.utils.FileUtil;
@@ -45,6 +48,20 @@ import java.io.IOException;
 public class LocalStorageController {
 
     private final LocalStorageService localStorageService;
+    private final LocalStorageConfigService localStorageConfigService;
+
+    @GetMapping(value = "/config")
+    public ResponseEntity<LocalStorageConfig> queryQiNiuConfig(){
+        return new ResponseEntity<>(localStorageConfigService.getConfig(), HttpStatus.OK);
+    }
+
+    @Log("配置七牛云存储")
+    @ApiOperation("配置七牛云存储")
+    @PutMapping(value = "/config")
+    public ResponseEntity<Object> updateQiNiuConfig(@Validated @RequestBody LocalStorageConfig qiniuConfig){
+        localStorageConfigService.saveConfig(qiniuConfig);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     @GetMapping
     @ApiOperation("查询文件")
