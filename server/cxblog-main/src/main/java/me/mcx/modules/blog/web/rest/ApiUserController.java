@@ -20,7 +20,7 @@ public class ApiUserController {
     private final ApiUserService userService;
 
     @WebLog(value = "个人中心模块-获取用户信息",type = "修改",desc = "获取用户信息")
-    @GetMapping(value = "/info")
+    @AnonymousGetMapping(value = "/info")
     public ResponseResult selectUserInfo(String userId){
         return userService.selectUserInfo(userId);
     }

@@ -198,9 +198,9 @@ public class EmailServiceImpl extends ServiceImpl<EmailConfigMapper, EmailConfig
 
         String content = "<html>\n" +
                 "<body>\n" +
-                "    <p>您在"+"<a href='http://辰雪博客.赵浩悦.我爱你'>辰雪博客</a>"+"站点申请友链加入审核通过!!</span>\n" +
+                "    <p>您在"+"<a href='https://cxblog.zhaohaoyue.love'>辰雪博客</a>"+"站点申请友链加入审核通过!!</span>\n" +
                 "<p style='padding: 20px;'>感谢您的选择，本站将会竭尽维护好站点稳定，分享高质量的文章，欢迎相互交流互访。</p>" +
-                "<p>可前往<a href='http://辰雪博客.赵浩悦.我爱你/links'>本站友链</a>查阅您的站点。</p></body>\n" +
+                "<p>可前往<a href='https://cxblog.zhaohaoyue.love/links'>本站友链</a>查阅您的站点。</p></body>\n" +
                 "</html>";
         try {
             send(email,content);
@@ -219,9 +219,9 @@ public class EmailServiceImpl extends ServiceImpl<EmailConfigMapper, EmailConfig
 
         String content = "<html>\n" +
                 "<body>\n" +
-                "    <p>您在"+"<a href='http://辰雪博客.赵浩悦.我爱你'>辰雪博客</a>"+"站点申请的友链加入审核未通过!具体原因为:"+ reason +"</span>\n" +
+                "    <p>您在"+"<a href='https://cxblog.zhaohaoyue.love'>辰雪博客</a>"+"站点申请的友链加入审核未通过!具体原因为:"+ reason +"</span>\n" +
                 "<p style='padding: 20px;'>感谢您的选择，本站将会竭尽维护好站点稳定，分享高质量的文章，欢迎相互交流互访。</p>" +
-                "<p>可前往<a href='http://辰雪博客.赵浩悦.我爱你/links'>本站友链</a>查阅您的站点。</p></body>\n" +
+                "<p>可前往<a href='https://cxblog.zhaohaoyue.love/links'>本站友链</a>查阅您的站点。</p></body>\n" +
                 "</html>";
         try {
             send(email,content);
@@ -271,7 +271,7 @@ public class EmailServiceImpl extends ServiceImpl<EmailConfigMapper, EmailConfig
                 "            <tr>\n" +
                 "              <td class=\"p-intro\">\n" +
                 "                <hr>\n" +
-                "                <p style=\"text-align: center;line-height:1.75em;\">mcx - <a href='http://辰雪博客.赵浩悦.我爱你' style='text-decoration: none;color:#ff6574'>辰雪博客</a></p>\n" +
+                "                <p style=\"text-align: center;line-height:1.75em;\">mcx - <a href='https://cxblog.zhaohaoyue.love' style='text-decoration: none;color:#ff6574'>辰雪博客</a></p>\n" +
                 "              </td>\n" +
                 "            </tr>\n" +
                 "          </tbody>\n" +

@@ -20,6 +20,26 @@ export function getUserInfoById(userId) {
     })
 }
 
+export function getUserCount(id) {
+    return request({
+        url: '/v1/user/getUserCount',
+        method: 'get',
+        data: {
+            id: id
+        }
+    })
+}
+
+export function selectUserInfoByToken(token) {
+    return request({
+        url: '/v1/user/selectUserInfoByToken',
+        method: 'get',
+        data: {
+            token: token
+        }
+    })
+}
+
 export function updateUserInfo(data) {
     return request({
         url: '/v1/user/',

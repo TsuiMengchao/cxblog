@@ -18,7 +18,8 @@
         },
         "modules" : {
             "OAuth" : {},
-            "Camera" : {}
+            "Camera" : {},
+            "VideoPlayer" : {}
         },
         /* 模块配置 */
         "distribute" : {
@@ -44,12 +45,25 @@
                 ]
             },
             "ios" : {
-                "dSYMs" : false
+                "dSYMs" : false,
+                "privacyDescription" : {
+                    "NSPhotoLibraryUsageDescription" : "用户更新头像",
+                    "NSPhotoLibraryAddUsageDescription" : "用户报错图片至本地"
+                }
             },
             /* ios打包配置 */
             "sdkConfigs" : {
                 "ad" : {},
-                "oauth" : {}
+                "oauth" : {
+                    "qq" : {
+                        "appid" : "102089469",
+                        "UniversalLinks" : ""
+                    },
+                    "weixin" : {
+                        "appid" : "wxac894fd9cf49740f",
+                        "UniversalLinks" : ""
+                    }
+                }
             },
             "icons" : {
                 "android" : {

@@ -3,7 +3,7 @@
     <!-- 顶部自定义导航 -->
     <tn-nav-bar fixed alpha customBack>
       <view slot="back" class='tn-custom-nav-bar__back'
-        @cviewck="goBack">
+        @click="goBack">
         <text class='icon tn-icon-left'></text>
         <text class='icon tn-icon-home-capsule-fill'></text>
       </view>

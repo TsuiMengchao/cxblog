@@ -18,6 +18,13 @@ public interface ApiForumService {
     ResponseResult selectForumListByTalkId(Integer talkId,String orderBy);
 
     /**
+     * 根据圈子id获取内容
+     * @param
+     * @return
+     */
+    ResponseResult getForumById(Integer forumId);
+
+    /**
      * 添加圈子内容
      * @param forum
      * @return

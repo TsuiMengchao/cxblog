@@ -7,7 +7,7 @@
 	      <text class='icon tn-icon-home-capsule-fill' @click="goBack"></text>
 	    </view>
 	  </tn-nav-bar>
-	  
+
 	  <view class="" :style="{paddingTop: vuex_custom_bar_height + 'px'}">
 		  <view class="title tn-text-center" >
 		  	<h2>{{ article.title }}</h2>
@@ -22,12 +22,12 @@
 				  <tn-avatar
 					class=""
 					shape="circle"
-					:src="userInfo.avatar"
+					:src="user.avatar"
 					size="lg">
 				  </tn-avatar>
 				</view>
 				<view class="tn-padding-right tn-text-ellipsis">
-				  <view class="tn-padding-right tn-padding-left-sm tn-text-bold tn-text-lg">{{ userInfo.nickname }}</view>
+				  <view class="tn-padding-right tn-padding-left-sm tn-text-bold tn-text-lg">{{ user.nickname }}</view>
 				  <view class="tn-padding-right tn-padding-left-sm tn-padding-top-xs tn-color-gray">{{ formatDate(article.createTime )}}</view>
 				</view>
 			  </view>
@@ -35,18 +35,18 @@
 		  </view>
 		  <!-- 既然都点到详情里面了，加个关注按钮呗 -->
 		  <view class="blogger__author__btn justify-content-item tn-flex-col-center tn-flex-row-center">
-			<text v-if="article.isFollowed" class="tn-bg-gray--light tn-round tn-text-df tn-text-bold tn-color-gray" style="padding: 10rpx 24rpx;" @click="">
+			<text v-if="article.isFollowed" class="tn-bg-gray--light tn-round tn-text-df tn-text-bold tn-color-gray" style="padding: 10rpx 24rpx;" @click="handleDeleteFollowed(article.userId, article)">
 				+ 取消关注
 			</text>
-			<text v-else class="tn-bg-purplered--light tn-round tn-text-df tn-text-bold tn-color-purplered" style="padding: 10rpx 24rpx;" @click="">+ 关注</text>
+			<text v-else class="tn-bg-purplered--light tn-round tn-text-df tn-text-bold tn-color-purplered" style="padding: 10rpx 24rpx;" @click="handleFollowed(article.userId, article)">+ 关注</text>
 		  </view>
 		</view>
-	  
-		
+
+
 		<view class="contentBox">
 			<mp-html class="content" :content="article.content" />
 		</view>
-	   
+
 		<!-- <view class="tn-flex tn-flex-row-between tn-flex-col-center tn-margin-top-xs">
 		  <view class="justify-content-item tn-flex tn-flex-col-center">
 			<view style="margin-right: 10rpx;">
@@ -56,7 +56,7 @@
 		  </view>
 		  <view class="justify-content-item tn-color-gray tn-text-center">
 			<view class="">
-			  <text class="blogger__count-icon tn-icon-footprint"></text> 
+			  <text class="blogger__count-icon tn-icon-footprint"></text>
 			  <text class="tn-padding-right">{{ item.collectionCount }}</text>
 			  <text class="blogger__count-icon tn-icon-message"></text>
 			  <text class="tn-padding-right">{{ item.commentCount }}</text>
@@ -66,10 +66,10 @@
 		  </view>
 		</view> -->
 	  </view>
-	      
+
 	      <!-- 边距间隔 -->
 	      <!-- <view class="tn-strip-bottom" v-if="index != content.length - 1"></view> -->
-	    
+
 	    <!-- 按钮-->
 	    <view class="tn-flex tn-flex-row-between" style="margin: 40rpx 0 60rpx 0;">
 			 <view class="tn-flex-1 justify-content-item tn-margin-xs tn-text-center">
@@ -87,10 +87,10 @@
 			   </tn-button>
 			 </view>
 	    </view>
-	    
-	    
+
+
 	  </view>
-	  
+
 	  <!-- 评论 -->
 	  <view style="padding-bottom: 120rpx;">
 	  	<view class="tn-margin" style=""  v-for="(item,index) in commentList" :key="index">
@@ -119,18 +119,17 @@
 			  </view>
 			</view>
 	  	  </view>
-	  	  
+
 	  	  <view class="" style="margin: 20rpx 30rpx 30rpx 80rpx;" v-html="item.content">
 	  	  </view>
 	  	  <view class="tn-bg-gray--light tn-padding-sm" style="margin: 20rpx 30rpx 30rpx 80rpx;border-radius: 10rpx;" v-if="item.children.length"
 	  			 v-for="(childrenItem) in item.children" :key="childrenItem.id">
 	  	    <text class="tn-text-bold tn-padding-right-xs">
-				{{childrenItem.nickname}} 
+				{{childrenItem.nickname}}
 				<span >
-					 回复 {{childrenItem.replyNickname}} 
+					 回复 {{childrenItem.replyNickname}}
 				</span>
 			</text>
-			
 	  	    <view style="line-height: 40rpx;" v-html="childrenItem.content">
 			</view>
 	  	    <view class="tn-flex tn-flex-row-between tn-margin-top-xs">
@@ -141,27 +140,25 @@
 			    <text class="tn-icon-message" @click="foucsInput(childrenItem,item.id)"></text>
 			  </view>
 	  	    </view>
-			
+
 	  	  </view>
-		  
+
 	  	</view>
 	  </view>
-	  
-	  
-	<!--  
+
+
+<!--    #ifdef H5 || APP-PLUS-->
 	  <view class="tabbar footerfixed dd-glass">
 	    <view class="tn-flex tn-flex-row-between tn-flex-col-center">
 	      <view class="justify-content-item tn-margin-top">
 	        <view class="tn-flex tn-flex-row-center tn-flex-col-center">
-	          
+
 	          <view class="tn-flex tn-flex-row-center tn-flex-col-center tn-padding-right tn-padding-left-sm">
 	            <view class="avatar-all">
 	              <view class="tn-shadow-blur" style="background-image:url('https://resource.tuniaokj.com/images/blogger/onepiece-1.jpg');width: 60rpx;height: 60rpx;background-size: cover;">
 	              </view>
 	            </view>
 	          </view>
-	          
-	          
 	          <view class="topic__info__item__input tn-flex tn-flex-direction-row tn-flex-nowrap tn-flex-col-center tn-flex-row-left">
 	            <view class="topic__info__item__input__left-icon">
 	              <view class="tn-icon-emoji-good"></view>
@@ -170,9 +167,6 @@
 	              <input v-model="commentContent" ref="commentInput" :focus="focusState" @blur="focusState = false" maxlength="20" placeholder-class="input-placeholder" :cursor-spacing="18" placeholder="不说点啥子吗？" />
 	            </view>
 	          </view>
-	          
-	
-	          
 	        </view>
 	      </view>
 	      <view class="justify-content-item tn-flex-row-center tn-flex-col-center tn-margin-top tn-margin-right">
@@ -187,12 +181,14 @@
 	        </view>
 	      </view>
 	    </view>
-	  </view> -->
-	
+	  </view>
+<!--    #endif-->
+
 	</view>
 </template>
 
 <script>
+import template_page_mixin from '@/libs/mixin/template_page_mixin.js'
 	import {
 		getArticleInfo,
 		like,
@@ -200,16 +196,15 @@
 		addComment,
 		selectUserInfoByArticleId
 	} from '@/api/article.js'
-	import {
-		insertFollowed,deleteFollowed
-	} from '@/api/followed.js'
+
 	import {
 		collect
 	} from '@/api/collect.js'
 	export default {
+    mixins: [template_page_mixin],
 		data() {
 			return {
-				userInfo: {},
+				user: {},
 				articleId: null,
 				article: {
 					category: {
@@ -237,11 +232,6 @@
 			this.info();
 		},
 		methods: {
-			goBack(){
-				uni.navigateTo({
-					url:'/pages/index'
-				})
-			},
 			toLastBack(){
 				uni.navigateBack()
 			},
@@ -285,26 +275,7 @@
 					this.$tn.message.toast(msg)
 				})
 			},
-			handleFollowed() {
-				insertFollowed(this.article.userId).then(res => {
-					if (res.code != 200) {
-						this.$tn.message.toast(res.message)
-						return
-					}
-					this.article.isFollowed = 1
-					this.$tn.message.toast('关注成功')
-				})
-			},
-	
-			handleDeleteFollowedUser() {
-				deleteFollowed(this.article.userId).then(res => {
-					if(res.code != 200){
-						this.$tn.message.toast(res.message)
-					}
-					this.article.isFollowed = 0
-					this.$tn.message.toast('取消关注')
-				})
-			},
+
 			handleLike() {
 				like(this.articleId).then((res) => {
 					if (res.code != 200) {
@@ -338,12 +309,12 @@
 					this.article = res.data;
 					this.article.content = this.article.content.replace(/<img/gi,
 						'<img  style="max-width:100%;max-height: 500px;border-radius: 5px;margin: 15px 0"');
-			
+
 					this.getCommentList()
-					
+
 					//获取文章作者信息
 					selectUserInfoByArticleId(this.articleId).then(res => {
-					    this.userInfo = res.data
+					    this.user = res.data
 					})
 
 					uni.hideLoading();
@@ -375,7 +346,7 @@
 				line-height: 30px;
 				margin-top: 10px;
 				padding: 10px !important;
-			
+
 				blockquote {
 					position: relative;
 					padding: 0 10px;
@@ -383,7 +354,7 @@
 					border-left: 0.25em solid #dfe2e5;
 					margin: 20px 0;
 				}
-			
+
 				h1,
 				h2,
 				h3,
@@ -392,14 +363,14 @@
 				h6 {
 					margin: 10px 0;
 				}
-			
+
 				p {
 					a {
 						text-decoration: none;
 						color: #7bc549;
 					}
 				}
-			
+
 				code {
 					vertical-align: middle;
 					word-break: break-word !important;
@@ -410,11 +381,11 @@
 					font-size: 0.87em !important;
 					padding: 0.065em 0.4em !important;
 				}
-			
+
 				ol {
 					margin-left: 20px;
 				}
-			
+
 				pre {
 					opacity: 1 !important;
 					margin: 10px 0;
@@ -422,7 +393,7 @@
 					overflow: hidden;
 					box-shadow: rgba(0, 0, 0, 0.55) 0px 2px 10px;
 					border-radius: 8px;
-			
+
 					code {
 						line-height: 20px !important;
 						font-size: 16px !important;
@@ -436,9 +407,9 @@
 						display: inline-block;
 					}
 				}
-			
-			
-			
+
+
+
 				ul {
 					margin-left: 20px;
 				}
@@ -459,14 +430,14 @@
 	    border: 1rpx solid rgba(255, 255, 255, 0.5);
 	    color: #FFFFFF;
 	    font-size: 18px;
-	    
+
 	    .icon {
 	      display: block;
 	      flex: 1;
 	      margin: auto;
 	      text-align: center;
 	    }
-	    
+
 	    &:before {
 	      content: " ";
 	      width: 1rpx;
@@ -484,92 +455,92 @@
 	      background-color: #FFFFFF;
 	    }
 	  }
-	  
+
 	  /* 文章内容 start*/
 	    .blogger {
 	      &__item {
 	        padding: 30rpx;
 	      }
-	      
+
 	      &__author {
 	        &__btn {
 	          margin-right: -12rpx;
 	          padding: 0 20rpx;
 	        }
 	      }
-	      
+
 	      &__desc {
 	        line-height: 55rpx;
-	        
+
 	        &__label {
 	          padding: 0 20rpx;
 	          margin: 0rpx 18rpx 0 0;
-	          
+
 	          &--prefix {
 	            color: #00FFC8;
 	            padding-right: 10rpx;
 	          }
 	        }
 	        &__content {
-	          
+
 	        }
 	      }
-	      
+
 	      &__content {
 	        margin-top: 18rpx;
 	        padding-right: 18rpx;
-	        
+
 	        &__data {
 	          line-height: 46rpx;
 	          text-align: justify;
 	          overflow: hidden;
 	          transition: all 0.25s ease-in-out;
-	  
+
 	        }
-	        
+
 	        &__status {
 	          margin-top: 10rpx;
 	          font-size: 26rpx;
 	          color: #82B2FF;
 	        }
 	      }
-	      
+
 	      &__main-image {
 	        border-radius: 16rpx;
-	        
+
 	        &--1 {
 	          max-width: 80%;
 	          max-height: 300rpx;
 	        }
-	        
+
 	        &--2 {
 	          max-width: 260rpx;
 	          max-height: 260rpx;
 	        }
-	        
+
 	        &--3 {
 	          height: 212rpx;
 	          width: 100%;
 	        }
 	      }
-	      
+
 	      &__count-icon {
 	        font-size: 40rpx;
 	        padding-right: 5rpx;
 	      }
-	      
+
 	      &__ad {
 	        width: 100%;
 	        height: 500rpx;
 	        transform: translate3d(0px, 0px, 0px) !important;
-	        
+
 	        ::v-deep .uni-swiper-slide-frame {
 	          transform: translate3d(0px, 0px, 0px) !important;
 	        }
 	        .uni-swiper-slide-frame {
 	          transform: translate3d(0px, 0px, 0px) !important;
 	        }
-	        
+
 	        &__item {
 	          position: absolute;
 	          width: 100%;
@@ -578,7 +549,7 @@
 	          transform: translate3d(100%, 0px, 0px) scale(1) !important;
 	          transition: transform 0.25s ease-in-out;
 	          z-index: 1;
-	          
+
 	          &--0 {
 	            transform: translate3d(0%, 0px, 0px) scale(1) !important;
 	            z-index: 4;
@@ -592,14 +563,14 @@
 	            z-index: 2;
 	          }
 	        }
-	        
+
 	        &__content {
 	          border-radius: 40rpx;
 	          width: 640rpx;
 	          height: 500rpx;
 	          overflow: hidden;
 	        }
-	        
+
 	        &__image {
 	          width: 100%;
 	          height: 100%;
@@ -607,21 +578,21 @@
 	      }
 	    }
 	    /* 文章内容 end*/
-	     
+
 	     /* 间隔线 start*/
 	    .tn-strip-bottom {
 	     width: 100%;
 	     border-bottom: 20rpx solid rgba(241, 241, 241, 0.8);
 	    }
 	     /* 间隔线 end*/
-	     
+
 	  /* 头像 start */
 	  .logo-image {
 	    width: 60rpx;
 	    height: 60rpx;
 	    position: relative;
 	  }
-	  
+
 	  .logo-pic {
 	    background-size: cover;
 	    background-repeat: no-repeat;
@@ -632,8 +603,8 @@
 	    overflow: hidden;
 	    // background-color: #FFFFFF;
 	  }
-	
-	
+
+
 	/* 底部 start*/
 	.footerfixed{
 	 position: fixed;
@@ -643,7 +614,7 @@
 	 background-color: rgba(255,255,255,0.5);
 	 box-shadow: 0rpx 0rpx 30rpx 0rpx rgba(0, 0, 0, 0.07);
 	}
-	
+
 	.tabbar {
 	  align-items: center;
 	  min-height: 130rpx;
@@ -653,14 +624,14 @@
 	  padding-left: 10rpx;
 	  padding-right: 10rpx;
 	}
-	
+
 	  /* 毛玻璃*/
 	.dd-glass {
 	   width: 100%;
 	   backdrop-filter: blur(20rpx);
 	  -webkit-backdrop-filter: blur(20rpx);
 	}
-	
+
 	/* 头像*/
 	.avatar-all {
 	  width: 60rpx;
@@ -670,15 +641,15 @@
 	  overflow: hidden;
 	  box-shadow: 0rpx 0rpx 80rpx 0rpx rgba(0, 0, 0, 0.15);
 	}
-	
+
 	/* 内容*/
 	.topic {
 	  position: relative;
 	  height: 100%;
 	  z-index: 1;
 	  margin-bottom: 120rpx;
-	  
-	  
+
+
 	  /* 表单信息 start */
 	  &__info {
 	    margin: 0 50rpx;
@@ -688,15 +659,15 @@
 	    background-color: rgba(255,255,255,1);
 	    border: 2rpx solid rgba(255, 255, 255, 0.1);
 	    box-shadow: 0rpx 10rpx 50rpx 0rpx rgba(0, 3, 72, 0.1);
-	    
+
 	    &__item {
-	      
+
 	      &__input {
 	        width: 400rpx;
 	        height: 60rpx;
 	        border: 1rpx solid #C6D1D8;
 	        border-radius: 39rpx;
-	        
+
 	        &__left-icon {
 	          width: 10%;
 	          font-size: 44rpx;
@@ -704,35 +675,35 @@
 	          margin-right: 5rpx;
 	          color: #C6D1D8;
 	        }
-	        
+
 	        &__content {
 	          width: 80%;
 	          padding-left: 10rpx;
-	          
+
 	          &--verify-code {
 	            width: 56%;
 	          }
-	          
+
 	          input {
 	            font-size: 30rpx;
 	            color: #78909C;
 	            // letter-spacing: 0.1em;
 	          }
 	        }
-	        
+
 	        &__right-icon {
 	          width: 10%;
 	          font-size: 34rpx;
 	          margin-right: 20rpx;
 	          color: #78909C;
 	        }
-	        
+
 	        &__right-verify-code {
 	          width: 34%;
 	          margin-right: 20rpx;
 	        }
 	      }
-	      
+
 	      &__button {
 	        width: 100%;
 	        height: 60rpx;
@@ -746,20 +717,20 @@
 	        background-color: rgba(255,255,255,0.2);
 	        // border: 2rpx solid #FFFFFF;
 	      }
-	      
+
 	      &__sure {
 	        height: 60rpx;
 	        width: 140rpx;
 	      }
-	      
+
 	    }
 	  }
 	  /* 表单信息 end */
-	  
+
 	  /* 内容 end */
-	  
+
 	}
-	
+
 	/deep/.input-placeholder {
 	  font-size: 30rpx;
 	  color: #C6D1D8;

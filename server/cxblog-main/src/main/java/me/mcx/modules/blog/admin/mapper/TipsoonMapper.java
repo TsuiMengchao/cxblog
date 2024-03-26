@@ -38,5 +38,7 @@ public interface TipsoonMapper extends BaseMapper<Tipsoon> {
 
     ApiTipsoonVO selectTipsoon(Integer userId);
 
-    ApiTipsoonVO selectTipsoonById(Integer userId, String tipsoon);
+    List<ApiTipsoonVO> select10Tipsoon(Integer userId);
+
+    ApiTipsoonVO selectTipsoonById(Integer userId, String tipsoonId);
 }

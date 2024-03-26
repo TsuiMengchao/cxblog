@@ -1,6 +1,6 @@
 <template>
   <view class="template-search tn-safe-area-inset-bottom">
-    
+
     <view class="tn-navbg" :style="{height: vuex_custom_bar_height + 'px'}">
       <!-- 顶部自定义导航 -->
       <tn-nav-bar fixed alpha customBack>
@@ -9,8 +9,8 @@
           <text class='icon tn-icon-left-arrow'></text>
         </view>
       </tn-nav-bar>
-      
-      
+
+
     </view>
     <scroll-view class="custom-tabbar-page" scroll-y enable-back-to-top @scrolltolower="handlePage" style="height: 100vh;">
     <view class="tn-search-fixed">
@@ -21,7 +21,7 @@
             <input v-model="queryParams.keyword" class="justify-content-item" placeholder="想搜点什么咧" name="input" placeholder-style="color:#AAAAAA" ></input>
           </view>
         </view>
-        
+
         <view class="align-content-item">
           <view class="justify-content-item tn-text-center">
             <tn-button backgroundColor="#82B2FF" shape="round" padding="20rpx 20rpx" width="150rpx" shadow fontBold @click="handleSearch">
@@ -31,38 +31,41 @@
         </view>
       </view>
     </view>
-    
+
     <view class="" style="margin-top: 160rpx;" :style="{paddingTop: vuex_custom_bar_height + 'px'}">
       <view class="tn-flex tn-flex-row-between tn-margin" >
         <view class="justify-content-item tn-text-bold">
           <text class="tn-text-df tn-color-black">最近搜索</text>
         </view>
         <view class="justify-content-item tn-text-df tn-color-grey">
-          <text class="tn-padding-xs">删除</text>
-          <text class="tn-icon-delete"></text>
+			<tn-button backgroundColor="#82B2FF" shape="round" padding="20rpx 20rpx" width="150rpx" shadow fontBold @click="handleDel">
+          <text class="tn-padding-xs">清空</text>
+		  <text class="tn-icon-delete"></text>
+		  </tn-button>
+
         </view>
       </view>
     </view>
-    
+
     <view class="">
       <view class="tn-tag-search tn-margin tn-text-justify">
         <view v-for="(item, index) in tagList" :key="index" class="tn-tag-search__item tn-margin-right tn-round tn-text-sm tn-bg-gray--light tn-color-gray">
-          <text class="tn-tag-search__item--prefix">#</text> {{ item.title }}
-        </view>
+		  <text class="tn-tag-search__item--prefix" @click="handleSearchByTag(item)">#</text> {{ item }}
+		</view>
       </view>
     </view>
-    
+
     <view class="tn-flex tn-flex-row-between tn-padding-top-xl tn-margin tn-padding-bottom">
       <view class="justify-content-item tn-text-bold">
         <text class="tn-text-df tn-color-black">搜索结果</text>
       </view>
-      <view class="justify-content-item tn-text-df tn-color-grey">
+<!--      <view class="justify-content-item tn-text-df tn-color-grey">
         <text class="tn-padding-xs">筛选</text>
         <text class="tn-icon-filter"></text>
-      </view>
+      </view> -->
     </view>
-    
-    
+
+
     <!-- 不建议写时间，因为写了时间，你就要经常更新文章了鸭-->
 	  <view class="tn-margin-bottom-lg article-wapper"  v-if="articleList.length">
 			<block v-for="(item, index) in articleList" :key="index">
@@ -84,7 +87,7 @@
 			<uni-load-more class="loadMore" :status="status" />
 	  </view>
     </scroll-view>
-    
+
   </view>
 </template>
 
@@ -99,36 +102,7 @@
     data(){
       return {
         status: "more",
-        tagList: [
-          {
-            color: 'red',
-            title: "救救孩子",
-          },
-          {
-            color: 'cyan',
-            title: "今天的Bug写了吗",
-          },
-          {
-            color: 'blue',
-            title: "北北猪",
-          },
-          {
-            color: 'green',
-            title: "捉住那只北北猪",
-          },
-          {
-            color: 'orange',
-            title: "祭天叭，产品经理",
-          },
-          {
-            color: 'purple',
-            title: "快醒醒，来需求了",
-          },
-          {
-            color: 'brown',
-            title: "夏天的第一个Bug",
-          }
-        ],
+        tagList: [],
         articleList:[],
 		queryParams:{
 			pageNo:1,
@@ -138,8 +112,19 @@
 		pages:0
       }
     },
+	onLoad: function(option) {
+		var tagList = uni.getStorageSync("searchTag")
+		if (tagList != null && tagList != undefined && tagList != "") {this.tagList = tagList
+		console.log(this.tagList)}
+
+		},
     methods: {
 		handleSearch(){
+			if(!this.tagList.includes(this.queryParams.keyword)) this.tagList.push(this.queryParams.keyword)
+			uni.setStorage({
+				key: "searchTag",
+				data: this.tagList
+			})
 			this.queryParams.pageNo = 1
 			searchArticle(this.queryParams).then(res =>{
 				if(res.code != 200) {
@@ -150,6 +135,10 @@
 				this.pages = res.data.pages
 				this.status = this.queryParams.pageNo == this.pages || !this.pages ? "noMore" : "more"
 			})
+		},
+		handleSearchByTag(title) {
+			this.queryParams.keyword = title
+			this.handleSearch()
 		},
 		handlePage(){
 			if (this.status == "noMore") {
@@ -175,7 +164,10 @@
       		url: '/pages/article/index?id=' + id
       	})
       },
-      
+      handleDel() {
+		  this.tagList = []
+		  uni.removeStorageSync("searchTag")
+	  }
     }
   }
 </script>
@@ -202,42 +194,42 @@
     border: 1rpx solid rgba(255, 255, 255, 0.5);
     color: #FFFFFF;
     font-size: 18px;
-    
+
     .icon {
       display: block;
       flex: 1;
       margin: auto;
       text-align: center;
     }
-    
+
   }
-  
+
   /* 顶部渐变*/
   .tn-navbg {
       background: linear-gradient(-120deg, #F15BB5, #9A5CE5, #01BEFF, #00F5D4);
       /* background: linear-gradient(-120deg,  #9A5CE5, #01BEFF, #00F5D4, #43e97b); */
       /* background: linear-gradient(-120deg,#c471f5, #ec008c, #ff4e50,#f9d423); */
       /* background: linear-gradient(-120deg, #0976ea, #c471f5, #f956b6, #ea7e0a); */
-      background-size: 500% 500%; 
-      animation: gradientBG 15s ease infinite; 
+      background-size: 500% 500%;
+      animation: gradientBG 15s ease infinite;
       position: fixed;
       top: 0;
       width: 100%;
       z-index: 100;
-  } 
-   
-  @keyframes gradientBG { 
-      0% { 
-          background-position: 0% 50%; 
-      } 
-      50% { 
-          background-position: 100% 50%; 
-      } 
-      100% { 
-          background-position: 0% 50%; 
-      } 
   }
-  
+
+  @keyframes gradientBG {
+      0% {
+          background-position: 0% 50%;
+      }
+      50% {
+          background-position: 100% 50%;
+      }
+      100% {
+          background-position: 0% 50%;
+      }
+  }
+
   /* 搜索标签 start*/
   .tn-tag-search {
     &__item {
@@ -245,19 +237,19 @@
       line-height: 45rpx;
       padding: 10rpx 30rpx;
       margin: 20rpx 20rpx 5rpx 0rpx;
-      
+
       &--prefix {
         padding-right: 10rpx;
-      }  
+      }
     }
   }
   /* 标签内容 end*/
-  
+
   /* 标题 start */
   .nav_title {
     -webkit-background-clip: text;
     color: transparent;
-    
+
     &--wrap {
       position: relative;
       display: flex;
@@ -271,12 +263,12 @@
     }
   }
   /* 标题 end */
-  
+
   .article-shadow {
     border-radius: 15rpx;
     box-shadow: 0rpx 0rpx 50rpx 0rpx rgba(0, 0, 0, 0.07);
   }
-  
+
   /* 文字截取*/
   .clamp-text-1 {
     -webkit-line-clamp: 1;
@@ -285,7 +277,7 @@
     text-overflow: ellipsis;
     overflow: hidden;
   }
-  
+
   .clamp-text-2 {
     -webkit-line-clamp: 2;
     display: -webkit-box;
@@ -293,5 +285,5 @@
     text-overflow: ellipsis;
     overflow: hidden;
   }
-  
+
 </style>

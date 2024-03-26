@@ -5,22 +5,27 @@
         <home ref="home"></home>
       </scroll-view>
     </view>
-<!--    <view v-if="tabberPageLoadFlag[1]" :style="{display: currentIndex === 1 ? '' : 'none'}">
+   <view v-if="tabberPageLoadFlag[1]" :style="{display: currentIndex === 1 ? '' : 'none'}">
+     <scroll-view class="custom-tabbar-page" scroll-y enable-back-to-top @scrolltolower="tabbarPageScrollLower">
+       <circle-page ref="circleRef"></circle-page>
+     </scroll-view>
+   </view>
+    <view v-if="tabberPageLoadFlag[2]" :style="{display: currentIndex === 2 ? '' : 'none'}">
       <scroll-view class="custom-tabbar-page" scroll-y enable-back-to-top @scrolltolower="tabbarPageScrollLower">
         <activity ref="activity"></activity>
       </scroll-view>
-    </view> -->
-    <view v-if="tabberPageLoadFlag[1]" :style="{display: currentIndex === 1 ? '' : 'none'}">
-      <scroll-view class="custom-tabbar-page" scroll-y enable-back-to-top @scrolltolower="tabbarPageScrollLower">
-        <Message ref="message"></Message>
-      </scroll-view>
     </view>
-    <view v-if="tabberPageLoadFlag[2]" :style="{display: currentIndex === 2 ? '' : 'none'}">
+	<view v-if="tabberPageLoadFlag[3]" :style="{display: currentIndex === 3 ? '' : 'none'}">
+	  <scroll-view class="custom-tabbar-page" scroll-y enable-back-to-top @scrolltolower="tabbarPageScrollLower">
+	    <tipsoon ref="tipsoon"></tipsoon>
+	  </scroll-view>
+	</view>
+    <view v-if="tabberPageLoadFlag[4]" :style="{display: currentIndex === 4 ? '' : 'none'}">
       <scroll-view class="custom-tabbar-page" scroll-y enable-back-to-top @scrolltolower="tabbarPageScrollLower">
         <mine ref="mine"></mine>
       </scroll-view>
     </view>
-    
+
     <tn-tabbar
       v-model="currentIndex"
       :list="tabbarList"
@@ -36,15 +41,18 @@
 
 <script>
   import Home from './home/home.vue'
+  import CirclePage from './circle/circle.vue'
   import Activity from './activity/activity.vue'
-  import Message from './message/message.vue'
+  import Tipsoon from './tipsoon/index.vue'
   import Mine from './mine/mine.vue'
   import {getWebSiteInfo} from '@/api/index.js'
+  import {selectUserInfoByToken} from  '@/api/user.js'
   export default {
     components: {
       Home,
       Activity,
-      Message,
+	  Tipsoon,
+	  CirclePage,
       Mine
     },
     data() {
@@ -56,9 +64,13 @@
             activeIcon: '/static/tabbar/home_tnnew.png',
             inactiveIcon: '/static/tabbar/home_tn.png'
           },
-
+		{
+		  title: '圈子',
+		  activeIcon: '/static/tabbar/circle_tnnew.png',
+		  inactiveIcon: '/static/tabbar/circle_tn.png'
+		},
           {
-            title: '消息',
+            title: '广场',
             activeIcon: 'menu-circle',
             inactiveIcon: 'rocket',
             activeIconColor: '#FFFFFF',
@@ -66,11 +78,11 @@
             iconSize: 50,
             out: true
           },
-          // {
-          //   title: '消息',
-          //   activeIcon: '/static/tabbar/preferred_tnnew.png',
-          //   inactiveIcon: '/static/tabbar/preferred_tn.png',
-          // },
+          {
+            title: '简讯',
+            activeIcon: '/static/tabbar/preferred_tnnew.png',
+            inactiveIcon: '/static/tabbar/preferred_tn.png',
+          },
           {
             title: '我的',
             activeIcon: '/static/tabbar/mine_tnnew.png',
@@ -91,7 +103,7 @@
 		return index === tabbar_index
 	  })
 	  this.switchTabbar(index)
-	  
+
 	  getWebSiteInfo().then(res =>{
 		  if(res.code != 200) {
 			  return
@@ -101,28 +113,39 @@
 		  	data:res.data
 		  })
 	  })
+      if (uni.getStorageSync("token") && this.userInfo.length===0){
+      selectUserInfoByToken().then(res =>{
+        if(res.code != 200) {
+          return
+        }
+        uni.setStorage({
+          key:"user",
+          data:res.data
+        })
+        this.$store.commit("setUserInfo", res.data)
+      })
+      }
     },
-	
+
     methods: {
       // 切换导航
       switchTabbar(index) {
         this._switchTabbarPage(index)
         if (index !== 2) {
-          
+          this.$refs?.circleRef?.stopAllVideo()
         }
       },
-      
+
       // 导航页面滚动到底部
       tabbarPageScrollLower(e) {
-		  console.log(e)
         if (this.currentIndex === 1) {
-           this.$refs.message.handlePage()
+           this.$refs.circleRef.handlePage()
         }
-		if (this.currentIndex === 0) {
-		   this.$refs.home.handlePage()
-		}
+      if (this.currentIndex === 0) {
+         this.$refs.home.handlePage()
+      }
       },
-      
+
       // 切换导航页面
       _switchTabbarPage(index) {
         const selectPageFlag = this.tabberPageLoadFlag[index]
@@ -132,18 +155,18 @@
         if (selectPageFlag === false) {
           this.tabberPageLoadFlag[index] = true
         }
-		
+
         this.currentIndex = index
-		if(this.currentIndex == 0) {
-			this.$refs?.home?.onLoadShow()
-		}
-		if(this.currentIndex == 1) {
-			this.$refs?.message?.onLoadShow()
-		}
-		if(this.currentIndex == 2) {
-			this.$refs?.mine?.onLoadShow()
-		}
-	
+        if(this.currentIndex == 0) {
+          this.$refs?.home?.onLoadShow()
+        }
+        if(this.currentIndex == 1) {
+          this.$refs?.circleRef?.onLoadShow()
+        }
+        if(this.currentIndex == 4) {
+          this.$refs?.mine?.onLoadShow()
+        }
+
       }
     }
   }

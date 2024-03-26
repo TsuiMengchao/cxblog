@@ -29,9 +29,6 @@ public class Forum implements Serializable {
     @ApiModelProperty(value = "话题id")
     private Integer talkId;
 
-    @ApiModelProperty(value = "标题")
-    private String title;
-
     @ApiModelProperty(value = "内容")
     private String content;
 

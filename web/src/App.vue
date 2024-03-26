@@ -90,7 +90,6 @@ export default {
 
       // 从cookie中获取token
       let token = getToken()
-      console.log(token)
       if (token != null) {
         selectUserInfoByToken(token).then(res => {
           this.userInfo = res.data

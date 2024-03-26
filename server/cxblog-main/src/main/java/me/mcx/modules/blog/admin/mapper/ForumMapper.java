@@ -33,4 +33,6 @@ public interface ForumMapper extends BaseMapper<Forum> {
 
     Page<ApiForumLikeListVO> selectForumLikeList(@Param("page") Page<Object> page,@Param("forumId") Integer forumId);
 
+    ApiForumListVO getForumById(Integer forumId);
+
 }

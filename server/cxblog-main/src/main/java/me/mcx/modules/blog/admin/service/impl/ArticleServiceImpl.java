@@ -201,7 +201,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         headers.add("Content-Type", "text/plain");
 
         ids.forEach(item -> {
-            String url = "http://辰雪博客.赵浩悦.我爱你/article/" + item;
+            String url = "https://cxblog.zhaohaoyue.love/article/" + item;
             HttpEntity<String> entity = new HttpEntity<>(url, headers);
             restTemplate.postForObject(baiduUrl, entity, String.class);
         });

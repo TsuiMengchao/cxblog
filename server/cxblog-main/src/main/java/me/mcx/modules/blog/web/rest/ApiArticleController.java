@@ -90,7 +90,7 @@ public class ApiArticleController {
         return articleService.updateMyArticle(dto);
     }
 
-    @GetMapping(value = "/selectArticleByUserId")
+    @AnonymousGetMapping(value = "/selectArticleByUserId")
     @WebLog(value = "根据用户id获取文章",type = "查询",desc = "根据用户id获取文章")
     @ApiOperation(value = "根据用户id获取文章", httpMethod = "GET", response = ResponseResult.class, notes = "根据用户id获取文章")
     public ResponseResult selectArticleByUserId(String userId,Integer type) {

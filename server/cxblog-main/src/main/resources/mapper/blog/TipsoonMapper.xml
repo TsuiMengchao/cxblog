@@ -29,6 +29,34 @@
             LIMIT 1;
     </select>
 
+    <select id="select10Tipsoon" resultType="me.mcx.modules.blog.domain.vo.ApiTipsoonVO">
+        SELECT
+            tipsoon.id,
+            tipsoon.title,
+            tipsoon.content,
+            tipsoon.site,
+            tipsoon.img_url,
+            tipsoon.user_id,
+            tipsoon.create_time,
+            user.nick_name
+        FROM
+            blog_tipsoon tipsoon
+                LEFT JOIN
+            sys_user user ON tipsoon.user_id = user.user_id
+        WHERE
+            tipsoon.id NOT IN (
+            SELECT
+            tipsoon_id
+            FROM
+            blog_tipsoon_readed
+            WHERE
+            user_id = #{userId}
+            )
+        ORDER BY
+            RAND()
+            LIMIT 10;
+    </select>
+
     <select id="selectTipsoonById" resultType="me.mcx.modules.blog.domain.vo.ApiTipsoonVO">
         SELECT
             tipsoon.id,

@@ -249,8 +249,14 @@ public class ApiUserServiceImpl implements ApiUserService {
      */
     @Override
     public ResponseResult selectUserInfo(String userId) {
-        userId = StringUtils.isNotBlank(userId) ? userId : String.valueOf(SecurityUtils.getCurrentUserId());
+        userId = StringUtils.isNotBlank(userId) ? userId : "1";
         UserInfoVO userInfo = userInfoMapper.selectUserInfoByUserId(userId);
+        //获取当前登录用户是否点赞该文章
+        Object currentUserId = SecurityUtils.getLoginIdDefaultNull();
+        //校验用户是否关注该文章作者
+        int followed = Math.toIntExact(followedMapper.selectCount(new LambdaQueryWrapper<Followed>().eq(Followed::getUserId, currentUserId)
+                .eq(Followed::getFollowedUserId, userId)));
+        userInfo.setIsFollowed(followed);
         return ResponseResult.success(userInfo);
     }
 

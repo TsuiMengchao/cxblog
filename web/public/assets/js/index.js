@@ -1,15 +1,18 @@
 var vm;
 
+var oldTitle = "辰雪博客-一个不知道在哪抄来的博客平台"
+
 document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
         //离开此标签页
+        oldTitle = document.title
         document.title = "不要走吗o(>﹏<)o"
     } else {
         //进入此标签页
         document.title = "咦~ 你又回来了O(∩_∩)O哈哈~"
 
         window.setTimeout(() => {
-            document.title = "辰雪博客-一个专注于技术分享的博客平台"
+            document.title = oldTitle
         }, 800)
     }
 }, false);
@@ -83,9 +86,9 @@ color: rgb(30,152,255);
 var title1 = '🌒 辰雪博客 '
 
 // => 读取配置型(在配置文件里配置这些会变动的网址)
-var offiUrl = 'https://www.mcx.com/'
+var offiUrl = 'https://www.zhaohaoyue.love/'
 var content = `
-版 本 号：1.0    
+版 本 号：1.0.0    
 编译日期：${new Date()}
 站点介绍：
 1. 一个想当全栈程序员的个人博客.

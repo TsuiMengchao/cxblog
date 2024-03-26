@@ -9,8 +9,8 @@
     </tn-nav-bar>
 
     <view class="tn-margin-top" :style="{paddingTop: vuex_custom_bar_height + 'px'}">
-      
-      
+
+
       <view class="tn-flex tn-flex-row-between tn-strip-bottom-min tn-padding" @click="tn('/minePages/avatar')">
         <view class="justify-content-item">
           <view class="tn-text-bold tn-text-lg">
@@ -24,7 +24,7 @@
           <view class="tn-icon-right tn-padding-top"></view>
         </view>
       </view>
-      
+
       <view class="tn-flex tn-flex-row-between tn-strip-bottom tn-padding" @click="tn('/minePages/safety')">
         <view class="justify-content-item">
           <view class="tn-text-bold tn-text-lg">
@@ -38,7 +38,7 @@
           <view class="tn-icon-right tn-padding-top"></view>
         </view>
       </view>
-      
+
       <view class="tn-flex tn-flex-row-between tn-strip-bottom-min tn-padding tn-margin-top-xs" v-for="(item, index) in setList" :key="index" @click="tn(item.url)">
         <view class="justify-content-item">
           <view class="tn-text-bold tn-text-lg">
@@ -49,8 +49,8 @@
           <view class="tn-icon-right"></view>
         </view>
       </view>
-      
-      
+
+
       <!-- 悬浮按钮-->
       <view class="tn-flex  tn-footerfixed">
         <view class="tn-flex-1 justify-content-item tn-margin-sm tn-text-center" >
@@ -61,10 +61,10 @@
           </tn-button>
         </view>
       </view>
-      
+
     </view>
-    
-    
+
+
   </view>
 </template>
 
@@ -103,6 +103,9 @@
 		  uni.removeStorage({
 		  	key:"user"
 		  })
+        this.$store.commit("setUserInfo", {})
+
+
 		  uni.navigateTo({
 		  	url:"/minePages/login",
 		  });
@@ -140,14 +143,14 @@
       border: 1rpx solid rgba(255, 255, 255, 0.5);
       color: #FFFFFF;
       font-size: 18px;
-      
+
       .icon {
         display: block;
         flex: 1;
         margin: auto;
         text-align: center;
       }
-      
+
     }
 
 
@@ -156,7 +159,7 @@
       width: 100%;
       border-bottom: 1rpx solid #F8F9FB;
     }
-    
+
     .tn-strip-bottom {
      width: 100%;
      border-bottom: 20rpx solid rgba(241, 241, 241, 0.8);
@@ -176,8 +179,8 @@
     bottom: calc(30rpx + env(safe-area-inset-bottom));
     z-index: 1024;
     box-shadow: 0 1rpx 6rpx rgba(0, 0, 0, 0);
-    
+
   }
   /* 底部悬浮按钮 end*/
-  
+
 </style>

@@ -81,6 +81,44 @@ public class ApiTipsoonServiceImpl implements ApiTipsoonService {
     }
 
     @Override
+    public ResponseResult select10Tipsoon() {
+        Long id = SecurityUtils.getLoginIdDefaultNull();
+        List<ApiTipsoonVO>  tipsoonPages = tipsoonMapper.select10Tipsoon(Math.toIntExact(id!=null? id:0));
+        if (tipsoonPages==null) throw new BusinessException(204, "已加载全部数据");
+
+        for (ApiTipsoonVO tipsoon : tipsoonPages) {
+            Integer count = Math.toIntExact(tipsoonCommentMapper.selectCount(new LambdaQueryWrapper<TipsoonComment>().eq(TipsoonComment::getTipsoonId, tipsoon.getId())));
+            tipsoon.setCommentCount(count);
+            int likeCount = tipsoonMapper.countTipsoonLike(tipsoon.getId());
+            tipsoon.setLikeCount(likeCount);
+            if (SecurityUtils.getLoginIdDefaultNull() != null) {
+                int flag = tipsoonMapper.selectTipsoonUserIsLike(tipsoon.getId(), String.valueOf(SecurityUtils.getCurrentUserId()));
+                tipsoon.setIsLike(flag == 1);
+            }
+            Page<ApiTipsoonLikeListVO> likePages = tipsoonMapper.selectTipsoonLikeList(new Page<>(1, 3), tipsoon.getId());
+            tipsoon.setLikeListVO(likePages.getRecords());
+
+            List<TipsoonComment> tipsoonComments = tipsoonCommentMapper.selectList(new LambdaQueryWrapper<TipsoonComment>().eq(TipsoonComment::getTipsoonId, tipsoon.getId()));
+            List<ApiTipsoonCommentVO> tipsoonCommentVOList = new ArrayList<>();
+            for (TipsoonComment tipsoonComment : tipsoonComments) {
+                UserInfoVO userInfoVO = userMapper.selectInfoByUserIdTwo(tipsoonComment.getUserId());
+                ApiTipsoonCommentVO apiTipsoonCommentVO = ApiTipsoonCommentVO.builder().userId(tipsoonComment.getUserId()).nickname(userInfoVO.getNickname()).replyUserId(tipsoonComment.getReplyUserId())
+                        .content(tipsoonComment.getContent()).address(tipsoonComment.getAddress()).createTime(tipsoonComment.getCreateTime()).build();
+                if (StringUtils.isNotBlank(tipsoonComment.getReplyUserId())) {
+                    userInfoVO = userMapper.selectInfoByUserIdTwo(tipsoonComment.getReplyUserId());
+                    apiTipsoonCommentVO.setReplyUserNickname(userInfoVO.getNickname());
+                }
+                tipsoonCommentVOList.add(apiTipsoonCommentVO);
+            }
+            tipsoon.setTipsoonCommentVOList(tipsoonCommentVOList);
+
+            if (id != null)
+                tipsoonMapper.insertTipsoonReaded(tipsoon.getId(), String.valueOf(SecurityUtils.getCurrentUserId()));
+        }
+        return ResponseResult.success(tipsoonPages);
+    }
+
+    @Override
     public ResponseResult selectTipsoonById(String tipsoonId) {
         Long id = SecurityUtils.getLoginIdDefaultNull();
         ApiTipsoonVO  tipsoon = tipsoonMapper.selectTipsoonById(Math.toIntExact(id), tipsoonId);

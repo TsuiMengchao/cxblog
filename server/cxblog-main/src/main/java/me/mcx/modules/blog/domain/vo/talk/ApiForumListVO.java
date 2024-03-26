@@ -64,4 +64,7 @@ public class ApiForumListVO {
     @ApiModelProperty(value = "创建时间")
     @JsonFormat(pattern = DateUtil.FORMAT_STRING,timezone="GMT+8")
     private Date createTime;
+
+    @ApiModelProperty(value = "当前用户是否关注作者")
+    private int isFollowed;
 }

@@ -5,7 +5,8 @@
 
     <view :style="{paddingTop: vuex_custom_bar_height + 'px'}">
       <view class="cropper-options">
-        <button style="background: none;border-radius: 0;margin-left: 0;margin-right: 0;line-height: inherit;" class="cropper-options__item"  open-type="chooseAvatar" @chooseavatar="onChooseAvatar" >选择图片</button>
+        <button v-if="uniPlatform == 'mp-weixin'" style="background: none;border-radius: 0;margin-left: 0;margin-right: 0;line-height: inherit;" class="cropper-options__item"  open-type="chooseAvatar" @chooseavatar="onChooseAvatar" >选择图片</button>
+        <button v-else style="background: none;border-radius: 0;margin-left: 0;margin-right: 0;line-height: inherit;" class="cropper-options__item"  open-type="chooseAvatar" @click="chooseImage" >选择图片</button>
         <view class="cropper-options__item" @tap="switchBorderRect">{{ switchText }}</view>
       </view>
 
@@ -44,7 +45,8 @@
         switchText: '切换为正方形裁剪框',
         showCropperImage: false,
         cropperImageUrl: '',
-		avatarUrl:null
+		avatarUrl:null,
+		uniPlatform: uni.getSystemInfoSync().uniPlatform
       }
     },
     methods: {
@@ -87,15 +89,14 @@
         }
 		// 调用uni.uploadFile方法上传文件
 		uni.uploadFile({
-		  // url: 'http://127.0.0.1:8000/file/upload',
-		  url: 'http://xn--zfr188b.xn--9krq6qgr9bpbg.xn--jduy7zg5y.xn--6qq986b3xl/file/upload',
+		  // url: 'http://127.0.0.1:8000/api/file/upload',
+		  url: 'https://server.cxblog.zhaohaoyue.love/api/file/upload',
 		  filePath: val.url,
 		  name: 'multipartFile', // 文件对应的key，服务端需要这个key来获取这个文件
 		  header:{
 			Authorization:uni.getStorageSync("token"),//加入token
 		  },
 		  success: (uploadFileRes) => {
-			  console.log(uploadFileRes)
 			  let data = JSON.parse(uploadFileRes.data)
 		    if(data.code != 200) {
 			  this.$tn.message.toast('图片上传失败')
@@ -110,6 +111,10 @@
 				userInfo.avatar = data.data
 				uni.setStorageSync("user", userInfo)
 				this.$tn.message.toast('修改成功')
+				// 关闭当前页，返回上一页面或多级页面。
+				uni.redirectTo({
+				url: "/pages/index"
+				});
 			})
 		  },
 		  fail: (error) => {

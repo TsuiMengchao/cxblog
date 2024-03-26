@@ -24,6 +24,12 @@ public class ApiTipsoonController {
         return apiTipsoonService.selectTipsoon();
     }
 
+    @AnonymousGetMapping(value = "get10Tipsoon")
+    @ApiOperation(value = "说说列表", httpMethod = "GET", response = ResponseResult.class, notes = "说说列表")
+    public ResponseResult select10Tipsoon(){
+        return apiTipsoonService.select10Tipsoon();
+    }
+
     @GetMapping(value = "getTipsoonById")
     @ApiOperation(value = "说说列表", httpMethod = "GET", response = ResponseResult.class, notes = "说说列表")
     public ResponseResult selectTipsoonById(String tipsoonId){

@@ -51,7 +51,8 @@ public class ApiSayServiceImpl implements ApiSayService {
     public ResponseResult selectSayList() {
 
         //是否显示未公开的说说 登录用户id为1时显示所有说说
-        boolean showPrivate = SecurityUtils.isLogin()  && SecurityUtils.getCurrentUserId().equals("1");
+        boolean showPrivate = false;
+        if (SecurityUtils.isLogin() && SecurityUtils.getLoginIdDefaultNull()!=null) showPrivate = SecurityUtils.getLoginIdDefaultNull() == 1;
 
         Page<ApiSayVO>  sayPage = sayMapper.selectPublicSayList(new Page<>(PageUtils.getPageNo(), PageUtils.getPageSize()),showPrivate);
         for (ApiSayVO item : sayPage.getRecords()) {
@@ -64,8 +65,8 @@ public class ApiSayServiceImpl implements ApiSayService {
             }
             item.setCreateTimeStr(RelativeDateFormat.format(item.getCreateTime()));
             item.setUserLikeList(likeUserList);
-            if (SecurityUtils.isLogin()){
-                item.setIsLike(redisService.sIsMember(RedisConstants.SAY_LIKE_USER + SecurityUtils.getCurrentUserId(), item.getId()));
+            if (SecurityUtils.isLogin()  && SecurityUtils.getLoginIdDefaultNull()!=null){
+                item.setIsLike(redisService.sIsMember(RedisConstants.SAY_LIKE_USER + SecurityUtils.getLoginIdDefaultNull(), item.getId()));
             }
             List<SayComment> sayComments = sayCommentMapper.selectList(new LambdaQueryWrapper<SayComment>().eq(SayComment::getSayId, item.getId()));
             List<ApiSayCommentVO> sayCommentVOList = new ArrayList<>();

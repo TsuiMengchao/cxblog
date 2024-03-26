@@ -33,7 +33,7 @@ export default {
     metaInfo: {
         meta: [{
             name: 'keyWords',
-            content: "辰雪博客,开源博客,www.mcx.com"  //变量或字符串
+            content: "辰雪博客,开源博客,www.zhaohaoyue.love"  //变量或字符串
         }, {
             name: 'description',
             content: "一个专注于技术分享的博客平台,大家以共同学习,乐于分享,拥抱开源的价值观进行学习交流"

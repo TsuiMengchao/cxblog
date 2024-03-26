@@ -35,6 +35,28 @@
         order by forum.create_time desc
     </select>
 
+    <select id="getForumById" resultType="me.mcx.modules.blog.domain.vo.talk.ApiForumListVO">
+        select
+        forum.id,
+        forum.content,
+        forum.site,
+        forum.img_url,
+        forum.talk_id,
+        forum.user_id,
+        forum.create_time,
+        info.nickname,
+        info.avatar,
+        info.intro,
+        talk.name as talkName
+        from blog_forum forum
+        left join sys_user user on forum.user_id = user.user_id
+        left join blog_user_info info on info.id = user.user_info_id
+        left join blog_talk talk on forum.talk_id = talk.id
+        <where>
+                forum.id = #{forumId}
+        </where>
+    </select>
+
     <select id="selectForumUserIsLike" resultType="java.lang.Integer">
         select count(id) from blog_forum_like where user_id = #{userId} and  forum_id = #{forumId}
     </select>

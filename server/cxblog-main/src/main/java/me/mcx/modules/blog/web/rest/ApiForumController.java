@@ -31,6 +31,12 @@ public class ApiForumController {
         return apiForumService.selectForumListByTalkId(talkId,orderBy);
     }
 
+    @AnonymousGetMapping("getForumById")
+    @ApiOperation(value = "圈子内容列表", httpMethod = "GET", response = ResponseResult.class, notes = "圈子内容列表")
+    public ResponseResult getForumById(Integer forumId){
+        return apiForumService.getForumById(forumId);
+    }
+
     @PostMapping("add")
     @ApiOperation(value = "添加圈子内容", httpMethod = "POST", response = ResponseResult.class, notes = "添加圈子内容")
     public ResponseResult addForum(@RequestBody Forum forum){

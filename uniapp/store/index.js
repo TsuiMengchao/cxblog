@@ -9,7 +9,7 @@ let lifeData = {}
 try {
   lifeData = uni.getStorageSync('lifeData')
 } catch(e) {
-  
+
 }
 
 // 标记需要永久存储的变量，在每次启动时取出，在state中的变量名
@@ -34,7 +34,7 @@ const store = new Vuex.Store({
     // 如果上面从本地获取的lifeData对象下有对应的属性，就赋值给state中对应的变量
     // 加上vuex_前缀，是防止变量名冲突，也让人一目了然
     vuex_user: lifeData.vuex_user ? lifeData.vuex_user : {name: '图鸟'},
-    
+
     // 如果vuex_version无需保存到本地永久存储，无需lifeData.vuex_version方式
     // app版本
     vuex_version: "1.0.0",
@@ -44,8 +44,14 @@ const store = new Vuex.Store({
     vuex_status_bar_height: 0,
     // 自定义导航栏的高度
     vuex_custom_bar_height: 0,
-	
-	userInfo:null
+
+	userInfo:{},
+    wechatShare: {title: "辰雪博客",
+      path: '/page/index',
+      imageUrl: "",
+      desc: "不知道哪抄来的博客",
+      content: ""
+    }
   },
   mutations: {
     $tStore(state, payload) {
@@ -65,10 +71,16 @@ const store = new Vuex.Store({
         state[payload.name] = payload.value
         saveKey = payload.name
       }
-      
+
       // 保存变量到本地中
       saveLifeData(saveKey, state[saveKey])
-    }
+    },
+    setUserInfo(state, newValue) {
+      state.userInfo = newValue
+    },
+    setWechatShare(state, newValue) {
+      state.userInfo = newValue
+    },
   },
   actions: {
   }

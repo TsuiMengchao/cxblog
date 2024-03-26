@@ -1,6 +1,7 @@
 package me.mcx.modules.blog.domain.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
 import me.mcx.utils.DateUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -121,6 +122,9 @@ public class UserInfoVO {
      * token
      */
     private String token;
+
+    @ApiModelProperty(value = "当前用户是否关注作者")
+    private int isFollowed;
 
 
 }

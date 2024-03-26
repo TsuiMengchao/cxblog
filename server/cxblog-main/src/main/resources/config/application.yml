@@ -5,7 +5,7 @@ server:
     mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
   servlet:
     # 应用的访问路径
-    context-path: /
+    context-path:
 
 mybatis-plus:
   configuration:
@@ -72,4 +72,4 @@ wechat:
 
 #百度推送
 baidu:
-  url: http://data.zz.baidu.com/urls?site=xn--9krq6qgr9bpbg.xn--jduy7zg5y.xn--6qq986b3xl&token=aw5iVpNEB9aQJOYZ
+  url: http://data.zz.baidu.com/urls?site=cxblog.zhaohaoyue.love&token=aw5iVpNEB9aQJOYZ

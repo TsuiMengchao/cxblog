@@ -1,24 +1,26 @@
 <template>
   <view class="template-mine tn-safe-area-inset-bottom">
 
-    <!-- 顶部自定义导航 -->
-   <!-- <tn-nav-bar :isBack="false" :bottomShadow="false" backgroundColor="none">
+    <!-- 顶部自定义导航 消息铃铛按钮 暂时用不到 -->
+   <tn-nav-bar :isBack="false" :bottomShadow="false" backgroundColor="none">
       <view class="custom-nav tn-flex tn-flex-col-center tn-flex-row-left" @click="tn('/minePages/message')">
         <view class="custom-nav__back">
           <view class="tn-icon-notice tn-color-brown" style="font-size: 50rpx;">
-            <tn-badge backgroundColor="#E72F8C" fontColor="#FFFFFF" :absolute="true" :translateCenter="false">
-              <text>12</text>
-            </tn-badge>
+<!--            <tn-badge backgroundColor="#E72F8C" fontColor="#FFFFFF" :absolute="true" :translateCenter="false">-->
+<!--              <text>12</text>-->
+<!--            </tn-badge>-->
           </view>
         </view>
       </view>
-    </tn-nav-bar> -->
+    </tn-nav-bar>
 
 
+	<!-- 橙色背景板区域及其登录按钮 -->
     <view class="top-backgroup">
       <image src='https://resource.tuniaokj.com/images/my/my-bg2.png' mode='widthFix' class='backgroud-image'></image>
     </view>
 
+	<!-- 青蛇状装饰按钮 -->
     <button >
       <view class="dong">
         <view class="monster">
@@ -43,7 +45,7 @@
     </button>
 
     <view class="about__wrap">
-      <!-- 图标logo/头像 -->
+      <!-- 图标logo/头像 登录成功后样式 -->
       <view v-if="user" class="tn-flex tn-flex-row-between tn-flex-col-center tn-margin-bottom">
         <view class="justify-content-item">
           <view class="tn-flex tn-flex-col-center tn-flex-row-left" @click="tn('/minePages/set')">
@@ -58,7 +60,7 @@
                 <text class="tn-color-brown--dark">{{user.nickname}}</text>
               </view>
               <view class="tn-padding-right tn-padding-top-xs tn-padding-left-sm tn-text-ellipsis">
-                <text class="tn-color-brown" style="opacity: 0.5;">{{user.intro ? user.intro :"这个博主有点懒，什么也没有"}}</text>
+                <text class="tn-color-brown" style="opacity: 0.5;">{{user.intro ? user.intro :"这个博主有点懒，什么也没有留下"}}</text>
                 <!-- <text class="tn-color-brown tn-text-bold tn-padding-left-sm">SVIP 6</text> -->
               </view>
             </view>
@@ -67,7 +69,7 @@
         </view>
       </view>
 
- <!--     授权按钮 -->
+ <!--     授权按钮 登录前样式-->
       <view v-else class="tn-flex tn-flex-row-between" @click="tn('/minePages/login')">
         <view class="tn-flex-1 justify-content-item tn-margin-xs tn-text-center">
           <tn-button shape="round" backgroundColor="#00d886" fontColor="#ffffff" padding="20rpx 0" width="40%" shadow>
@@ -84,8 +86,8 @@
         </view>
       </view>
 
-     <!-- 方式12 start
-      <view class="tn-flex">
+     <!-- 大型图标按钮，暂时不用 -->
+      <!-- <view class="tn-flex">
         <view class="tn-flex-1 about-shadow tn-bg-white" style="margin: 30rpx 15rpx 0 0;padding: 30rpx 0;" @click="tn('/circlePages/blogger')">
           <view class="tn-flex tn-flex-direction-column tn-flex-row-center tn-flex-col-center">
             <view class="icon20__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-shadow-blur tn-bg-orangered tn-color-white">
@@ -110,9 +112,9 @@
 
       <!-- 更多信息-->
       <view class="about-shadow tn-margin-top-xl tn-padding-top-sm tn-padding-bottom-sm tn-bg-white">
-        <!-- 方式12 start-->
+        <!-- 功能栏 小图标按钮-->
         <view class="tn-flex tn-radius tn-padding-top ">
-          <view class="tn-padding-sm tn-margin-xs tn-radius width-30" @click="tn('/pages/message')">
+          <view class="tn-padding-sm tn-margin-xs tn-radius width-30" @click="tn('/minePages/default')">
             <view class="tn-flex tn-flex-direction-column tn-flex-row-center tn-flex-col-center">
               <view class="icon12__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-bg-orange">
                 <view class="tn-icon-message" style="color: #080808;"></view>
@@ -122,23 +124,23 @@
               </view>
             </view>
           </view>
-          <view class="tn-padding-sm tn-margin-xs tn-radius width-30" @click="tn('/minePages/integral')">
+          <view class="tn-padding-sm tn-margin-xs tn-radius width-30" @click="tn('/minePages/default')">
             <view class="tn-flex tn-flex-direction-column tn-flex-row-center tn-flex-col-center">
               <view class="icon12__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-bg-orange">
                 <view class="tn-icon-ticket" style="color: #080808;"></view>
               </view>
               <view class="tn-text-center">
-                <text class="tn-text-ellipsis">积分明细</text>
+                <text class="tn-text-ellipsis">我的说说</text>
               </view>
             </view>
           </view>
-          <view class="tn-padding-sm tn-margin-xs tn-radius width-30" @click="tn('/minePages/signed')">
+          <view class="tn-padding-sm tn-margin-xs tn-radius width-30" @click="tn('/minePages/default')">
             <view class="tn-flex tn-flex-direction-column tn-flex-row-center tn-flex-col-center">
               <view class="icon12__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-bg-orange">
                 <view class="tn-icon-calendar" style="color: #080808;"></view>
               </view>
               <view class="tn-text-center">
-                <text class="tn-text-ellipsis">积分签到</text>
+                <text class="tn-text-ellipsis">我的讨论</text>
               </view>
             </view>
           </view>
@@ -188,7 +190,7 @@
               class="icon1__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-cool-bg-color-15 tn-color-white">
               <view class="tn-icon-my-reduce"></view>
             </view>
-            <view class="tn-margin-left-sm tn-flex-1">关于辰雪</view>
+            <view class="tn-margin-left-sm tn-flex-1">关于本站</view>
             <view class="tn-color-cyan--light tn-icon-link"></view>
           </view>
         </tn-list-cell>
@@ -215,7 +217,7 @@
       </view>
 
       <view class="about-shadow tn-margin-top-lg tn-margin-bottom-lg tn-padding-top-sm tn-padding-bottom-sm">
-		  <tn-list-cell :hover="true" :unlined="true" :radius="true" :fontSize="30">
+		  <tn-list-cell  v-if="uniPlatform == 'mp-weixin'" :hover="true" :unlined="true" :radius="true" :fontSize="30">
 		    <button class="tn-flex tn-flex-col-center tn-button--clear-style" open-type="share">
 		      <view class="icon1__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-cool-bg-color-15 tn-color-white">
 		        <view class="tn-icon-send"></view>
@@ -226,18 +228,18 @@
 		      </view>
 		    </button>
 		  </tn-list-cell>
-        <tn-list-cell :hover="true" :unlined="true" :radius="true" :fontSize="30">
+        <tn-list-cell v-if="uniPlatform == 'mp-weixin'" :hover="true" :unlined="true" :radius="true" :fontSize="30">
           <button class="tn-flex tn-flex-col-center tn-button--clear-style" open-type="contact">
             <view class="icon1__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-cool-bg-color-5 tn-color-white">
               <view class="tn-icon-wechat-fill"></view>
             </view>
             <view class="tn-flex tn-flex-row-between" style="width: 100%;">
-              <view class="tn-margin-left-sm">合作勾搭</view>
+              <view class="tn-margin-left-sm">联系我们</view>
               <view class="tn-color-orange--light tn-icon-trust"></view>
             </view>
           </button>
         </tn-list-cell>
-        <tn-list-cell :hover="true" :unlined="true" :radius="true" :fontSize="30">
+        <tn-list-cell v-if="uniPlatform == 'mp-weixin'" :hover="true" :unlined="true" :radius="true" :fontSize="30">
           <button class="tn-flex tn-flex-col-center tn-button--clear-style" open-type="feedback">
             <view class="icon1__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-cool-bg-color-7 tn-color-white">
               <view class="tn-icon-comment-fill"></view>
@@ -249,7 +251,7 @@
           </button>
         </tn-list-cell>
 
-        <tn-list-cell :hover="true" :unlined="true" :radius="true" :fontSize="30" @click="callPhoneNumber" data-number="18219126666">
+        <tn-list-cell :hover="true" :unlined="true" :radius="true" :fontSize="30" @click="callPhoneNumber" data-number="18333191029">
           <view class="tn-flex tn-flex-col-center">
             <view
               class="icon1__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-cool-bg-color-9 tn-color-white">
@@ -279,6 +281,7 @@
     data() {
       return {
 		  user: null,
+		uniPlatform: uni.getSystemInfoSync().uniPlatform
       }
     },
 	created() {
@@ -314,15 +317,16 @@
       },
       //拨打固定电话
       callPhoneNumber() {
-        // uni.makePhoneCall({
-        //   phoneNumber: "18333191029",
-        // });
+        uni.makePhoneCall({
+          phoneNumber: "18333191029",
+        });
       },
       // 复制开源地址
       copySource() {
         uni.setClipboardData({
           data: "https://gitee.com/tsuimengchao/cxblog",
         })
+		this.$tn.message.toast('复制成功')
       },
     }
   }

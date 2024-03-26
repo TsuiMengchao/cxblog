@@ -13,6 +13,8 @@ public interface ApiTipsoonService {
      */
     ResponseResult selectTipsoon();
 
+    ResponseResult select10Tipsoon();
+
     ResponseResult selectTipsoonById(String tipsoonId);
 
     /**

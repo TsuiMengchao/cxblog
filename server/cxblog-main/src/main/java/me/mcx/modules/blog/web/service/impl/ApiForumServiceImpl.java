@@ -72,6 +72,31 @@ public class ApiForumServiceImpl implements ApiForumService {
     }
 
     @Override
+    public ResponseResult getForumById(Integer forumId) {
+
+        ApiForumListVO forumVO = forumMapper.getForumById(forumId);
+
+
+            String format = RelativeDateFormat.format(forumVO.getCreateTime());
+            Integer count = Math.toIntExact(forumCommentMapper.selectCount(new LambdaQueryWrapper<ForumComment>().eq(ForumComment::getForumId, forumVO.getId())));
+        forumVO.setCommentCount(count);
+            int likeCount = forumMapper.countForumLike(forumVO.getId());
+        forumVO.setLikeCount(likeCount);
+            if (SecurityUtils.getLoginIdDefaultNull() != null) {
+                int flag = forumMapper.selectForumUserIsLike(forumVO.getId(), String.valueOf(SecurityUtils.getCurrentUserId()));
+                forumVO.setIsLike(flag);
+                int followed = Math.toIntExact(followedMapper.selectCount(new LambdaQueryWrapper<Followed>().eq(Followed::getUserId, SecurityUtils.getCurrentUserId())
+                        .eq(Followed::getFollowedUserId, forumVO.getUserId())));
+                forumVO.setIsFollowed(followed);
+            }
+            Page<ApiForumLikeListVO> likePages = forumMapper.selectForumLikeList(new Page<>(1,3),forumVO.getId());
+        forumVO.setLikeListVO(likePages.getRecords());
+        forumVO.setCreateTimeStr(format);
+
+        return ResponseResult.success(forumVO);
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public ResponseResult addForum(Forum forum) {
         forum.setUserId(String.valueOf(SecurityUtils.getCurrentUserId()));

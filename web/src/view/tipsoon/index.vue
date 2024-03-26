@@ -108,7 +108,7 @@ export default {
   metaInfo: {
     meta: [{
       name: 'keyWords',
-      content: "辰雪博客,开源博客,www.mcx.com"  //变量或字符串
+      content: "辰雪博客,开源博客,www.zhaohaoyue.love"  //变量或字符串
     }, {
       name: 'description',
       content: "一个专注于技术分享的博客平台,大家以共同学习,乐于分享,拥抱开源的价值观进行学习交流"
@@ -121,7 +121,7 @@ export default {
         id: "0",
         title: "感谢您阅读完所有内容！",
         content: "您已成功获取全部信息。如果您有任何问题或需要进一步的帮助，请随时提问。我们很乐意为您提供支持！",
-        imgUrl: "http://xn--7gq6m992g.xn--9krq6qgr9bpbg.xn--jduy7zg5y.xn--6qq986b3xl/780.jpg",
+        imgUrl: "https://cxblog.qiniu.zhaohaoyue.love/780.jpg",
         site: {
           title: "简讯官网",
           url: "https://www.tipsoon.com"
