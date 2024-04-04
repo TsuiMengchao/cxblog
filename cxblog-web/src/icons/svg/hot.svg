@@ -1,0 +1,23 @@
+<svg data-v-84e2c972="">
+                            <defs data-v-84e2c972="">
+                                <pattern data-v-84e2c972="" id="water" width=".25" height="1.1"
+                                    patternContentUnits="objectBoundingBox">
+                                    <path data-v-84e2c972="" fill="#fff"
+                                        d="M0.25,1H0c0,0,0-0.659,0-0.916c0.083-0.303,0.158,0.334,0.25,0C0.25,0.327,0.25,1,0.25,1z">
+                                    </path>
+                                </pattern>
+                                <g data-v-84e2c972="" id="eff">
+                                    <rect data-v-84e2c972="" fill="url(#water)" x="-119.461" y="0" width="1200" height="120"
+                                        opacity="0.3">
+                                        <animate data-v-84e2c972="" attributeType="xml" attributeName="x" from="-300" to="0"
+                                            repeatCount="indefinite" dur="10s"></animate>
+                                    </rect>
+                                    <rect data-v-84e2c972="" fill="url(#water)" y="5" width="1600" height="125"
+                                        opacity="0.3" x="-399.447">
+                                        <animate data-v-84e2c972="" attributeType="xml" attributeName="x" from="-400" to="0"
+                                            repeatCount="indefinite" dur="13s"></animate>
+                                    </rect>
+                                </g>
+                            </defs>
+                            <use data-v-84e2c972="" xlink:href="#eff" opacity="1" style="mix-blend-mode: normal;"></use>
+                        </svg>

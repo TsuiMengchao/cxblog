@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.mcx.modules.blog.mapper.ForumMapper">
+
+
+    <select id="selectForumListByTalkId" resultType="me.mcx.modules.blog.domain.vo.talk.ApiForumListVO">
+        select
+            forum.id,
+            forum.content,
+            forum.site,
+            forum.img_url,
+            forum.talk_id,
+            forum.user_id,
+            forum.create_time,
+            info.nickname,
+            info.avatar,
+            info.intro,
+            talk.name as talkName
+        from blog_forum forum
+        left join sys_user user on forum.user_id = user.user_id
+        left join blog_user_info info on info.id = user.user_info_id
+        left join blog_talk talk on forum.talk_id = talk.id
+          <where>
+              <if test="talkId != null">
+                  forum.talk_id = #{talkId}
+              </if>
+              <if test="followedList != null and followedList.size > 0">
+                  forum.user_id in
+                  <foreach collection="followedList" item="followed" open="(" separator="," close=")">
+                      #{followed.followedUserId}
+                  </foreach>
+              </if>
+          </where>
+
+        order by forum.create_time desc
+    </select>
+
+    <select id="getForumById" resultType="me.mcx.modules.blog.domain.vo.talk.ApiForumListVO">
+        select
+        forum.id,
+        forum.content,
+        forum.site,
+        forum.img_url,
+        forum.talk_id,
+        forum.user_id,
+        forum.create_time,
+        info.nickname,
+        info.avatar,
+        info.intro,
+        talk.name as talkName
+        from blog_forum forum
+        left join sys_user user on forum.user_id = user.user_id
+        left join blog_user_info info on info.id = user.user_info_id
+        left join blog_talk talk on forum.talk_id = talk.id
+        <where>
+                forum.id = #{forumId}
+        </where>
+    </select>
+
+    <select id="selectForumUserIsLike" resultType="java.lang.Integer">
+        select count(id) from blog_forum_like where user_id = #{userId} and  forum_id = #{forumId}
+    </select>
+    <select id="countForumLike" resultType="java.lang.Integer">
+        select count(id) from blog_forum_like where forum_id = #{forumId}
+    </select>
+
+    <select id="selectForumLikeList" resultType="me.mcx.modules.blog.domain.vo.talk.ApiForumLikeListVO">
+        select fl.id,fl.user_id,info.avatar,info.intro,info.nickname from blog_forum_like fl
+        left join sys_user u on u.user_id=fl.user_id
+        left join blog_user_info info on info.id=u.user_info_id
+        where fl.forum_id = #{forumId} order by fl.create_time desc
+    </select>
+
+    <insert id="insertForumLike">
+        insert into blog_forum_like (user_id, forum_id, create_time)
+        values (#{userId}, #{forumId}, Now())
+    </insert>
+
+    <delete id="deleteForumLikeByUerIdAndForumId">
+        delete from blog_forum_like where user_id = #{userId} and  forum_id = #{forumId}
+    </delete>
+</mapper>

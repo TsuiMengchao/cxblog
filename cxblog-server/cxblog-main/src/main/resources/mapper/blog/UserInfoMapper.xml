@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.mcx.modules.blog.mapper.UserInfoMapper">
+
+    <delete id="deleteByUserIds" >
+        delete from blog_user_info where id in (
+        select user_info_id from sys_user where user_id in
+        <foreach collection="ids" item="userId" open="(" separator=","  close=")" >
+            #{userId}
+        </foreach>)
+    </delete>
+
+    <select id="getByUserId" resultType="me.mcx.modules.blog.domain.UserInfo">
+        select id,nickname,email,avatar,web_site,intro from blog_user_info where id=(select user_info_id from sys_user where user_id=#{loginId})
+    </select>
+
+    <select id="selectUserInfoByUserId" resultType="me.mcx.modules.blog.domain.vo.UserInfoVO">
+        select ui.*,u.user_info_id,u.ip_source as address,u.last_login_time as lastLoginTime,u.create_time as registerTime
+        from sys_user u
+                 left join blog_user_info ui on u.user_info_id = ui.id
+        where u.user_id=#{userId}
+    </select>
+
+</mapper>

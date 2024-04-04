@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.mcx.modules.blog.mapper.SayMapper">
+
+    <select id="selectPublicSayList" resultType="me.mcx.modules.blog.domain.vo.ApiSayVO">
+        select s.*,i.nickname,i.avatar from blog_say s
+            left join sys_user u on s.user_id = u.user_id
+            left join blog_user_info i on u.user_info_id = i.id
+        <if test="!showPrivate">
+            where s.is_public = 1
+        </if>
+        order by s.create_time desc
+    </select>
+</mapper>

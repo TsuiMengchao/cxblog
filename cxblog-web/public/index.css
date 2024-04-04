@@ -1,0 +1,158 @@
+ * {
+     padding: 0;
+     margin: 0;
+     font-family: "font";
+ }
+
+ .el-tabs__nav-scroll {
+     overflow-x: scroll !important;
+
+     &::-webkit-scrollbar {
+         display: none !important;
+     }
+ }
+
+ @font-face {
+     font-family: 'font';
+     src: url('./assets/font/2.woff2');
+ }
+
+
+
+ .el-upload--picture-card {
+     background-color: var(--background-color) !important;
+ }
+
+ .el-dropdown-menu {
+     background-color: var(--background-color) !important;
+     color: var(--text-color) !important;
+     border: 0 !important;
+
+
+     .popper__arrow::after {
+         border-bottom-color: var(--background-color) !important;
+     }
+
+     .el-dropdown-menu__item {
+         transition: transform .35s !important;
+
+
+     }
+
+     .el-dropdown-menu__item:hover {
+         background-color: rgb(0, 0, 0, 0) !important;
+         transform: translateX(6px);
+     }
+ }
+
+ /* 修改滚动条宽度 */
+ ::-webkit-scrollbar {
+     width: 6px;
+     height: 6px;
+ }
+
+ /* 修改滚动条颜色 */
+ ::-webkit-scrollbar-thumb {
+     background-color: #30B07F;
+     background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .4) 100%, transparent 100%, transparent 50%, rgba(255, 255, 255, .4) 50%, rgba(255, 255, 255, .4) 75%, transparent 75%, transparent);
+     -webkit-border-radius: 2em;
+     -moz-border-radius: 2em;
+     border-radius: 2em;
+ }
+
+ /* 修改滚动条轨道颜色 */
+ ::-webkit-scrollbar-track {
+     background-color: #f5f5f5;
+     border-radius: 5px;
+ }
+
+ ::selection {
+     color: #fff;
+     background-color: var(--theme-color);
+ }
+
+ .el-card__body {
+     padding: 0 !important;
+ }
+
+ .el-card {
+     border: 0 !important;
+     border-radius: 5px;
+ }
+
+ .el-dialog {
+     background-color: var(--background-color) !important;
+     color: var(--article-color) !important;
+     border-radius: 10px;
+
+     .el-dialog__title {
+         color: var(--article-color) !important;
+     }
+ }
+
+ .el-input__inner {
+     background-color: var(--background-color) !important;
+     border-color: var(--border-line) !important;
+
+     &:focus {
+         border-color: var(--theme-color) !important;
+     }
+ }
+
+ .box-shadow-top {
+     transition: box-shadow .35s, transform .35s !important;
+
+     &:hover {
+         box-shadow: 1px 1px 5px 5px rgba(49, 211, 162, 0.322) !important;
+         transform: translateY(-2px) !important;
+     }
+ }
+
+ .box-shadow {
+     transition: box-shadow .35s;
+
+     &:hover {
+         box-shadow: 1px 1px 5px 5px rgba(49, 211, 162, 0.322) !important;
+     }
+ }
+
+ .container {
+     display: flex;
+     justify-content: center;
+ }
+
+ .xiahuaxian {
+     background: linear-gradient(to right, #9459c5, #4cbec2) no-repeat right bottom;
+     background-size: 0px 2px;
+     transition: background-size .35s;
+
+     &:hover {
+         background-size: 100% 2px;
+         background-position: left bottom;
+     }
+ }
+
+ .tag-item {
+     display: inline-block;
+     border-radius: 5px;
+     padding: 5px;
+     margin-right: 5px;
+     margin-bottom: 5px;
+     color: #fff;
+     transition: all .3s;
+
+     &:hover {
+         border-radius: 0;
+         background-color: #000 !important;
+     }
+ }
+
+ @media screen and (max-width: 1118px) {
+     .el-dialog {
+         width: 90% !important;
+     }
+ }
+
+ .point {
+     cursor: pointer;
+ }
