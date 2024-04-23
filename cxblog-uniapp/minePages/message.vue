@@ -66,6 +66,36 @@
           </view>
         </view>
       </view>
+	  
+	  <view class="tn-flex-1 tn-padding-sm tn-margin-xs tn-radius">
+	    <view class="tn-flex tn-flex-direction-column tn-flex-row-center tn-flex-col-center" @click="handleMessageNotice(4)">
+	      <view class="icon1__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-shadow-blur tn-bg-cyan tn-color-white">
+	        <view class="tn-icon-star-fill">
+	          <tn-badge backgroundColor="#E72F8C" fontColor="#FFFFFF" :absolute="true" :fontSize="16" v-if="messageCount.collect  > 0">
+	            <text>{{messageCount.collect}}</text>
+	          </tn-badge>
+	        </view>
+	      </view>
+	      <view class="tn-color-black tn-text-center">
+	        <text class="tn-text-ellipsis">收藏</text>
+	      </view>
+	    </view>
+	  </view>
+	  
+	  <view class="tn-flex-1 tn-padding-sm tn-margin-xs tn-radius">
+	    <view class="tn-flex tn-flex-direction-column tn-flex-row-center tn-flex-col-center" @click="handleMessageNotice(5)">
+	      <view class="icon1__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-shadow-blur tn-bg-cyan tn-color-white">
+	        <view class="tn-icon-reply-fill">
+	          <tn-badge backgroundColor="#E72F8C" fontColor="#FFFFFF" :absolute="true" :fontSize="16" v-if="messageCount.private  > 0">
+	            <text>{{messageCount.private}}</text>
+	          </tn-badge>
+	        </view>
+	      </view>
+	      <view class="tn-color-black tn-text-center">
+	        <text class="tn-text-ellipsis">私信</text>
+	      </view>
+	    </view>
+	  </view>
 
     </view>
 
@@ -118,6 +148,9 @@
 					  </text>
 					  <view  class="tn-color-grey " v-if="params.type == 3" style="width: calc(100% - 45px);">
 					  		点赞了你的文章： “{{item.articleTitle}}”
+					  </view>
+					  <view  class="tn-color-grey " v-if="params.type == 4" style="width: calc(100% - 45px);">
+					  		收藏了你的文章： “{{item.articleTitle}}”
 					  </view>
 						<view v-if="params.type == 0 || params.type == 1" class="tn-color-grey" v-html="item.content"></view>
 	              </view>
@@ -192,7 +225,7 @@
 				  }
 				],
 				messageCount:{},
-				titles:["系统","评论","关注","点赞"]
+				titles:["系统","评论","关注","点赞","收藏","私信"]
 			}
 		},
 		created() {

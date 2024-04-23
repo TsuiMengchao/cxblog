@@ -164,13 +164,13 @@
         </view>
 
         <!-- 其他登录方式 -->
-        <view v-if="uniPlatform == 'mp-weixin'" class="login__way tn-flex tn-flex-col-center tn-flex-row-center">
-          <view class="tn-padding-sm tn-margin-xs" @click="handleAuthorization">
+        <view class="login__way tn-flex tn-flex-col-center tn-flex-row-center">
+          <view class="tn-padding-sm tn-margin-xs" @click="handleAuthorization('weixin')">
             <view class="login__way__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-shadow-blur tn-bg-green tn-color-white">
               <view class="tn-icon-wechat-fill"></view>
             </view>
           </view>
-          <view class="tn-padding-sm tn-margin-xs">
+          <view class="tn-padding-sm tn-margin-xs"  @click="handleAuthorization('qq')">
             <view class="login__way__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-shadow-blur tn-bg-blue tn-color-white">
               <view class="tn-icon-qq"></view>
             </view>
@@ -235,8 +235,7 @@
 			email:"",
 			code: "",
 			password: ""
-		},
-		uniPlatform: uni.getSystemInfoSync().uniPlatform
+		}
       }
     },
     watch: {
@@ -250,39 +249,56 @@
 			this.show = false
 			this.$tn.message.toast('授权已取消')
 		},
-		handleAuthorization(){
+		handleAuthorization(provider){
 			this.$tn.message.loading('授权中')
 			 uni.login({
-				provider: 'weixin',
+				provider,
 				success: async (res) => {
-				  this.code = res.code;
-				  if (res.errMsg == 'login:ok') {
-					appletLogin({code:res.code}).then(response =>{
-						this.$tn.message.closeLoading()
-						if(response.code != 200) {
-							this.$refs.toast.show({
-								  content: response.message,
-								  icon: 'close-moment',
-								  image: '',
-								  duration: 1500
-							})
-							return
-						}
-						uni.setStorage({
-							key:"token",
-							data:response.data.token
-						})
-						uni.setStorage({
-							key:"user",
-							data:response.data
-						})
-            this.$store.commit("setUserInfo", response.data)
-						this.show = false
-						uni.navigateTo({
-							url:"/pages/index"
-						})
-					})
-				  }
+          // 这里会拿到code，后端可以根据code拿到id，或解析id后传给后端都可
+          this.code = res.code;
+          uni.getUserInfo({
+            provider: 'qq',
+            success: (infoRes) => {
+              let userInfo = infoRes.userInfo
+              console.log(userInfo)
+              // avatarUrl: "https://thirdwx.qlogo.cn/mmopen/vi_32/POgEwh4mIHO4nibH0KlMECNjjGxQUq24ZEaGT4poC6icRiccVGKSyXwibcPq4BWmiaIGuG1icwxaQX6grC9VemZoJ8rg/132"
+              // city: ""
+              // country: ""
+              // gender: 0
+              // language: ""
+              // nickName: "微信用户"
+              // province: ""
+              // 利用QQ授权获取到的用户信息 请求登录
+              if (res.errMsg == 'login:ok') {
+                appletLogin({code:res.code,avatarUrl:userInfo.avatarUrl,nickName:userInfo.nickName, provider}).then(response =>{
+                  this.$tn.message.closeLoading()
+                  if(response.code != 200) {
+                    this.$refs.toast.show({
+                      content: response.message,
+                      icon: 'close-moment',
+                      image: '',
+                      duration: 1500
+                    })
+                    return
+                  }
+                  uni.setStorage({
+                    key:"token",
+                    data:response.data.token
+                  })
+                  uni.setStorage({
+                    key:"user",
+                    data:response.data
+                  })
+                  this.$store.commit("setUserInfo", response.data)
+                  this.show = false
+                  uni.navigateTo({
+                    url:"/pages/index"
+                  })
+                })
+              }
+            }
+          })
+
 				},
 			 });
 		},

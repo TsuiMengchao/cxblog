@@ -147,29 +147,29 @@ linux：直接使用 vi ~/.npmrc
 
 ## 后端运行[Idea]
 打开Idea，直接将根目录下的 server 目录作为项目打开。
-![image.png](http://xn--7gq6m992g.xn--9krq6qgr9bpbg.xn--jduy7zg5y.xn--6qq986b3xl/20240224_1708774900341.png)
+![image.png](https://cxblog.qiniu.zhaohaoyue.love/20240224_1708774900341.png)
 
 打开MySQL数据库，创建一个新库 cxblog 编码选择 utf8mb4 或者 utf8，然后导入sql文件夹中的初始化脚本库脚本 cxblog.sql。（这里我用的是Navicat数据库可视化管理工具）
-![image.png](http://xn--7gq6m992g.xn--9krq6qgr9bpbg.xn--jduy7zg5y.xn--6qq986b3xl/20240224_1708775055362.png)
+![image.png](https://cxblog.qiniu.zhaohaoyue.love/20240224_1708775055362.png)
 
 修改配置，如果你的数据库密码不是 root，那么需要在 dev.yml 配置文件中做相应的修改。
-![image.png](http://xn--7gq6m992g.xn--9krq6qgr9bpbg.xn--jduy7zg5y.xn--6qq986b3xl/20240224_1708775199378.png)
+![image.png](https://cxblog.qiniu.zhaohaoyue.love/20240224_1708775199378.png)
 
 运行项目：找到 cxblog-main 模块中的 AppRun，点击启动按钮启动程序。
-![image.png](http://xn--7gq6m992g.xn--9krq6qgr9bpbg.xn--jduy7zg5y.xn--6qq986b3xl/20240224_1708775273689.png)
+![image.png](https://cxblog.qiniu.zhaohaoyue.love/20240224_1708775273689.png)
 
 ## 前端运行[WebStorm]
 打开 WebStorm，直接将根目录下的 web / admin 目录作为项目打开，这里以 admin 为例。
-![image.png](http://xn--7gq6m992g.xn--9krq6qgr9bpbg.xn--jduy7zg5y.xn--6qq986b3xl/20240224_1708775423616.png)
+![image.png](https://cxblog.qiniu.zhaohaoyue.love/20240224_1708775423616.png)
 
 这个时候 WebStorm 会在右下角提示我们安装依赖，也可以手动在 Terminal 中输入 npm install 进行安装。
-![image.png](http://xn--7gq6m992g.xn--9krq6qgr9bpbg.xn--jduy7zg5y.xn--6qq986b3xl/20240224_1708775483819.png)
+![image.png](https://cxblog.qiniu.zhaohaoyue.love/20240224_1708775483819.png)
 
 依赖安装完成后，打开 package.json 找到 dev 旁边的启动按钮
-![image.png](http://xn--7gq6m992g.xn--9krq6qgr9bpbg.xn--jduy7zg5y.xn--6qq986b3xl/20240224_1708775508827.png)
+![image.png](https://cxblog.qiniu.zhaohaoyue.love/20240224_1708775508827.png)
 
 启动完后打开 localhost:8010 即可
-![image.png](http://xn--7gq6m992g.xn--9krq6qgr9bpbg.xn--jduy7zg5y.xn--6qq986b3xl/20240224_1708775535785.png)
+![image.png](https://cxblog.qiniu.zhaohaoyue.love/20240224_1708775535785.png)
 
 #前端运行常见问题
 1、依赖安装失败
@@ -216,37 +216,37 @@ linux：直接使用 vi ~/.npmrc
 ## 后端管理系统
 
 1、登录界面
-![image.png](http://xn--7gq6m992g.xn--9krq6qgr9bpbg.xn--jduy7zg5y.xn--6qq986b3xl/20240224_1708777944821.png)
+![image.png](https://cxblog.qiniu.zhaohaoyue.love/20240224_1708777944821.png)
 2、后台首页
-![9c6241f64b278a4226516763e51784c6.png](http://xn--7gq6m992g.xn--9krq6qgr9bpbg.xn--jduy7zg5y.xn--6qq986b3xl/20240224_1708778541680.png)
+![9c6241f64b278a4226516763e51784c6.png](https://cxblog.qiniu.zhaohaoyue.love/20240224_1708778541680.png)
 3、文章管理
 列表页
-![055a9cf181644471c61935c172e98eee.png](http://xn--7gq6m992g.xn--9krq6qgr9bpbg.xn--jduy7zg5y.xn--6qq986b3xl/20240224_1708778554897.png)
+![055a9cf181644471c61935c172e98eee.png](https://cxblog.qiniu.zhaohaoyue.love/20240224_1708778554897.png)
 文章添加
-![c38bc923c91fb61d7b648c9a42538cb2.png](http://xn--7gq6m992g.xn--9krq6qgr9bpbg.xn--jduy7zg5y.xn--6qq986b3xl/20240224_1708778561422.png)
+![c38bc923c91fb61d7b648c9a42538cb2.png](https://cxblog.qiniu.zhaohaoyue.love/20240224_1708778561422.png)
 项目中图片存储采用的是[七牛云](https://www.qiniu.com/products/kodo)平台的对象存储，因为只有七牛云每个月会有免费的一个额度，其他的都是需要收费的。
 4、标签管理
-![76d0cba6f025cc00be187f56c06161a2.png](http://xn--7gq6m992g.xn--9krq6qgr9bpbg.xn--jduy7zg5y.xn--6qq986b3xl/20240224_1708778569352.png)
+![76d0cba6f025cc00be187f56c06161a2.png](https://cxblog.qiniu.zhaohaoyue.love/20240224_1708778569352.png)
 5、日志管理
 针对用户访问以及管理员操作和异常信息都做了一个日志的记录
-![3f033214ff63755ef2469a00cbfc05db.png](http://xn--7gq6m992g.xn--9krq6qgr9bpbg.xn--jduy7zg5y.xn--6qq986b3xl/20240224_1708778580979.png)
+![3f033214ff63755ef2469a00cbfc05db.png](https://cxblog.qiniu.zhaohaoyue.love/20240224_1708778580979.png)
 6、系统配置
-![e10811a433f1513f1d024e8c9bcbea7b.png](http://xn--7gq6m992g.xn--9krq6qgr9bpbg.xn--jduy7zg5y.xn--6qq986b3xl/20240224_1708778597764.png)
+![e10811a433f1513f1d024e8c9bcbea7b.png](https://cxblog.qiniu.zhaohaoyue.love/20240224_1708778597764.png)
 7、监控中心
-![fb19a9c5c973349746a6e474865300ec.png](http://xn--7gq6m992g.xn--9krq6qgr9bpbg.xn--jduy7zg5y.xn--6qq986b3xl/20240224_1708778614136.png)
+![fb19a9c5c973349746a6e474865300ec.png](https://cxblog.qiniu.zhaohaoyue.love/20240224_1708778614136.png)
 监控中心主要有服务器的监控和定时任务，定时任务支持自动添加修改删除功能，改了时间无需修改代码
 8、代码生成
-![be4b91bf63693ec3b7d5fecf43bfd718.png](http://xn--7gq6m992g.xn--9krq6qgr9bpbg.xn--jduy7zg5y.xn--6qq986b3xl/20240224_1708778628728.png)
+![be4b91bf63693ec3b7d5fecf43bfd718.png](https://cxblog.qiniu.zhaohaoyue.love/20240224_1708778628728.png)
 
 ## 博客
 1、首页
-![image.png](http://xn--7gq6m992g.xn--9krq6qgr9bpbg.xn--jduy7zg5y.xn--6qq986b3xl/20240224_1708778876609.png)
+![image.png](https://cxblog.qiniu.zhaohaoyue.love/20240224_1708778876609.png)
 首页的搜索采用的是es的搜索，eslinux启动的话会占用比较高的一个内存，所以博主介意如需要使用es搜索的购买服务器时资金允许的情况下尽可能购买内存比较多的服务器。然后项目搜索的话主要是围绕文章的标题和内容进行的分词搜索。
 2、查看博客
-![image.png](http://xn--7gq6m992g.xn--9krq6qgr9bpbg.xn--jduy7zg5y.xn--6qq986b3xl/20240224_1708778946791.png)
+![image.png](https://cxblog.qiniu.zhaohaoyue.love/20240224_1708778946791.png)
 3、登录、注册
-![image.png](http://xn--7gq6m992g.xn--9krq6qgr9bpbg.xn--jduy7zg5y.xn--6qq986b3xl/20240224_1708779032866.png)
-![image.png](http://xn--7gq6m992g.xn--9krq6qgr9bpbg.xn--jduy7zg5y.xn--6qq986b3xl/20240224_1708779117625.png)
+![image.png](https://cxblog.qiniu.zhaohaoyue.love/20240224_1708779032866.png)
+![image.png](https://cxblog.qiniu.zhaohaoyue.love/20240224_1708779117625.png)
 
 ## 结尾
 上述只是项目的一些基础的功能图片，小伙伴们可以自行登录去查看，所看到的功能都已实现，还在着手后续的一些功能开发。后台管理根据模板改造而来，毕竟我只会业余的前端技术，所以界面简陋有所缺陷也属正常。如有比较有意思的功能欢迎各位小伙伴给我留言，作者觉得有意思的话就会着手开发。如本项目小伙伴觉得可以，希望能够码云star一下，万分感谢！！！

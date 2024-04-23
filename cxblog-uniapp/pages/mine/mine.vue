@@ -1,14 +1,14 @@
 <template>
   <view class="template-mine tn-safe-area-inset-bottom">
 
-    <!-- 顶部自定义导航 消息铃铛按钮 暂时用不到 -->
+    <!-- 顶部自定义导航 消息铃铛按钮 -->
    <tn-nav-bar :isBack="false" :bottomShadow="false" backgroundColor="none">
       <view class="custom-nav tn-flex tn-flex-col-center tn-flex-row-left" @click="tn('/minePages/message')">
         <view class="custom-nav__back">
           <view class="tn-icon-notice tn-color-brown" style="font-size: 50rpx;">
-<!--            <tn-badge backgroundColor="#E72F8C" fontColor="#FFFFFF" :absolute="true" :translateCenter="false">-->
-<!--              <text>12</text>-->
-<!--            </tn-badge>-->
+           <tn-badge backgroundColor="#E72F8C" fontColor="#FFFFFF" :absolute="true" :translateCenter="false">
+             <text>{{noticeNum}}</text>
+           </tn-badge>
           </view>
         </view>
       </view>
@@ -48,7 +48,7 @@
       <!-- 图标logo/头像 登录成功后样式 -->
       <view v-if="user" class="tn-flex tn-flex-row-between tn-flex-col-center tn-margin-bottom">
         <view class="justify-content-item">
-          <view class="tn-flex tn-flex-col-center tn-flex-row-left" @click="tn('/minePages/set')">
+          <view class="tn-flex tn-flex-col-center tn-flex-row-left" @click="tn('/momentPages/blogger?id='+user.id)">
             <view class="logo-pic tn-shadow">
               <view class="logo-image">
                 <image class="tn-shadow-blur user-avatar" :src="user.avatar">
@@ -61,7 +61,6 @@
               </view>
               <view class="tn-padding-right tn-padding-top-xs tn-padding-left-sm tn-text-ellipsis">
                 <text class="tn-color-brown" style="opacity: 0.5;">{{user.intro ? user.intro :"这个博主有点懒，什么也没有留下"}}</text>
-                <!-- <text class="tn-color-brown tn-text-bold tn-padding-left-sm">SVIP 6</text> -->
               </view>
             </view>
 
@@ -79,15 +78,8 @@
         </view>
       </view>
 
-
-      <view class="tn-flex tn-flex-row-between tn-padding-top-xl">
-        <view class="justify-content-item tn-text-bold tn-text-lg">
-          <text class="">常用功能</text>
-        </view>
-      </view>
-
      <!-- 大型图标按钮，暂时不用 -->
-      <!-- <view class="tn-flex">
+      <view class="tn-flex">
         <view class="tn-flex-1 about-shadow tn-bg-white" style="margin: 30rpx 15rpx 0 0;padding: 30rpx 0;" @click="tn('/momentPages/blogger')">
           <view class="tn-flex tn-flex-direction-column tn-flex-row-center tn-flex-col-center">
             <view class="icon20__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-shadow-blur tn-bg-orangered tn-color-white">
@@ -98,7 +90,7 @@
             </view>
           </view>
         </view>
-        <view class="tn-flex-1 about-shadow tn-bg-white" style="margin: 30rpx 0 0 15rpx;padding: 30rpx 0;" >
+        <view class="tn-flex-1 about-shadow tn-bg-white" style="margin: 30rpx 0 0 15rpx;padding: 30rpx 0;"  @click="">
           <view class="tn-flex tn-flex-direction-column tn-flex-row-center tn-flex-col-center">
             <view class="icon20__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-shadow-blur tn-bg-purplered tn-color-white">
               <view class="tn-icon-moon-fill"></view>
@@ -108,39 +100,39 @@
             </view>
           </view>
         </view>
-      </view> -->
+      </view>
 
       <!-- 更多信息-->
       <view class="about-shadow tn-margin-top-xl tn-padding-top-sm tn-padding-bottom-sm tn-bg-white">
         <!-- 功能栏 小图标按钮-->
         <view class="tn-flex tn-radius tn-padding-top ">
-          <view class="tn-padding-sm tn-margin-xs tn-radius width-30" @click="tn('/minePages/default')">
+          <view class="tn-padding-sm tn-margin-xs tn-radius width-30" @click="tn('/minePages/photo')">
             <view class="tn-flex tn-flex-direction-column tn-flex-row-center tn-flex-col-center">
               <view class="icon12__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-bg-orange">
                 <view class="tn-icon-message" style="color: #080808;"></view>
               </view>
               <view class="tn-text-center">
-                <text class="tn-text-ellipsis">我的评论</text>
+                <text class="tn-text-ellipsis">我的相册</text>
               </view>
             </view>
           </view>
-          <view class="tn-padding-sm tn-margin-xs tn-radius width-30" @click="tn('/minePages/default')">
+          <view class="tn-padding-sm tn-margin-xs tn-radius width-30" @click="tn('/minePages/collect')">
             <view class="tn-flex tn-flex-direction-column tn-flex-row-center tn-flex-col-center">
               <view class="icon12__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-bg-orange">
                 <view class="tn-icon-ticket" style="color: #080808;"></view>
               </view>
               <view class="tn-text-center">
-                <text class="tn-text-ellipsis">我的说说</text>
+                <text class="tn-text-ellipsis">我的收藏</text>
               </view>
             </view>
           </view>
-          <view class="tn-padding-sm tn-margin-xs tn-radius width-30" @click="tn('/minePages/default')">
+          <view class="tn-padding-sm tn-margin-xs tn-radius width-30" @click="tn('/minePages/like')">
             <view class="tn-flex tn-flex-direction-column tn-flex-row-center tn-flex-col-center">
               <view class="icon12__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-bg-orange">
                 <view class="tn-icon-calendar" style="color: #080808;"></view>
               </view>
               <view class="tn-text-center">
-                <text class="tn-text-ellipsis">我的讨论</text>
+                <text class="tn-text-ellipsis">我的点赞</text>
               </view>
             </view>
           </view>
@@ -152,17 +144,17 @@
                 <view class="tn-icon-order" style="color: #080808;"></view>
               </view>
               <view class="tn-text-center">
-                <text class="tn-text-ellipsis">我的文章</text>
+                <text class="tn-text-ellipsis">我的创作</text>
               </view>
             </view>
           </view>
-          <view class="tn-padding-sm tn-margin-xs tn-radius width-30" @click="tn('/minePages/collect')">
+          <view class="tn-padding-sm tn-margin-xs tn-radius width-30" @click="tn('/minePages/reward')">
             <view class="tn-flex tn-flex-direction-column tn-flex-row-center tn-flex-col-center">
               <view class="icon12__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-bg-orange">
                 <view class="tn-icon-star" style="color: #080808;"></view>
               </view>
               <view class="tn-text-center">
-                <text class="tn-text-ellipsis">我的收藏</text>
+                <text class="tn-text-ellipsis">奖励作者</text>
               </view>
             </view>
           </view>
@@ -214,10 +206,20 @@
             <view class="tn-color-red--light tn-icon-tips"></view>
           </view>
         </tn-list-cell>
+		<tn-list-cell :hover="true" :unlined="true" :radius="true" :fontSize="30" @click="tn('/minePages/thanks')">
+		  <view class="tn-flex tn-flex-col-center">
+		    <view
+		      class="icon1__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-cool-bg-color-3 tn-color-white">
+		      <view class="tn-icon-trophy-fill"></view>
+		    </view>
+		    <view class="tn-margin-left-sm tn-flex-1">特别鸣谢</view>
+		    <view class="tn-color-red--light tn-icon-tips"></view>
+		  </view>
+		</tn-list-cell>
       </view>
 
       <view class="about-shadow tn-margin-top-lg tn-margin-bottom-lg tn-padding-top-sm tn-padding-bottom-sm">
-		  <tn-list-cell  v-if="uniPlatform == 'mp-weixin'" :hover="true" :unlined="true" :radius="true" :fontSize="30">
+		  <tn-list-cell :hover="true" :unlined="true" :radius="true" :fontSize="30">
 		    <button class="tn-flex tn-flex-col-center tn-button--clear-style" open-type="share">
 		      <view class="icon1__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-cool-bg-color-15 tn-color-white">
 		        <view class="tn-icon-send"></view>
@@ -228,7 +230,7 @@
 		      </view>
 		    </button>
 		  </tn-list-cell>
-        <tn-list-cell v-if="uniPlatform == 'mp-weixin'" :hover="true" :unlined="true" :radius="true" :fontSize="30">
+        <tn-list-cell :hover="true" :unlined="true" :radius="true" :fontSize="30">
           <button class="tn-flex tn-flex-col-center tn-button--clear-style" open-type="contact">
             <view class="icon1__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-cool-bg-color-5 tn-color-white">
               <view class="tn-icon-wechat-fill"></view>
@@ -239,7 +241,7 @@
             </view>
           </button>
         </tn-list-cell>
-        <tn-list-cell v-if="uniPlatform == 'mp-weixin'" :hover="true" :unlined="true" :radius="true" :fontSize="30">
+        <tn-list-cell :hover="true" :unlined="true" :radius="true" :fontSize="30">
           <button class="tn-flex tn-flex-col-center tn-button--clear-style" open-type="feedback">
             <view class="icon1__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-cool-bg-color-7 tn-color-white">
               <view class="tn-icon-comment-fill"></view>
@@ -273,16 +275,29 @@
 </template>
 
 <script>
+  import {getNewSystemNotice} from "api/im";
+
   export default {
     name: 'Mine',
     data() {
       return {
 		  user: null,
-		uniPlatform: uni.getSystemInfoSync().uniPlatform
+		noticeNum: 0
       }
     },
 	created() {
 		this.user = uni.getStorageSync("user")
+		if (this.user) {
+			if (uni.getStorageSync("token")) {
+				getNewSystemNotice().then(res => {
+					this.$store.commit("setSystemNotice", res.data)
+					this.noticeNum = 0
+					for (var key in res.data){
+					this.noticeNum += res.data[key]
+          }
+				});
+			}
+		        }
 	},
     methods: {
 		onLoadShow(){

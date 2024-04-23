@@ -55,6 +55,8 @@ public class ApiArticleServiceImpl implements ApiArticleService {
 
     private final CommentMapper commentMapper;
 
+    private final LikeMapper likeMapper;
+
     private final ElasticsearchUtil elasticsearchUtil;
 
     private final CollectMapper collectMapper;
@@ -84,6 +86,8 @@ public class ApiArticleServiceImpl implements ApiArticleService {
         });
         return ResponseResult.success(articlePage);
     }
+
+
 
     /**
      *  获取文章详情
@@ -216,11 +220,14 @@ public class ApiArticleServiceImpl implements ApiArticleService {
         if (redisService.sIsMember(articleLikeKey, articleId)) {
             // 点过赞则删除文章id
             redisService.sRemove(articleLikeKey, articleId);
+            likeMapper.delete(new LambdaQueryWrapper<ArticleLike>().eq(ArticleLike::getUserId,SecurityUtils.getCurrentUserId()).eq(ArticleLike::getArticleId,articleId));
             // 文章点赞量-1
             redisService.hDecr(ARTICLE_LIKE_COUNT, articleId.toString(), 1L);
         } else {
             // 未点赞则增加文章id
             redisService.sAdd(articleLikeKey, articleId);
+            ArticleLike articleLike = ArticleLike.builder().userId(String.valueOf(SecurityUtils.getCurrentUserId())).articleId(articleId).build();
+            likeMapper.insert(articleLike);
             // 文章点赞量+1
             redisService.hIncr(ARTICLE_LIKE_COUNT, articleId.toString(), 1L);
 
@@ -230,6 +237,22 @@ public class ApiArticleServiceImpl implements ApiArticleService {
         }
 
         return ResponseResult.success();
+    }
+
+    /**
+     * 我的点赞列表
+     * @return
+     */
+    @Override
+    public ResponseResult selectLikeList() {
+        String userId = String.valueOf(SecurityUtils.getCurrentUserId());
+
+        Page<ApiArticleListVO> list = likeMapper.selectLikeList(new Page<ApiArticleListVO>(PageUtils.getPageNo(),PageUtils.getPageSize()), String.valueOf(SecurityUtils.getCurrentUserId()));
+        list.getRecords().forEach(item ->{
+            List<Tags> tags = tagsMapper.selectTagByArticleId(item.getId());
+            item.setTagList(tags);
+        });
+        return ResponseResult.success(list);
     }
 
     /**

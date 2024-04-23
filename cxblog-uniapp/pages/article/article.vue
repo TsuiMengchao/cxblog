@@ -14,7 +14,7 @@
 				</view>
 				<!-- 搜索框 -->
 				<view class="custom-nav__search tn-flex tn-flex-col-center tn-flex-row-center"
-					@click="tn('/homePages/search')">
+					@click="tn('/articlePages/search')">
 					<view class="custom-nav__search__box tn-flex tn-flex-col-center tn-flex-row-left"
 						style="background-color: rgba(230,230,230,0.3);">
 						<view class="custom-nav__search__icon tn-icon-search tn-color-white"></view>

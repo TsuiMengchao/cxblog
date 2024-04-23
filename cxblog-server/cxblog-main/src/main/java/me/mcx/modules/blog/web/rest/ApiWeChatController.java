@@ -1,5 +1,6 @@
 package me.mcx.modules.blog.web.rest;
 
+import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
 import me.mcx.annotation.rest.AnonymousGetMapping;
 import me.mcx.annotation.rest.AnonymousPostMapping;
 import me.mcx.common.RedisConstants;
@@ -14,6 +15,7 @@ import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutTextMessage;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -54,16 +56,34 @@ public class ApiWeChatController {
                                  @RequestParam(name = "nonce") String nonce,
                                  @RequestParam(name = "echostr") String echostr,
                                  HttpServletResponse response) throws IOException {
+
+        log.info("\n接收到来自微信服务器的认证消息：[{}, {}, {}, {}]", signature,
+                timestamp, nonce, echostr);
+        if (StringUtils.isAnyBlank(signature, timestamp, nonce, echostr)) {
+            throw new IllegalArgumentException("请求参数非法，请核实!");
+        }
         if (wxMpService.checkSignature(timestamp, nonce, signature)) {
             response.getWriter().write(echostr);
         }
     }
 
     @AnonymousPostMapping(produces = "application/xml; charset=UTF-8")
-    public String handleMsg(HttpServletRequest request) {
+    public String handleMsg(@RequestBody String requestBody,
+                            @RequestParam("signature") String signature,
+                            @RequestParam("timestamp") String timestamp,
+                            @RequestParam("nonce") String nonce,
+                            @RequestParam("openid") String openid,
+                            @RequestParam(name = "encrypt_type", required = false) String encType,
+                            @RequestParam(name = "msg_signature", required = false) String msgSignature) {
 
-        try {
-            WxMpXmlMessage message = WxMpXmlMessage.fromXml(request.getInputStream());
+        log.info("\n接收微信请求：[openid=[{}], [signature=[{}], encType=[{}], msgSignature=[{}],"
+                        + " timestamp=[{}], nonce=[{}], requestBody=[\n{}\n] ",
+                openid, signature, encType, msgSignature, timestamp, nonce, requestBody);
+        if (!wxMpService.checkSignature(timestamp, nonce, signature)) {
+            throw new IllegalArgumentException("非法请求，可能属于伪造的请求！");
+        }
+        if (encType == null) {
+            WxMpXmlMessage message = WxMpXmlMessage.fromXml(requestBody);
             String content = message.getContent();
             log.info("公众号请求类型:{};内容为:{}", message.getMsgType(), content);
 
@@ -86,9 +106,17 @@ public class ApiWeChatController {
                 }
                 return returnMsg("暂时无法识别此请求，如需联系人工客服，请直接联系。", message);
             }
-        } catch (Exception e) {
-            log.error("公众号消息请求遇到错误："+e.getMessage());
-            return "公众号消息请求遇到错误："+e.getMessage();
+        } else if ("aes".equalsIgnoreCase(encType)) {
+            // aes加密的消息
+            WxMpXmlMessage inMessage = WxMpXmlMessage.fromEncryptedXml(requestBody, wxMpService.getWxMpConfigStorage(),
+                    timestamp, nonce, msgSignature);
+            log.debug("\n消息解密后内容为：\n{} ", inMessage.toString());
+
+            WxMpXmlOutMessage outMessage = returnEncryptedMsg(inMessage.toString(), inMessage);
+            if (outMessage == null) {
+                return "";
+            }
+            return outMessage.toEncryptedXml(wxMpService.getWxMpConfigStorage());
         }
         return "";
     }
@@ -103,6 +131,18 @@ public class ApiWeChatController {
         WxMpXmlOutTextMessage outMessage = WxMpXmlOutTextMessage.TEXT().content(msg)
                 .fromUser(message.getToUser()).toUser(message.getFromUser()).build();
         return outMessage.toXml();
+    }
+
+    /**
+     * 返回消息
+     * @param msg 消息内容
+     * @param message
+     * @return
+     */
+    private static WxMpXmlOutMessage returnEncryptedMsg(String msg, WxMpXmlMessage message) {
+        WxMpXmlOutTextMessage outMessage = WxMpXmlOutTextMessage.TEXT().content(msg)
+                .fromUser(message.getToUser()).toUser(message.getFromUser()).build();
+        return outMessage;
     }
 
     public static Map<String, String> parseURL(String url) {

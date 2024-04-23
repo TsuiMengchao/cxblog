@@ -52,6 +52,14 @@ export function like(articleId) {
     })
 }
 
+export function getLikeList(data) {
+    return new request({
+        url: '/v1/article/likeList',
+        method: 'get',
+		data:data
+    })
+}
+
 export function selectArticleByUserId(params) {
     return new request({
         url: '/v1/article/selectArticleByUserId',

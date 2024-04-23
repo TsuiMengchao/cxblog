@@ -10,6 +10,7 @@ import me.mcx.config.properties.GiteeConfigProperties;
 import me.mcx.config.properties.GithubConfigProperties;
 import me.mcx.config.properties.QqConfigProperties;
 import me.mcx.config.properties.WeiboConfigProperties;
+import me.mcx.modules.blog.domain.dto.AppletDTO;
 import me.mcx.modules.blog.domain.dto.EmailForgetPasswordDTO;
 import me.mcx.modules.blog.domain.dto.EmailLoginDTO;
 import me.mcx.modules.blog.domain.dto.EmailRegisterDTO;
@@ -113,6 +114,12 @@ public class ApiJustAuthController {
     @ApiOperation(value = "忘记密码", httpMethod = "PUT", response = ResponseResult.class, notes = "忘记密码")
     public ResponseResult forgetPassword(@Valid @RequestBody EmailForgetPasswordDTO emailForgetPasswordDTO){
         return userService.forgetPassword(emailForgetPasswordDTO);
+    }
+
+    @RequestMapping(value = "/applet",method = RequestMethod.POST)
+    @ApiOperation(value = "小程序登录", httpMethod = "GET", response = ResponseResult.class, notes = "小程序登录")
+    public ResponseResult appletLogin(@RequestBody AppletDTO wechatAppletDTO){
+        return userService.appletLogin(wechatAppletDTO);
     }
 
     /**

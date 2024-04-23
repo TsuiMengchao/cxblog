@@ -32,23 +32,12 @@
     <!-- 消息&数据 -->
     <view class="blogger-tips-data">
       <view class="blogger-tips-data__wrap tn-bg-white">
-        <view v-if="isSelf" class="blogger-tips-data__message tn-flex tn-flex-row-center"  @click="tn('/minePages/message')">
-          <view class="blogger-tips-data__message__container tn-flex tn-flex-row-center tn-flex-col-center tn-bg-gray--light">
-            <view class="blogger-tips-data__message__avatar">
-              <tn-avatar
-                class=""
-                :src="tipsDataMessage.latestMessageUserAvatar"
-                size="sm">
-              </tn-avatar>
-            </view>
-            <view class="tn-padding-right tn-padding-left">{{ tipsDataMessage.messageCount }} 条新消息</view>
-          </view>
-        </view>
+		
         <view class="blogger-tips-data__info tn-flex">
           <view class="tn-flex-1 tn-padding-sm tn-margin-xs">
             <view class="tn-flex tn-flex-direction-column tn-flex-row-center tn-flex-col-center">
               <view class="">
-                <view class="tn-text-xxl tn-color-orange">{{ $tn.number.formatNumberAddPriceUnit(tipsDataMessage.likeCount) }}</view>
+                <view class="tn-text-xxl tn-color-orange">{{ $tn.number.formatNumberAddPriceUnit(user.likeCount) }}</view>
               </view>
               <view class="tn-margin-top-xs tn-color-gray tn-text-df tn-text-center">
                 <text class="tn-icon-like"></text>
@@ -59,7 +48,7 @@
           <view class="tn-flex-1 tn-padding-sm tn-margin-xs">
             <view class="tn-flex tn-flex-direction-column tn-flex-row-center tn-flex-col-center">
               <view class="">
-                <view class="tn-text-xxl tn-color-blue">{{ $tn.number.formatNumberAddPriceUnit(tipsDataMessage.hotReviewsCount) }}</view>
+                <view class="tn-text-xxl tn-color-blue">{{ $tn.number.formatNumberAddPriceUnit(user.commentCount) }}</view>
               </view>
               <view class="tn-margin-top-xs tn-color-gray tn-text-df tn-text-center">
                 <text class="tn-icon-message"></text>
@@ -70,7 +59,7 @@
           <view class="tn-flex-1 tn-padding-sm tn-margin-xs">
             <view class="tn-flex tn-flex-direction-column tn-flex-row-center tn-flex-col-center">
               <view class="">
-                <view class="tn-text-xxl tn-color-red">{{ $tn.number.formatNumberAddPriceUnit(tipsDataMessage.fansCount) }}</view>
+                <view class="tn-text-xxl tn-color-red">{{ $tn.number.formatNumberAddPriceUnit(user.fansCount) }}</view>
               </view>
               <view class="tn-margin-top-xs tn-color-gray tn-text-df tn-text-center">
                 <text class="tn-icon-vip"></text>
@@ -81,7 +70,7 @@
           <view class="tn-flex-1 tn-padding-sm tn-margin-xs">
             <view class="tn-flex tn-flex-direction-column tn-flex-row-center tn-flex-col-center">
               <view class="">
-                <view class="tn-text-xxl tn-color-cyan">{{ $tn.number.formatNumberAddPriceUnit(tipsDataMessage.focusCount) }}</view>
+                <view class="tn-text-xxl tn-color-cyan">{{ $tn.number.formatNumberAddPriceUnit(user.watchCount) }}</view>
               </view>
               <view class="tn-margin-top-xs tn-color-gray tn-text-df tn-text-center">
                 <text class="tn-icon-star"></text>
@@ -111,12 +100,6 @@
                 <text class="tn-text-df tn-color-gray clamp-text-1 tn-text-justify">
                   {{ item.summary }}
                 </text>
-<!--                <view class="justify-content-item tn-flex tn-flex-col-center">-->
-<!--                  <tn-avatar-group :lists="item.viewUser.latestUserAvatar" size="sm"></tn-avatar-group>-->
-<!--                </view>-->
-<!--                <view class="justify-content-item tn-flex tn-flex-col-center">-->
-<!--                  <text class="tn-color-gray">{{ item.viewUser.viewUserCount }} 人参与</text>-->
-<!--                </view>-->
               </view>
               <view class="tn-flex tn-flex-row-between tn-flex-col-between">
                 <view v-for="(label_item,label_index) in item.tagList" :key="label_index"

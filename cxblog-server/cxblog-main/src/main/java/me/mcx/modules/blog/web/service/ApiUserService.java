@@ -1,10 +1,7 @@
 package me.mcx.modules.blog.web.service;
 
 import me.mcx.common.ResponseResult;
-import me.mcx.modules.blog.domain.dto.EmailForgetPasswordDTO;
-import me.mcx.modules.blog.domain.dto.EmailLoginDTO;
-import me.mcx.modules.blog.domain.dto.EmailRegisterDTO;
-import me.mcx.modules.blog.domain.dto.UserInfoDTO;
+import me.mcx.modules.blog.domain.dto.*;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
 import me.zhyd.oauth.model.AuthResponse;
 //import me.zhyd.oauth.model.AuthResponse;
@@ -100,4 +97,11 @@ public interface ApiUserService {
     public ResponseResult getUserCount(String id);
 
     void logout(HttpServletRequest request);
+
+    /**
+     * 微信小程序登录
+     * @param wechatAppletDTO
+     * @return
+     */
+    ResponseResult appletLogin(AppletDTO wechatAppletDTO);
 }

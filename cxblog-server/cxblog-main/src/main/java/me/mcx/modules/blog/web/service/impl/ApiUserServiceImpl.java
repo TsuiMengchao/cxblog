@@ -1,21 +1,22 @@
 package me.mcx.modules.blog.web.service.impl;
 
+import cn.dev33.satoken.stp.SaLoginModel;
+import cn.dev33.satoken.stp.StpUtil;
+import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import me.mcx.common.RedisConstants;
 import me.mcx.common.ResponseResult;
 import me.mcx.common.ResultCode;
 import me.mcx.exception.EntityExistException;
+import me.mcx.modules.blog.domain.dto.*;
 import me.mcx.modules.blog.mapper.ArticleMapper;
 import me.mcx.modules.blog.mapper.CollectMapper;
 import me.mcx.modules.blog.mapper.FollowedMapper;
 import me.mcx.modules.blog.mapper.UserInfoMapper;
 import me.mcx.modules.blog.domain.*;
-import me.mcx.modules.blog.domain.dto.EmailForgetPasswordDTO;
-import me.mcx.modules.blog.domain.dto.EmailLoginDTO;
-import me.mcx.modules.blog.domain.dto.EmailRegisterDTO;
-import me.mcx.modules.blog.domain.dto.UserInfoDTO;
 import me.mcx.modules.security.config.bean.LoginProperties;
 import me.mcx.modules.security.config.bean.SecurityProperties;
 import me.mcx.modules.security.security.TokenProvider;
@@ -472,5 +473,81 @@ public class ApiUserServiceImpl implements ApiUserService {
         log.info(token);
         onlineUserService.logout(tokenProvider.getToken(request));
     }
+
+    @Override
+    public ResponseResult appletLogin(AppletDTO wechatAppletDTO) {
+
+        String url = "https://api.weixin.qq.com/sns/jscode2session?appid=wx3e9678e6cdabd38f&secret=f8f33e962ab232ab70fd6545b86ac731&js_code="+wechatAppletDTO.getCode()+"&grant_type=authorization_code";
+        String result = HttpUtil.get(url);
+
+        JSONObject jsonObject = JSON.parseObject(result);
+        String openid = jsonObject.get("openid").toString();
+        User user = this.wechatInit(openid);
+
+        // 生成令牌与第三方系统获取令牌方式
+        UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
+        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String token = tokenProvider.createToken(authentication);
+        String finalToken = properties.getTokenStartWith() + token;
+        final JwtUserDto jwtUserDto = (JwtUserDto) authentication.getPrincipal();
+
+        if (loginProperties.isSingleLogin()) {
+            // 踢掉之前已经登录的token
+            onlineUserService.kickOutForUsername(user.getUsername());
+        }
+        HttpServletRequest request = RequestHolder.getHttpServletRequest();
+
+        // 保存在线信息
+        onlineUserService.save(jwtUserDto, token, request);
+
+        UserInfoVO userInfoVO = userMapper.selectByUserName(user.getUsername());
+
+        userInfoVO.setToken(finalToken);
+        return ResponseResult.success(userInfoVO);
+    }
+
+    private User wechatInit(String openId) {
+        User user = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getWeixin_id, openId));
+        if (Objects.nonNull(user)) {
+            // 更新登录信息
+            userMapper.update(new User(), new LambdaUpdateWrapper<User>()
+                    .set(User::getLastLoginTime, LocalDateTime.now())
+                    .eq(User::getId, user.getId()));
+        }else {
+            HttpServletRequest request = RequestHolder.getHttpServletRequest();
+            String ip = me.mcx.utils.StringUtils.getIp(request);
+            String ipSource = me.mcx.utils.StringUtils.getCityInfo(ip);
+
+            String nickname = "WECHAT-" + RandomUtils.generationCapital(6);
+            // 保存用户信息
+            UserInfo userInfo = UserInfo.builder()
+                    .nickname(nickname)
+                    .avatar(userAvatarList[RandomUtils.generationNumber(userAvatarList.length)])
+                    .build();
+            userInfoMapper.insert(userInfo);
+            // 保存账号信息
+            user = User.builder()
+                    .userInfoId(userInfo.getId())
+                    .username("weixin"+openId)
+                    .nickName(nickname)
+                    .password(passwordEncoder.encode("123456"))
+                    .loginType(LoginTypeEnum.WECHAT.getType())
+                    .lastLoginTime(DateUtil.getNowDate())
+                    .ipAddress(ip)
+                    .ipSource(ipSource)
+                    .enabled(UserStatusEnum.normal.getCode() == 1)
+                    .dept(new Dept() {{setId(18L);}})
+                    .jobs(new HashSet<Job>() {{add(new Job() {{setId(13L);}});}})
+                    .roles(new HashSet<Role>() {{add(new Role() {{setId(2L);}});}})
+                    .weixin_id(openId)
+                    .build();
+            userService.create(user);
+            user = userService.findByName("weixin"+openId);
+        }
+
+        return user;
+    }
+
 
 }

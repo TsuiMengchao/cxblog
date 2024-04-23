@@ -13,6 +13,12 @@ public interface ApiArticleService {
     public ResponseResult selectArticleList(Integer categoryId, Integer tagId,String orderByDescColumn);
 
     /**
+     * 根据点赞分页获取文章
+     * @return
+     */
+    public ResponseResult selectLikeList();
+
+    /**
      * 首页获取文章详情
      * @param id 文章id
      * @return

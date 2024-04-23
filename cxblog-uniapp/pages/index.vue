@@ -113,7 +113,7 @@
 		  	data:res.data
 		  })
 	  })
-      if (uni.getStorageSync("token") && this.userInfo.length===0){
+      if (uni.getStorageSync("token") && !this.userInfo.id){
       selectUserInfoByToken().then(res =>{
         if(res.code != 200) {
           return

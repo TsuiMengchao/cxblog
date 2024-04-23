@@ -69,6 +69,12 @@ public class ApiArticleController {
         return articleService.articleLike(articleId);
     }
 
+    @GetMapping(value = "/likeList")
+    @ApiOperation(value = "我的点赞列表", httpMethod = "GET", response = ResponseResult.class, notes = "我的点赞列表")
+    public ResponseResult selectLikeList() {
+        return articleService.selectLikeList();
+    }
+
     @WebLog(value = "文章详情-校验公众号验证码",type = "查询",desc = "校验公众号验证码")
     @AnonymousGetMapping(value = "/checkCode")
     @ApiOperation(value = "校验公众号验证码", httpMethod = "GET", response = ResponseResult.class, notes = "校验公众号验证码")

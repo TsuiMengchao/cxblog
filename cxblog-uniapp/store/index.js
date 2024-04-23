@@ -51,7 +51,8 @@ const store = new Vuex.Store({
       imageUrl: "",
       desc: "不知道哪抄来的博客",
       content: ""
-    }
+    },
+	systemNotcie: {},
   },
   mutations: {
     $tStore(state, payload) {
@@ -79,8 +80,11 @@ const store = new Vuex.Store({
       state.userInfo = newValue
     },
     setWechatShare(state, newValue) {
-      state.userInfo = newValue
+      state.wechatShare = newValue
     },
+	setSystemNotice(state, newValue) {
+		state.systemNotcie = newValue
+	},
   },
   actions: {
   }

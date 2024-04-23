@@ -1,7 +1,7 @@
 export default function request(options) {
 	 //后端接口地址
-	// const baseUrl = 'https://server.cxblog.zhaohaoyue.love';
-	const baseUrl = 'http://127.0.0.1:8000';
+	const baseUrl = 'https://server.cxblog.zhaohaoyue.love';
+	// const baseUrl = 'http://127.0.0.1:8000';
 	const token = uni.getStorageSync("token")
 	const {
 		method,
@@ -37,6 +37,7 @@ export default function request(options) {
 				if (code === 401) {
 					uni.removeStorageSync("token")
 					uni.removeStorageSync("user")
+					this.$store.commit("setUserInfo", {})
 					uni.showToast({
 						icon: "error",
 						duration: 2000,

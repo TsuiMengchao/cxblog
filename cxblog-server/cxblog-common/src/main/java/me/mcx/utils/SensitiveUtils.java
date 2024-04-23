@@ -18,7 +18,7 @@ import java.util.Objects;
  *
  * @author MCX
  * @date 2021/12/28
- * @since 1.0.0
+ * @since 1.0.1
  **/
 @Component
 public class SensitiveUtils {

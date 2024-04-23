@@ -18,7 +18,7 @@
 
     <view class="tn-margin tn-text-lg">
       <view class="tn-padding-bottom">
-        在这里，首先感谢会员小伙伴的信任与支持啦（会员费用，用于垫付服务器+CDN支出）
+        在这里，首先感谢各位小伙伴的信任与支持啦（打赏费用，用于垫付服务器+域名支出）
       </view>
 
       <view class="tn-padding-bottom">
@@ -26,73 +26,31 @@
       </view>
 
       <view class="tn-padding-bottom">
-        出这套模板，主要是为了感谢一路支持图鸟的大佬们
-      </view>
-
-
-      <view class="tn-padding-bottom">
-        接下来，上线【图鸟模板】新项目后，又会停更一个月，6月份要去恰饭接单了，毕竟要赚生活费、房租费等等鸭
-      </view>
-
-      <view class="tn-padding-bottom">
-        对，“这界面谁不会写”，国内不缺少能力出众的人，也不缺少优秀的开源作者，可活下去的开源项目却是极少数
-      </view>
-
-      <view class="tn-padding-bottom">
-        其次，谩骂、质疑、圈钱、抄袭声也不少，但努力做好图鸟就行吖，因为一个好心态，才能出一个好作品（其实是经历了太多，反而觉得被骂才是正常的了）
-      </view>
-
-      <view class="tn-padding-bottom">
-        没有一个好心态，哪儿来的那么多创意骚操作
-      </view>
-
-      <view class="tn-padding-bottom">
-        图鸟再次感谢大家的支持，可以的话，插件市场上给个五星好评吖
-      </view>
-
-      <view class="">
-        地址：
-        <text class="tn-color-blue--dark" @click="copyUniapp">https://ext.dcloud.net.cn/plugin?id=7088</text>
-      </view>
-
-
-    </view>
-
-
-    <view class="tn-margin tn-padding-top-lg">
-      <view class="tn-flex tn-flex-row-between">
-        <view class="justify-content-item tn-text-bold tn-text-xl">
-          其他回复
+        感谢 七牛云提供的免费云存储支持
+		<view class="tn-padding-bottom">
         </view>
-      </view>
-    </view>
-
-    <view class="tn-margin tn-text-lg">
-      <view class="tn-padding-bottom">
-        Q: 为什么不把后端也做了？为什么为什么
-      </view>
-      <view class="tn-padding-bottom">
-        A: 开源，活下去是首要的，没那么多为什么
-      </view>
-    </view>
-
-
-
-    <view class="tn-margin tn-padding-top-lg">
-      <view class="tn-flex tn-flex-row-between">
-        <view class="justify-content-item tn-text-bold tn-text-xl">
-          Bug反馈
+        感谢 PanJiaChen大佬提供的前端脚手架
+        <view class="tn-padding-bottom">
         </view>
+        感谢 Moxun大佬提供的前端 Curd 通用组件
+        <view class="tn-padding-bottom">
+        </view>
+        感谢 zhy6599大佬提供的后端运维管理相关功能
+        <view class="tn-padding-bottom">
+        </view>
+        感谢 j.yao.SUSE大佬提供的匿名接口与Redis限流等功能
+        <view class="tn-padding-bottom">
+        </view>
+        感谢 d15801543974大佬提供的基于注解的通用查询方式
+        <view class="tn-padding-bottom">
+        </view>
+        感谢每一位被 CX-BLOG 抄过代码的开发者。
       </view>
-    </view>
 
-    <view class="tn-margin tn-text-lg">
       <view class="tn-padding-bottom">
-        bug、建议意见，请群内反馈，如果每个人都直接私聊作者，那么一天的时间又没了
+        梦辰雪再次感谢大家的支持，可以的话，git上给个五星好评吖
       </view>
-      <view class="tn-color-blue--dark" @click="copyUniapp">留言需求</view>
     </view>
-
   </view>
 </template>
 
@@ -107,12 +65,7 @@
       }
     },
     methods: {
-      // 复制插件市场地址
-      copyUniapp() {
-        uni.setClipboardData({
-          data: "https://ext.dcloud.net.cn/plugin?id=7088",
-        })
-      },
+      
     }
   }
 </script>

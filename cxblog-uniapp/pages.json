@@ -67,13 +67,7 @@
 		},
 		{
 			"root": "momentPages",
-			"pages": [{
-					"path": "photo",
-					"style": {
-						"navigationBarTitleText": "相册",
-						"enablePullDownRefresh": false
-					}
-				},
+			"pages": [
 				{
 					"path": "blogger",
 					"style": {
@@ -211,6 +205,27 @@
 					}
 				},
 				{
+					"path": "like",
+					"style": {
+						"navigationBarTitleText": "我的喜欢",
+						"enablePullDownRefresh": false
+					}
+				},
+				{
+					"path": "reward",
+					"style": {
+						"navigationBarTitleText": "赞赏作者",
+						"enablePullDownRefresh": false
+					}
+				},
+				{
+					"path": "photo",
+					"style": {
+						"navigationBarTitleText": "我的相册",
+						"enablePullDownRefresh": false
+					}
+				},
+				{
 					"path": "safety",
 					"style": {
 						"navigationBarTitleText": "账号安全",
@@ -221,13 +236,6 @@
 					"path": "default",
 					"style": {
 						"navigationBarTitleText": "缺省页",
-						"enablePullDownRefresh": false
-					}
-				},
-				{
-					"path": "reward",
-					"style": {
-						"navigationBarTitleText": "赞赏作者",
 						"enablePullDownRefresh": false
 					}
 				},

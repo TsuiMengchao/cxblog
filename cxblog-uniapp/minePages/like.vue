@@ -50,7 +50,7 @@
 
 <script>
   import page_mixin from '@/libs/mixin/page_mixin.js'
-  import {getCollectList} from '@/api/collect'
+  import {getLikeList} from '@/api/article.js'
   export default {
     name: 'TemplateCollect',
     mixins: [page_mixin],
@@ -70,7 +70,7 @@
 	},
     methods: {
 	  handleCollectList(){
-		  getCollectList(this.params).then(res =>{
+		  getLikeList(this.params).then(res =>{
 			  this.collectList = res.data.records
 			  this.params.pages = res.data.pages
 			  this.status = this.params.pageNo == this.params.pages || !this.params.pages ? "noMore" : "more"
@@ -87,7 +87,7 @@
 		  	title: "加载中",
 		  	mask: true
 		  });
-		  getCollectList(this.params).then(res =>{
+		  getLikeList(this.params).then(res =>{
 			  uni.hideLoading()
 			  this.collectList.push(...res.data.records)
 			  this.status = this.params.pageNo == this.params.pages ? "noMore" : "more"
