@@ -747,7 +747,6 @@ export default {
             getRoomList().then(res => {
                 this.roomList.push(...res.data)
             })
-          console.log("userid" + this.userId)
             if (this.userId != null) {
                 addRoom(this.userId).then(res => {
                     if (res.data != null) {
