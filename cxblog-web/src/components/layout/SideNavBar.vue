@@ -90,7 +90,6 @@ import { removeToken, getToken } from '@/utils/cookieUtil'
 export default {
     data: function () {
         return {
-            img: process.env.VUE_APP_IMG_API,
         }
     },
     computed: {

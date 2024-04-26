@@ -89,7 +89,7 @@ export default {
                 pageSize: 100,
             },
             pages: 0,
-            uploadPictureHost: process.env.VUE_APP_BASE_API + "/api/file/upload",
+            uploadPictureHost: process.env.VUE_APP_BASE_API + "/api/file/upload?path=file.img.upload.sponsor",
             sponsorList: [],
             files: [],
             images: {},
@@ -127,6 +127,8 @@ export default {
             var formData = new FormData()
             // 文件对象
             formData.append('multipartFile', this.files)
+
+          formData.append("path", "file.img.upload.sponsor")
             upload(formData).then(res => {
                 addSponsor(res.data).then(ress => {
                     this.$toast.success('提交成功')

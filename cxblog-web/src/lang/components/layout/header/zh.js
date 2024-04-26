@@ -16,6 +16,8 @@ export default {
     about: '关于本站',
     sourceCode: '网站源码',
     rms: '后台管理',
+    doc: '开发文档',
+    api: '接口文档',
     compose: '创作',
     publishArticle: '发布文章',
     publishSay: '发布说说',

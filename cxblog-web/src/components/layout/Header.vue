@@ -154,6 +154,18 @@
                                     <i class="el-icon-setting"></i>{{ $t('components.layout.header.rms') }}
                                 </el-dropdown-item>
                             </a>
+
+                          <a style="text-decoration: none;color: #71777c;" :href="docUrl" target="_blank">
+                            <el-dropdown-item>
+                              <i class="el-icon-setting"></i>{{ $t('components.layout.header.doc') }}
+                            </el-dropdown-item>
+                          </a>
+
+                          <a style="text-decoration: none;color: #71777c;" :href="apiUrl+'/doc.html'" target="_blank">
+                            <el-dropdown-item>
+                              <i class="el-icon-setting"></i>{{ $t('components.layout.header.api') }}
+                            </el-dropdown-item>
+                          </a>
                         </el-dropdown-menu>
                     </el-dropdown>
                 </li>
@@ -306,13 +318,14 @@ export default {
             windowWidth: 0,
             headerClass: "header",
             adminUrl: process.env.VUE_APP_ADMIN_API,
+            docUrl: process.env.VUE_APP_DOC_API,
+            apiUrl: process.env.VUE_APP_BASE_API,
             noticeList: this.$t('components.layout.header.noticeList'),
             language: 'zh'
         };
     },
     mounted() {
       this.language = this.$store.state.language
-      console.log(this.language)
     },
   created() {
 

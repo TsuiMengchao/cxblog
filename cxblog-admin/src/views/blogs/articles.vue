@@ -854,6 +854,7 @@ export default {
       var formData = new FormData()
       // 文件对象
       formData.append('multipartFile', this.files)
+      formData.append('path', 'file.img.upload.article')
       upload(formData).then(res => {
         this.article.avatar = res.data
       })
@@ -862,6 +863,7 @@ export default {
     imgAdd: function(pos, $file) {
       var formdata = new FormData()
       formdata.append('multipartFile', $file)
+      formdata.append('path', 'file.img.upload.article')
       upload(formdata).then(res => {
         this.$refs.md.$img2Url(pos, res.data)
       }).catch(err => {

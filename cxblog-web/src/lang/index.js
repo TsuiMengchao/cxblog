@@ -31,7 +31,7 @@ const localeData = {
   legacy: false, // 如果想在composition api中使用需要设置为false
   // 默认语言
   // locale: settings.defaultLanguage,
-  locale: sessionStorage.getItem('language') || 'zh',
+  locale: getLanguage(),
   messages // set locale messages
 }
 

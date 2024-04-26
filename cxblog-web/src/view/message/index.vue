@@ -46,7 +46,7 @@ export default {
     data() {
         return {
             show: false,
-            img: process.env.VUE_APP_IMG_API,
+            img_url: process.env.VUE_APP_IMG_API,
             content: "",
             count: null,
             timer: null,
@@ -102,7 +102,7 @@ export default {
     },
     computed: {
         cover() {
-            var cover = process.env.VUE_APP_IMG_API+"1642481294001.png";
+            var cover = this.img_url+"web/1642481294001.png";
             return "background: url(" + cover + ") center center / cover no-repeat";
         }
     }

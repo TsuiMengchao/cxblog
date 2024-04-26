@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+
 
 @RestController
 @RequestMapping("/api/file")
@@ -32,8 +34,8 @@ public class UploadController {
 
     @PostMapping(value = "/upload")
     @ApiOperation(value = "上传图片",httpMethod = "POST", response = ResponseResult.class, notes = "上传图片")
-    public ResponseResult upload(MultipartFile multipartFile){
-        return cloudOssService.upload(multipartFile);
+    public ResponseResult upload(MultipartFile multipartFile, String path){
+        return cloudOssService.upload(multipartFile, path);
     }
 
     @Log("批量删除图片")

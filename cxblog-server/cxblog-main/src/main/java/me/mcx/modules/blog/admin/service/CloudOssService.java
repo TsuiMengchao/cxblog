@@ -18,7 +18,7 @@ public interface CloudOssService {
      * @param file 文件
      * @return
      */
-    ResponseResult upload(MultipartFile file);
+    ResponseResult upload(MultipartFile file, String path);
 
     /**
      * 批量删除文件

@@ -206,7 +206,7 @@ export default {
     },
     data() {
         return {
-            uploadPictureHost: process.env.VUE_APP_BASE_API + "/api/file/upload",
+            uploadPictureHost: process.env.VUE_APP_BASE_API + "/api/file/upload?path=file.img.upload.im",
             websoketUrl: process.env.VUE_APP_WEBSOCKET_API,
             visible: false,
             imgDialogVisible: false,
@@ -380,6 +380,9 @@ export default {
                 this.files = param.file
                 formData.append('multipartFile', this.files)
             }
+
+
+          formData.append("path", "file.img.upload.im")
 
             upload(formData).then(res => {
                 //上传之后发送消息

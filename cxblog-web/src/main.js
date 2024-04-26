@@ -72,9 +72,9 @@ import VueLazyLoad from 'vue-lazyload'
 Vue.use(VueLazyLoad, {
   preLoad: 1,
   // 懒加载默认加载图片
-  loading: process.env.VUE_APP_IMG_API+'img-loading.png',
+  loading: process.env.VUE_APP_IMG_API+'web/img-loading.png',
   // 加载失败后加载的图片
-  error: process.env.VUE_APP_IMG_API+'loading.gif',
+  error: process.env.VUE_APP_IMG_API+'web/loading.gif',
   attempt: 1
   // the default is ['scroll', 'wheel', 'mousewheel', 'resize', 'animationend', 'transitionend']
   // listenEvents: [ 'scroll' ]

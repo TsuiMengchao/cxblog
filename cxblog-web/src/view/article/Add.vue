@@ -115,7 +115,7 @@ import { upload, featchCategory, insertArticle, updateArticle, getMyArticleInfo,
 export default {
     data() {
         return {
-            uploadPictureHost: process.env.VUE_APP_BASE_API + "/api/file/upload",
+            uploadPictureHost: process.env.VUE_APP_BASE_API + "/api/file/upload?path=file.img.upload.article",
             article: {
                 avatar: "",
                 title: ""
@@ -123,7 +123,7 @@ export default {
             categoryList: [],
             dialogVisible: false,
             loading: [],
-            img: process.env.VUE_APP_IMG_API,
+            img: process.env.VUE_APP_IMG_API+'file/img/upload/',
             articleId: this.$route.query.id,
             tagList: [],
             videoInput: "",
@@ -182,6 +182,7 @@ export default {
         imgAdd: function (pos, $file) {
             var formdata = new FormData();
             formdata.append('multipartFile', $file);
+            formdata.append("path", "file.img.upload.article")
             upload(formdata).then(res => {
                 this.$refs.md.$img2Url(pos, res.data);
             }).catch(err => {
@@ -227,6 +228,7 @@ export default {
             var formData = new FormData()
             // 文件对象
             formData.append('multipartFile', file)
+          formData.append("path", "file.img.upload.article")
             upload(formData).then(res => {
                 insertImage({
                     url: res.data,
@@ -280,6 +282,8 @@ export default {
             var formData = new FormData()
             // 文件对象
             formData.append('multipartFile', this.files)
+
+          formData.append("path", "file.img.upload.article")
             upload(formData).then(res => {
                 const $vm = this.$refs.md
                 // 将文件名与文件路径插入当前光标位置，这是mavon-editor 内置的方法
@@ -300,6 +304,8 @@ export default {
             var formData = new FormData()
             // 文件对象
             formData.append('multipartFile', this.files)
+
+          formData.append("path", "file.img.upload.article")
             upload(formData).then(res => {
                 this.article.avatar = res.data
                 this.$bus.$emit('close')

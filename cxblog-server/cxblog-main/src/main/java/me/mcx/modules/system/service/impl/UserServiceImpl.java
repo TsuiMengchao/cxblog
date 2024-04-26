@@ -33,6 +33,7 @@ import me.mcx.modules.system.mapper.UserJobMapper;
 import me.mcx.modules.system.mapper.UserMapper;
 import me.mcx.modules.system.mapper.UserRoleMapper;
 import me.mcx.modules.system.service.UserService;
+import me.mcx.service.LocalStorageConfigService;
 import me.mcx.utils.*;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -63,6 +64,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private final RedisUtils redisUtils;
     private final UserCacheManager userCacheManager;
     private final OnlineUserService onlineUserService;
+    private final LocalStorageConfigService localStorageConfigService;
 
     @Override
     public PageResult<User> queryAll(UserQueryCriteria criteria, Page<Object> page) {
@@ -227,8 +229,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
         User user = userMapper.findByUsername(SecurityUtils.getCurrentUsername());
         String oldPath = user.getAvatarPath();
-        File file = FileUtil.upload(multipartFile, properties.getPath().getAvatar());
-        user.setAvatarPath(Objects.requireNonNull(file).getPath());
+        File file = FileUtil.upload(multipartFile, properties.getPath().getPath()+"avatar"+File.separator);
+        user.setAvatarPath(localStorageConfigService.getConfig().getLocalFileUrl() + "avatar/"+ file.getName());
         user.setAvatarName(file.getName());
         saveOrUpdate(user);
         if (StringUtils.isNotBlank(oldPath)) {

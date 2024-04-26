@@ -24,8 +24,8 @@ public class FileUploadStrategyContext {
      * @param file 文件对象
      * @return {@link String} 文件名
      */
-    public String executeFileUploadStrategy(String fileUploadMode, MultipartFile file,String suffix) {
-         return fileUploadStrategyMap.get(fileUploadMode).fileUpload(file,suffix);
+    public String executeFileUploadStrategy(String fileUploadMode, MultipartFile file,String path) {
+         return fileUploadStrategyMap.get(fileUploadMode).fileUpload(file, path);
     }
 
     /**

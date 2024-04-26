@@ -229,12 +229,15 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             MutableDataSet options = new MutableDataSet();
             String markdown = FlexmarkHtmlConverter.builder(options).build().convert(newContent)
                     .replace("lang-java","java");
-
-            //文章封面图片 由https://api.btstu.cn/该网站随机获取
-            String strResult = restTemplate.getForObject(IMG_URL_API, String.class);
-            JSONObject jsonObject = JSON.parseObject(strResult);
-            Object imgUrl = jsonObject.get("imgurl");
-
+            Object imgUrl = "";
+            try {
+                //文章封面图片 由https://api.btstu.cn/该网站随机获取
+                String strResult = restTemplate.getForObject(IMG_URL_API, String.class);
+                JSONObject jsonObject = JSON.parseObject(strResult);
+                imgUrl = jsonObject.get("imgurl");
+            }
+            catch (Exception e){
+            }
             Article entity = Article.builder().userId(String.valueOf(SecurityUtils.getCurrentUserId())).contentMd(markdown)
                     .categoryId(OTHER_CATEGORY_ID).isOriginal(YesOrNoEnum.NO.getCode()).originalUrl(url)
                     .title(title.get(0).text()).avatar(imgUrl.toString()).content(newContent).build();

@@ -305,6 +305,7 @@ export default {
       var formData = new FormData()
       // 文件对象
       formData.append('multipartFile', this.files)
+      formData.append('path', 'file.img.upload.forum')
       upload(formData).then(res => {
         insertFn(res.data, '')
       })
@@ -315,6 +316,7 @@ export default {
       var formData = new FormData()
       // 文件对象
       formData.append('multipartFile', this.files)
+      formData.append('path', 'file.img.upload.forum')
       upload(formData).then(res => {
         insertFn(res.data, '', res.data)
       })
@@ -325,6 +327,7 @@ export default {
       var formData = new FormData()
       // 文件对象
       formData.append('multipartFile', this.files)
+      formData.append('path', 'file.img.upload.forum')
       upload(formData).then(res => {
         this.form.imgUrl += res.data + ','
       })

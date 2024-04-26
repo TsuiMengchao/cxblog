@@ -16,6 +16,8 @@ export default {
     about: 'About',
     sourceCode: 'Source Code',
     rms: 'RMS',
+    doc: 'Project DOC',
+    api: 'API DOC',
     compose: 'Compose',
     publishArticle: 'Publish Article',
     publishSay: 'Publish Say',

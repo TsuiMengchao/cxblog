@@ -4,7 +4,7 @@
             <div class="box">
                 <div class="avatar">
                     <img v-if="user != null" :src="user.avatar" alt="">
-                    <img v-else :src="img_url+`touristAvatar.png`" alt="">
+                    <img v-else :src="img_url+`avatar/touristAvatar.png`" alt="">
                 </div>
                 <div class="ml-3">
                     <div data-v-0089e256="" class="comment-input">

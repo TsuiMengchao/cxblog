@@ -54,7 +54,7 @@ export default {
     name: '',
     data() {
         return {
-            uploadPictureHost: process.env.VUE_APP_BASE_API + "/api/file/upload",
+            uploadPictureHost: process.env.VUE_APP_BASE_API + "/api/file/upload?path=file.img.upload.say",
             files: {},
             dialogImageUrl: '',
             dialogVisible: false,
@@ -97,6 +97,8 @@ export default {
             var formData = new FormData()
             // 文件对象
             formData.append('multipartFile', this.files)
+
+          formData.append("path", "file.img.upload.say")
             upload(formData).then(res => {
                 this.form.imgUrl += res.data + ","
                 this.$bus.$emit('close');

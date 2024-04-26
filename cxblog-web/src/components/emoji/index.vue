@@ -59,7 +59,7 @@ export default {
     name: '',
     data() {
         return {
-            uploadPictureHost: process.env.VUE_APP_BASE_API + "/api/file/upload",
+            uploadPictureHost: process.env.VUE_APP_BASE_API + "/api/file/upload?path=file.img.upload.emoji",
             emojiList: [],
             heoList: [],
             type: 0,
@@ -161,6 +161,7 @@ export default {
             var formData = new FormData()
             // 文件对象
             formData.append('multipartFile', this.files)
+            formData.append("path", "file.img.upload.emoji")
             upload(formData).then(res => {
                 let emoji = {
                     url: res.data

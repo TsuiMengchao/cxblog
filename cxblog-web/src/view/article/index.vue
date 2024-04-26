@@ -162,7 +162,7 @@
                 </div>
             </div>
             <div class="wechatImg">
-                <img :src="img_url+`souyisou1.png`" alt="">
+                <img :src="img_url+`web/souyisou1.png`" alt="">
             </div>
             <!-- 版权 -->
             <div class="copyright">
@@ -289,7 +289,7 @@
                 <div>扫码关注公众号<span style="color: red;">【 梦辰雪 】</span></div>
                 <div>回复<span style="color: red;">【 验证码 】</span>获取验证码</div>
             </div>
-            <el-image class="wxImg" :src="img_url+`wechatQr.jpg`">
+            <el-image class="wxImg" :src="img_url+`web/wechatQr.jpg`">
                 <div slot="error" class="image-slot">
                     加载中<span class="dot">...</span>
                 </div>

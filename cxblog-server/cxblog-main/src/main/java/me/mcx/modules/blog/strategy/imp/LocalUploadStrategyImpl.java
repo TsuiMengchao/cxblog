@@ -1,12 +1,18 @@
 package me.mcx.modules.blog.strategy.imp;
 
+import cn.hutool.core.util.ObjectUtil;
 import me.mcx.common.ResponseResult;
 import me.mcx.config.FileProperties;
+import me.mcx.domain.LocalStorage;
 import me.mcx.domain.LocalStorageConfig;
+import me.mcx.exception.BadRequestException;
+import me.mcx.mapper.LocalStorageMapper;
 import me.mcx.modules.blog.domain.SystemConfig;
 import me.mcx.modules.blog.admin.service.SystemConfigService;
 import me.mcx.modules.blog.strategy.FileUploadStrategy;
 import me.mcx.service.LocalStorageConfigService;
+import me.mcx.utils.FileUtil;
+import me.mcx.utils.StringUtils;
 import me.mcx.utils.UUIDUtils;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -29,6 +35,7 @@ public class LocalUploadStrategyImpl implements FileUploadStrategy {
     private final Logger logger = LoggerFactory.getLogger(LocalUploadStrategyImpl.class);
 
     private final LocalStorageConfigService localStorageConfigService;
+    private final LocalStorageMapper localStorageMapper;
 
     private String UPLOAD_FOLDER;
 
@@ -56,28 +63,36 @@ public class LocalUploadStrategyImpl implements FileUploadStrategy {
 
     /**
      * 上传文件
-     * @param file 文件
-     * @param suffix 后缀
+     * @param multipartFile 文件
+     * @param path 后缀
      * @return 文件地址
      */
     @Override
-    public String fileUpload(MultipartFile file,String suffix) {
-        String savePath = UPLOAD_FOLDER;
-        File savePathFile = new File(savePath);
-        if (!savePathFile.exists()) {
-            //若不存在该目录，则创建目录
-            savePathFile.mkdir();
+    public String fileUpload(MultipartFile multipartFile, String path) {
+        if (!path.isEmpty()) path = path.replace(".", File.separator);
+        FileUtil.checkSize(properties.getMaxSize(), multipartFile.getSize());
+        String suffix = FileUtil.getExtensionName(multipartFile.getOriginalFilename());
+        String type = FileUtil.getFileType(suffix);
+        File file = FileUtil.upload(multipartFile, properties.getPath().getPath() + path +  File.separator);
+        if(ObjectUtil.isNull(file)){
+            throw new BadRequestException("上传失败");
         }
-        //通过UUID生成唯一文件名
-        String filename = UUIDUtils.getUuid() + "." + suffix;
         try {
-            //将文件保存指定目录
-            file.transferTo(new File(savePath + filename));
+            String name = FileUtil.getFileNameNoEx(multipartFile.getOriginalFilename());
+            LocalStorage localStorage = new LocalStorage(
+                    file.getName(),
+                    name,
+                    suffix,
+                    file.getPath(),
+                    type,
+                    FileUtil.getSize(multipartFile.getSize())
+            );
+            localStorageMapper.insert(localStorage);
+            return localFileUrl + path.replace(File.separator, "/") + '/' + localStorage.getRealName();
         } catch (Exception e) {
-            e.printStackTrace();
+            FileUtil.del(file);
+            throw e;
         }
-        //返回文件名称
-        return localFileUrl + filename;
     }
 
     /**

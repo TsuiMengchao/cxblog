@@ -52,9 +52,6 @@ public class FileProperties {
 
     @Data
     public static class ElPath{
-
         private String path;
-
-        private String avatar;
     }
 }

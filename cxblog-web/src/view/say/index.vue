@@ -2,7 +2,7 @@
     <div class="say-main container">
         <div class="say-containner">
             <div class="cover">
-                <img :src="img_url+`72d9854940be46579f098b49f9d9035c.jpg`" alt="">
+                <img :src="img_url+`web/72d9854940be46579f098b49f9d9035c.jpg`" alt="">
                 <div class="info">说说</div>
             </div>
             <div class="contentBox">

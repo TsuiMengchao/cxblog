@@ -42,12 +42,9 @@ public class CloudOssServiceImpl implements CloudOssService {
      * @return
      */
     @Override
-    public ResponseResult upload(MultipartFile file) {
+    public ResponseResult upload(MultipartFile file, String path) {
         if (SecurityUtils.getDataScopeType() == ("demonstrate")) {
             throw new BusinessException("演示模式，不允许上传文件");
-        }
-        if (file.getSize() > 1024 * 1024 * 10) {
-            return ResponseResult.error("文件大小不能大于10M");
         }
         //获取文件后缀
         String suffix = Objects.requireNonNull(file.getOriginalFilename()).substring(file.getOriginalFilename().lastIndexOf(".") + 1);
@@ -55,7 +52,7 @@ public class CloudOssServiceImpl implements CloudOssService {
             return ResponseResult.error("请选择jpg,jpeg,gif,png,mp4格式的图片");
         }
         getFileUploadWay();
-        String key = fileUploadStrategyContext.executeFileUploadStrategy(strategy, file, suffix);
+        String key = fileUploadStrategyContext.executeFileUploadStrategy(strategy, file, path);
         return ResponseResult.success(key);
     }
 

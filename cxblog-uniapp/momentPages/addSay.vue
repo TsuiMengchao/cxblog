@@ -131,8 +131,8 @@
           public: true
         },
         header:{"Authorization":uni.getStorageSync("token")},
-        action: 'https://server.cxblog.zhaohaoyue.love/api/file/upload',
-        // action: 'http://127.0.0.1:8000/api/file/upload',
+        action: 'https://server.cxblog.zhaohaoyue.love/api/file/upload?path=file.img.upload.say',
+        // action: 'http://127.0.0.1:8000/api/file/upload?path=file.img.upload.say',
 				formData: {
 				  apiType: 'this,ali',
 				  token: 'dffc1e06e636cff0fdf7d877b6ae6a2e',

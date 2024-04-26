@@ -101,8 +101,8 @@
     mixins: [page_mixin],
 		data() {
 			return {
-        action: 'https://server.cxblog.zhaohaoyue.love/api/file/upload',
-        // action: 'http://127.0.0.1:8000/api/file/upload',
+        action: 'https://server.cxblog.zhaohaoyue.love/api/file/upload?path=file.img.upload.tipsoon',
+        // action: 'http://127.0.0.1:8000/api/file/upload?path=file.img.upload.tipsoon',
         header:{"Authorization":uni.getStorageSync("token")},
         formData: {
           content: "",

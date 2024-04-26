@@ -293,7 +293,7 @@ export default {
     data() {
         return {
             user: this.$store.state.userInfo,
-            uploadPictureHost: process.env.VUE_APP_BASE_API + "/api/file/upload",
+            uploadPictureHost: process.env.VUE_APP_BASE_API + "/api/file/upload?path=avatar",
             dataList: [],
             pageData: {
                 pageNo: 1,
@@ -512,6 +512,8 @@ export default {
             var formData = new FormData()
             // 文件对象
             formData.append('multipartFile', this.files)
+
+          formData.append("path", "avatar")
             upload(formData).then(res => {
                 let user = {
                     id: this.user.id,
@@ -537,6 +539,8 @@ export default {
             var formData = new FormData()
             // 文件对象
             formData.append('multipartFile', this.files)
+
+          formData.append("path", "avatar")
             upload(formData).then(res => {
                 this.form.avatar = res.data
                 this.$bus.$emit('close')

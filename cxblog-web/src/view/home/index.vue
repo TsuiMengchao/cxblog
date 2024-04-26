@@ -18,8 +18,8 @@
                     <SiteInfo />
                     <el-card class="soft box-shadow">
                         <a href="https://www.zhisu1.com/aff/DIHZPJNL" target="_blank">
-                            <img v-lazy="img_url+'20231010_1696930367538.jpg'"
-                                :key="img_url+'20231010_1696930367538.jpg'" alt="">
+                            <img v-lazy="img_url+'web/20231010_1696930367538.jpg'"
+                                :key="img_url+'web/20231010_1696930367538.jpg'" alt="">
                             <div class="soft-title">
                                 高效便宜可靠的服务器厂商知速云
                             </div>
@@ -154,7 +154,7 @@
                 <!-- 右侧内容 -->
                 <div class="rightBox">
                     <el-card class="box-card box-shadow">
-                        <img style="width: 100%;" :src="img_url+'1.jpg'" alt="">
+                        <img style="width: 100%;" :src="img_url+'web/1.jpg'" alt="">
                     </el-card>
                     <!-- 推荐文章 -->
                     <el-card class="box-card recomArticle box-shadow">

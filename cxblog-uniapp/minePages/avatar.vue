@@ -89,8 +89,8 @@
         }
 		// 调用uni.uploadFile方法上传文件
 		uni.uploadFile({
-		  // url: 'http://127.0.0.1:8000/api/file/upload',
-		  url: 'https://server.cxblog.zhaohaoyue.love/api/file/upload',
+		  // url: 'http://127.0.0.1:8000/api/file/upload?path=avatar',
+		  url: 'https://server.cxblog.zhaohaoyue.love/api/file/upload?path=avatar',
 		  filePath: val.url,
 		  name: 'multipartFile', // 文件对应的key，服务端需要这个key来获取这个文件
 		  header:{

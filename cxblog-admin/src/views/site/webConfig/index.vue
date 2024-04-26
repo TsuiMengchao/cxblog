@@ -411,6 +411,7 @@ export default {
       var formData = new FormData()
       // 文件对象
       formData.append('multipartFile', this.files)
+      formData.append('path', 'web')
       upload(formData).then(res => {
         insertFn(res.data, '')
       })
@@ -421,6 +422,7 @@ export default {
       var formData = new FormData()
       // 文件对象
       formData.append('multipartFile', this.files)
+      formData.append('path', 'web')
       upload(formData).then(res => {
         insertFn(res.data, '', res.data)
       })
@@ -496,6 +498,7 @@ export default {
       var formData = new FormData()
       // 文件对象
       formData.append('multipartFile', this.files)
+      formData.append('path', 'web')
       return formData
     },
     submitForm: function() {

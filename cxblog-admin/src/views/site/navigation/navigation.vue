@@ -326,6 +326,7 @@ export default {
       var formData = new FormData()
       // 文件对象
       formData.append('multipartFile', this.files)
+      formData.append('path', 'file.img.upload.navigation')
       upload(formData).then(res => {
         this.form.logo = res.data
         this.loading.close()

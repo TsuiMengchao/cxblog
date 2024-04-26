@@ -45,7 +45,7 @@
         <!-- 微信登录 -->
         <el-dialog :lock-scroll="false" class="dialog" title="微信扫码登录" center :visible.sync="wechatLoginFlag"
             :before-close="close">
-            <el-image class="wxImg" :src="img_url+`wechatQr.jpg`">
+            <el-image class="wxImg" :src="img_url+`web/wechatQr.jpg`">
                 <div slot="error" class="image-slot">
                     加载中<span class="dot">...</span>
                 </div>
