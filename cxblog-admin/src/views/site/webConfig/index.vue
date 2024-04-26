@@ -89,6 +89,24 @@
           </el-row>
           <el-row :gutter="24">
             <el-col :span="10">
+              <el-form-item label="版权声明" prop="newPwd1">
+                <el-input v-model="form.copyright" style="width: 400px" />
+              </el-form-item>
+            </el-col>
+            <el-col :span="10">
+              <el-form-item label="上线时间" prop="newPwd2">
+                <el-date-picker
+                  v-model="form.releaseTime"
+                  type="datetime"
+                  placeholder="选择日期时间"
+                  align="right"
+                  :picker-options="pickerOptions">
+                </el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row :gutter="24">
+            <el-col :span="10">
               <el-form-item label="登录方式">
                 <el-checkbox-group v-model="loginTypeLists">
                   <el-checkbox
@@ -296,6 +314,53 @@
           </el-form-item>
         </el-form>
       </el-tab-pane>
+      <el-tab-pane>
+        <template #label>
+          <el-icon><BellFilled /></el-icon> 发布公告
+        </template>
+        <el-form
+          style="margin-left: 20px"
+          label-position="left"
+          :model="form"
+          label-width="80px"
+          ref="from"
+        >
+          <el-row :gutter="24">
+            <el-col :span="10">
+              <el-form-item label="是否显示" prop="newPwd2">
+                <el-switch
+                  v-model="form.showBulletin"
+                  active-color="#13ce66"
+                  inactive-color="#ff4949"
+                  :active-value="1"
+                  :inactive-value="0"
+                >
+                </el-switch>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row :gutter="24">
+            <el-form-item label="公告内容">
+              <el-input
+                type="textarea"
+                :rows="5"
+                style="width: 800px"
+                placeholder="请输入公告内容"
+                v-model="form.bulletin"
+              >
+              </el-input>
+            </el-form-item>
+          </el-row>
+
+          <el-form-item>
+            <el-button
+              type="primary"
+              @click="submitForm()"
+              v-hasPerm="['system:webConfig:update']"
+            >修 改</el-button>
+          </el-form-item>
+        </el-form>
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
@@ -358,8 +423,11 @@ export default {
         authorInfo: '',
         touristAvatar: '',
         bulletin: '',
+        showBulletin: 1,
         showList: '',
-        loginTypeList: ''
+        loginTypeList: '',
+        copyright: '',
+        releaseTime: ''
       },
       systemConfig: {},
       uploadPictureHost: process.env.VUE_APP_BASE_API + '/file/upload',
@@ -382,6 +450,28 @@ export default {
         email: [
           { pattern: /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/, message: '请输入正确的邮箱' }
         ]
+      },
+      pickerOptions: {
+        shortcuts: [{
+          text: '今天',
+          onClick(picker) {
+            picker.$emit('pick', new Date())
+          }
+        }, {
+          text: '昨天',
+          onClick(picker) {
+            const date = new Date()
+            date.setTime(date.getTime() - 3600 * 1000 * 24)
+            picker.$emit('pick', date)
+          }
+        }, {
+          text: '一周前',
+          onClick(picker) {
+            const date = new Date()
+            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
+            picker.$emit('pick', date)
+          }
+        }]
       }
     }
   },

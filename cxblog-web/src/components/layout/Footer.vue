@@ -12,7 +12,9 @@
                     </span>
                 </p>
                 <p>
-                    Copyright©2023-2023 <a href="https://gitee.com/Tsuimengchao" target="_blank">{{ $t('webName') }}</a>
+                    {{
+                    $store.state.webSiteInfo.copyright
+                  }} <a href="https://gitee.com/Tsuimengchao" target="_blank">{{ $t('webName') }}</a>
                     <a href="https://beian.miit.gov.cn/" target="_blank" style="margin-left: 10px">{{
                         $store.state.webSiteInfo.recordNum
                     }}</a>
@@ -64,7 +66,7 @@ export default {
         runTime() {
             var timeold =
                 new Date().getTime() -
-                new Date(1705680000000).getTime();
+                new Date(this.$store.state.webSiteInfo.releaseTime).getTime();
             var msPerDay = 24 * 60 * 60 * 1000;
             var daysold = Math.floor(timeold / msPerDay);
             var day = new Date();
