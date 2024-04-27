@@ -7,7 +7,7 @@
     <groupId>me.mcx</groupId>
     <artifactId>cxblog</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.1</version>
+    <version>1.1.1</version>
 
     <modules>
         <module>cxblog-common</module>
@@ -27,7 +27,7 @@
     </parent>
 
     <properties>
-        <cxblog.version>1.0.1</cxblog.version>
+        <cxblog.version>1.1.1</cxblog.version>
         <log4j2.version>2.17.0</log4j2.version>
         <logback.version>1.2.9</logback.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
