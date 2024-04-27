@@ -16,7 +16,7 @@
                   class="avatar-uploader1"
                   action
                   :show-file-list="false"
-                  :disabled="!canUpdate"
+                  :disabled="!checkPer(['admin','webConfig:edit'])"
                   :action="uploadPictureHost"
                   :before-upload="uploadBefore"
                   :http-request="uploadSectionFile"
@@ -33,7 +33,7 @@
                   class="avatar-uploader1"
                   action
                   :show-file-list="false"
-                  :disabled="!canUpdate"
+                  :disabled="!checkPer(['admin','webConfig:edit'])"
                   :action="uploadPictureHost"
                   :before-upload="uploadBefore"
                   :http-request="touristUpload"
@@ -124,7 +124,7 @@
             </el-col>
           </el-row>
           <el-form-item>
-            <el-button v-if="canUpdate" type="primary" @click="submitForm()">保 存</el-button>
+            <el-button v-if="checkPer(['admin','webConfig:edit'])" type="primary" @click="submitForm()">保 存</el-button>
           </el-form-item>
         </el-form>
       </el-tab-pane>
@@ -141,7 +141,7 @@
               class="avatar-uploader1"
               action
               :show-file-list="false"
-              :disabled="!canUpdate"
+              :disabled="!checkPer(['admin','webConfig:edit'])"
               :action="uploadPictureHost"
               :before-upload="uploadBefore"
               :http-request="authorUpload"
@@ -187,7 +187,7 @@
           </el-row>
 
           <el-form-item>
-            <el-button v-if="canUpdate" type="primary" @click="submitForm()">保 存</el-button>
+            <el-button v-if="checkPer(['admin','webConfig:edit'])" type="primary" @click="submitForm()">保 存</el-button>
           </el-form-item>
         </el-form>
       </el-tab-pane>
@@ -205,7 +205,7 @@
                   class="avatar-uploader1"
                   action
                   :show-file-list="false"
-                  :disabled="!canUpdate"
+                  :disabled="!checkPer(['admin','webConfig:edit'])"
                   :action="uploadPictureHost"
                   :before-upload="uploadBefore"
                   :http-request="aliPayMethod"
@@ -222,7 +222,7 @@
                   class="avatar-uploader1"
                   action
                   :show-file-list="false"
-                  :disabled="!canUpdate"
+                  :disabled="!checkPer(['admin','webConfig:edit'])"
                   :action="uploadPictureHost"
                   :before-upload="uploadBefore"
                   :http-request="weiXinPayMethod"
@@ -266,7 +266,7 @@
             </el-form-item>
           </el-row>
           <el-form-item>
-            <el-button v-if="canUpdate" type="primary" @click="submitForm()">保 存</el-button>
+            <el-button v-if="checkPer(['admin','webConfig:edit'])" type="primary" @click="submitForm()">保 存</el-button>
           </el-form-item>
         </el-form>
       </el-tab-pane>
@@ -310,7 +310,7 @@
             </el-form-item>
           </el-checkbox-group>
           <el-form-item>
-            <el-button v-if="canUpdate" type="primary" @click="submitForm()">保 存</el-button>
+            <el-button v-if="checkPer(['admin','webConfig:edit'])" type="primary" @click="submitForm()">保 存</el-button>
           </el-form-item>
         </el-form>
       </el-tab-pane>
@@ -472,15 +472,10 @@ export default {
             picker.$emit('pick', date)
           }
         }]
+      },
+      permission: {
+        edit: ['admin', 'webConfig:edit']
       }
-    }
-  },
-  computed: {
-    ...mapGetters([
-      'pres'
-    ]),
-    canUpdate() {
-      return hasAuth(this.pres, 'webConfig:edit')
     }
   },
   created() {

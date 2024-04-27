@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -99,9 +100,18 @@ public class WebConfig extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "公告")
     private String bulletin;
 
+    @ApiModelProperty(value = "是否显示公告")
+    private Integer showBulletin;
+
     @ApiModelProperty(value = "关于我")
     private String aboutMe;
 
     @ApiModelProperty(value = "是否开启音乐播放器")
     private Integer isMusicPlayer;
+
+    @ApiModelProperty(value = "版权声明")
+    private String copyright;
+
+    @ApiModelProperty(value = "上线时间")
+    private Timestamp releaseTime;
 }

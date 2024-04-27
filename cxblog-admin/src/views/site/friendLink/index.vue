@@ -18,7 +18,7 @@
 
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
-        <el-button v-if="canAdd" type="primary" icon="el-icon-plus" size="small" @click="handleAdd">新增
+        <el-button v-if="checkPer(['admin','friendLink:add'])" type="primary" icon="el-icon-plus" size="small" @click="handleAdd">新增
         </el-button>
       </el-col>
       <el-col :span="1.5">
@@ -79,11 +79,11 @@
         </el-table-column>
         <el-table-column align="center" label="操作" width="230" class-name="small-padding fixed-width">
           <template slot-scope="scope">
-            <el-button v-if="canTop" slot="reference" type="warning" size="mini" @click="handleTop(scope)">置顶
+            <el-button v-if="checkPer(['admin','friendLink:top'])" slot="reference" type="warning" size="mini" @click="handleTop(scope)">置顶
             </el-button>
-            <el-button v-if="canUpdate" slot="reference" type="primary" size="mini" @click="handleUpdate(scope)">编辑
+            <el-button v-if="checkPer(['admin','friendLink:edit'])" slot="reference" type="primary" size="mini" @click="handleUpdate(scope)">编辑
             </el-button>
-            <el-button v-if="canDel" size="mini" type="danger" @click="handleDelete(scope)">删除</el-button>
+            <el-button v-if="checkPer(['admin','friendLink:del'])" size="mini" type="danger" @click="handleDelete(scope)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -206,24 +206,13 @@ export default {
           { required: true, message: '排序字段不能为空', trigger: 'blur' },
           { pattern: /^[0-9]\d*$/, message: '排序字段只能为自然数' }
         ]
+      },
+      permission: {
+        add: ['admin', 'friendLink:add'],
+        edit: ['admin', 'friendLink:edit'],
+        del: ['admin', 'friendLink:del'],
+        top: ['admin', 'friendLink:top']
       }
-    }
-  },
-  computed: {
-    ...mapGetters([
-      'pres'
-    ]),
-    canAdd: function() {
-      return hasAuth(this.pres, 'friendLink:add')
-    },
-    canDel: function() {
-      return hasAuth(this.pres, 'friendLink:del')
-    },
-    canUpdate: function() {
-      return hasAuth(this.pres, 'friendLink:edit')
-    },
-    canTop: function() {
-      return hasAuth(this.pres, 'friendLink:top')
     }
   },
   created() {

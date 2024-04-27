@@ -5,7 +5,7 @@
         <el-button type="primary" icon="el-icon-plus" size="small" @click="handleInserBefore">添加
         </el-button>
         <el-button
-          v-if="canDelBatch"
+          v-if="checkPer(['admin','tipsoon:del'])"
           :disabled="!multipleSelection.length"
           type="danger"
           icon="el-icon-delete"
@@ -42,14 +42,14 @@
           <template slot-scope="scope">
 
             <el-button
-              v-if="canUpdate"
+              v-if="checkPer(['admin','tipsoon:edit'])"
               size="mini"
               type="primary"
               @click="handleUpdate(scope.row.id)"
             >修改</el-button>
 
             <el-button
-              v-if="canDelBatch"
+              v-if="checkPer(['admin','tipsoon:del'])"
               size="mini"
               type="danger"
               @click="handleDeleteBatch(scope.row.id)"
@@ -185,22 +185,15 @@ export default {
         pageNo: 1,
         pageSize: 10
       },
-      files: {}
+      files: {},
+      permission: {
+        edit: ['admin', 'tipsoon:edit'],
+        del: ['admin', 'tipsoon:del']
+      }
     }
   },
   created: function() {
     this.getTipsoonList()
-  },
-  computed: {
-    ...mapGetters([
-      'pres'
-    ]),
-    canDelBatch: function() {
-      return hasAuth(this.pres, 'tipsoon:del')
-    },
-    canUpdate: function() {
-      return hasAuth(this.pres, 'tipsoon:edit')
-    }
   },
   methods: {
     splitImg(img) {

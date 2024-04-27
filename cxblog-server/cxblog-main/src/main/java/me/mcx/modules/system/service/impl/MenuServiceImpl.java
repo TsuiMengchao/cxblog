@@ -103,7 +103,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     public List<Menu> findByUser(Long currentUserId) {
         List<Role> roles = roleService.findByUsersId(currentUserId);
         Set<Long> roleIds = roles.stream().map(Role::getId).collect(Collectors.toSet());
-        LinkedHashSet<Menu> menus = menuMapper.findByRoleIds(roleIds);
+        LinkedHashSet<Menu> menus = menuMapper.findByRoleIdsAndTypeNot(roleIds, 2);
         return new ArrayList<>(menus);
     }
 
@@ -278,7 +278,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
                         }
                         menuVo.setMeta(new MenuMetaVo(menu.getTitle(),menu.getIcon(),!menu.getCache()));
                         if(CollectionUtil.isNotEmpty(menuList)){
-                            if(menu.getType() < 1) menuVo.setAlwaysShow(true);
+                            menuVo.setAlwaysShow(true);
                             menuVo.setRedirect("noredirect");
                             menuVo.setChildren(buildMenus(menuList));
                             // 处理是一级菜单并且没有子菜单的情况
@@ -300,8 +300,6 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
                             list1.add(menuVo1);
                             menuVo.setChildren(list1);
                         }
-                        menuVo.setPermission(menu.getPermission());
-                        menuVo.setType(menu.getType());
                         list.add(menuVo);
                     }
                 }

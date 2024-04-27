@@ -5,7 +5,7 @@
         <el-button type="primary" icon="el-icon-plus" size="small" @click="handleInserBefore">添加
         </el-button>
         <el-button
-          v-if="canDelBatch"
+          v-if="checkPer(['admin','say:del'])"
           :disabled="!multipleSelection.length"
           type="danger"
           icon="el-icon-delete"
@@ -45,14 +45,14 @@
           <template slot-scope="scope">
 
             <el-button
-              v-if="canUpdate"
+              v-if="checkPer(['admin','say:edit'])"
               size="mini"
               type="primary"
               @click="handleUpdate(scope.row.id)"
             >修改</el-button>
 
             <el-button
-              v-if="canDelBatch"
+              v-if="checkPer(['admin','say:del'])"
               size="mini"
               type="danger"
               @click="handleDeleteBatch(scope.row.id)"
@@ -184,22 +184,15 @@ export default {
         pageNo: 1,
         pageSize: 10
       },
-      files: {}
+      files: {},
+      permission: {
+        edit: ['admin', 'say:edit'],
+        del: ['admin', 'say:del']
+      }
     }
   },
   created: function() {
     this.getSayList()
-  },
-  computed: {
-    ...mapGetters([
-      'pres'
-    ]),
-    canDelBatch: function() {
-      return hasAuth(this.pres, 'say:del')
-    },
-    canUpdate: function() {
-      return hasAuth(this.pres, 'say:edit')
-    }
   },
   methods: {
     splitImg(img) {

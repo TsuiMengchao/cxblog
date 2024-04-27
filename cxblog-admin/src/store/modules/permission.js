@@ -15,9 +15,6 @@ const permission = {
     },
     SET_SIDEBAR_ROUTERS: (state, routers) => {
       state.sidebarRouters = constantRouterMap.concat(routers)
-    },
-    SET_PRES: (state, btnList) => {
-      state.pres = btnList
     }
   },
   actions: {
@@ -26,9 +23,6 @@ const permission = {
     },
     SetSidebarRouters({ commit }, sidebarRouter) {
       commit('SET_SIDEBAR_ROUTERS', sidebarRouter)
-    },
-    SetPres({ commit }, btnList) {
-      commit('SET_PRES', btnList)
     }
   }
 }

@@ -34,7 +34,6 @@ public interface MenuMapper extends BaseMapper<Menu> {
 
     List<Menu> findAll(@Param("criteria") MenuQueryCriteria criteria);
 
-    LinkedHashSet<Menu> findByRoleIds(@Param("roleIds") Set<Long> roleIds);
     LinkedHashSet<Menu> findByRoleIdsAndTypeNot(@Param("roleIds") Set<Long> roleIds, @Param("type") Integer type);
 
     List<Menu> findByPidIsNullOrderByMenuSort();

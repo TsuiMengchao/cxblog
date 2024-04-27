@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <!-- 查询和其他操作 -->
-    <!-- <el-form v-show="showSearch" :inline="true" ref="form" :model="params" label-width="68px">
+     <el-form v-show="showSearch" :inline="true" ref="form" :model="params" label-width="68px">
             <el-form-item label="名称">
                 <el-input style="width: 200px" size="small" v-model="params.name" placeholder="请输入名称" />
             </el-form-item>
@@ -10,7 +10,7 @@
                 <el-button type="primary" icon="el-icon-search" size="small" @click="handleFind">查找</el-button>
                 <el-button icon="el-icon-refresh" size="small" @click="resetQuery">重置</el-button>
             </el-form-item>
-        </el-form> -->
+        </el-form>
 
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
@@ -18,7 +18,7 @@
         </el-button>
       </el-col> <el-col :span="1.5">
         <el-button
-          v-if="canDeleteBatch"
+          v-if="checkPer(['admin','sponsor:del'])"
           :disabled="!multipleSelection.length"
           type="danger"
           icon="el-icon-delete"
@@ -63,9 +63,9 @@
 
         <el-table-column label="操作" align="center">
           <template slot-scope="scope">
-            <el-button v-if="canUpdate" type="primary" size="mini" @click="handleEdit(scope.row)">编辑</el-button>
+            <el-button v-if="checkPer(['admin','sponsor:edit'])" type="primary" size="mini" @click="handleEdit(scope.row)">编辑</el-button>
             <el-button
-              v-if="canDeleteBatch"
+              v-if="checkPer(['admin','sponsor:del'])"
               type="danger"
               size="mini"
               @click="handleDeleteBatch(scope.row)"
@@ -135,19 +135,11 @@ export default {
         money: [
           { required: true, message: '打赏金额不能为空', trigger: 'blur' }
         ]
+      },
+      permission: {
+        edit: ['admin', 'sponsor:edit'],
+        deleteBatch: ['admin', 'sponsor:del']
       }
-    }
-  },
-  computed: {
-    ...mapGetters([
-      'pres'
-    ]),
-    canUpdate() {
-      return hasAuth(this.pres, 'sponsor:edit')
-    },
-
-    canDeleteBatch() {
-      return hasAuth(this.pres, 'sponsor:del')
     }
   },
   created() {

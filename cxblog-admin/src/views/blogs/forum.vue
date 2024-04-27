@@ -5,7 +5,7 @@
         <el-button type="primary" icon="el-icon-plus" size="small" @click="handleInserBefore">添加
         </el-button>
         <el-button
-          v-if="canDelBatch"
+          v-if="checkPer(['admin','forum:del'])"
           :disabled="!multipleSelection.length"
           type="danger"
           icon="el-icon-delete"
@@ -45,14 +45,14 @@
           <template slot-scope="scope">
 
             <el-button
-              v-if="canUpdate"
+              v-if="checkPer(['admin','forum:edit'])"
               size="mini"
               type="primary"
               @click="handleUpdate(scope.row.id)"
             >修改</el-button>
 
             <el-button
-              v-if="canDelBatch"
+              v-if="checkPer(['admin','forum:del'])"
               size="mini"
               type="danger"
               @click="handleDeleteBatch(scope.row.id)"
@@ -203,23 +203,16 @@ export default {
       talkVisible: false,
       talkName: "请选择圈子",
       talkSelectList: [],
-      talkDict: {}
+      talkDict: {},
+      permission: {
+        edit: ['admin', 'forum:edit'],
+        del: ['admin', 'forum:del']
+      }
     }
   },
   created: function() {
     this.getTalkList()
     this.getForumList()
-  },
-  computed: {
-    ...mapGetters([
-      'pres'
-    ]),
-    canDelBatch: function() {
-      return hasAuth(this.pres, 'forum:del')
-    },
-    canUpdate: function() {
-      return hasAuth(this.pres, 'forum:edit')
-    }
   },
   methods: {
     getTalkList: function() {

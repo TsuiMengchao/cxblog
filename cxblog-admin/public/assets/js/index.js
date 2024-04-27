@@ -15,6 +15,22 @@ document.addEventListener("visibilitychange", () => {
   }
 }, false);
 
+/* 样式代码 */
+var styleTitle1 = `
+font-size: 20px;
+font-weight: 600;
+color: rgb(244,167,89);
+`
+var styleTitle2 = `
+font-style: oblique;
+font-size:14px;
+color: rgb(244,167,89);
+font-weight: 400;
+`
+var styleContent = `
+color: rgb(30,152,255);
+`
+
 
 /* 内容代码 */
 var title1 = '🌒 辰雪博客 后台管理系统'
@@ -29,5 +45,4 @@ var content = `
 🏠官网:  ${offiUrl}
 📞QQ/VX: 18333191029
 `
-console.log(`%c${title1}
-%c${content}`, styleTitle1, styleContent)
+console.log(`%c${title1}%c${content}`, styleTitle1, styleContent)

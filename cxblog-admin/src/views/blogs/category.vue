@@ -13,7 +13,7 @@
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button
-          v-if="canAdd"
+          v-if="checkPer(['admin','category:add'])"
           size="small"
           class="filter-item"
           type="primary"
@@ -24,7 +24,7 @@
       </el-col>
       <el-col :span="1.5">
         <el-button
-          v-if="canDeleteBatch"
+          v-if="checkPer(['admin','category:deleteBatch'])"
           size="small"
           :disabled="!multipleSelection.length"
           class="filter-item"
@@ -70,9 +70,9 @@
         </el-table-column>
         <el-table-column width="220" align="center" label="操作" class-name="small-padding fixed-width">
           <template slot-scope="scope">
-            <el-button v-if="canTop" type="warning" size="mini" @click="handleTop(scope)">置顶</el-button>
-            <el-button v-if="canUpdate" type="primary" size="mini" @click="handleEdit(scope)">编辑</el-button>
-            <el-button v-if="canDel" size="mini" type="danger" @click="remove(scope)">删除
+            <el-button v-if="checkPer(['admin','category:top'])" type="warning" size="mini" @click="handleTop(scope)">置顶</el-button>
+            <el-button v-if="checkPer(['admin','category:edit'])" type="primary" size="mini" @click="handleEdit(scope)">编辑</el-button>
+            <el-button v-if="checkPer(['admin','category:del'])" size="mini" type="danger" @click="remove(scope)">删除
             </el-button>
           </template>
         </el-table-column>
@@ -163,32 +163,19 @@ export default {
         'avatar': [
           { required: true, message: '必填字段', trigger: 'change' }
         ]
+      },
+      permission: {
+        add: ['admin', 'category:add'],
+        edit: ['admin', 'category:edit'],
+        del: ['admin', 'category:del'],
+        deleteBatch: ['admin', 'category:deleteBatch'],
+        top: ['admin', 'category:top']
       }
     }
   },
   created() {
     this.openLoading()
     this.fetchCategory()
-  },
-  computed: {
-    ...mapGetters([
-      'pres'
-    ]),
-    canAdd: function() {
-      return hasAuth(this.pres, 'category:add')
-    },
-    canDel: function() {
-      return hasAuth(this.pres, 'category:del')
-    },
-    canDeleteBatch: function() {
-      return hasAuth(this.pres, 'category:deleteBatch')
-    },
-    canUpdate: function() {
-      return hasAuth(this.pres, 'category:edit')
-    },
-    canTop: function() {
-      return hasAuth(this.pres, 'category:top')
-    }
   },
   methods: {
     openIconsDialog: function(model) {

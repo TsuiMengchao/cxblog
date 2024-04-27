@@ -93,7 +93,7 @@
           </el-form-item>
 
           <el-form-item>
-            <el-button v-if="canUpdate" type="primary" @click="submitForm()">保 存</el-button>
+            <el-button v-if="checkPer(['admin','systemConfig:edit'])" type="primary" @click="submitForm()">保 存</el-button>
           </el-form-item>
 
         </el-form>
@@ -120,7 +120,7 @@
 <!--            <el-input v-model="form.localFileUrl" auto-complete="new-password" style="width: 400px" />-->
 <!--          </el-form-item>-->
 <!--          <el-form-item>-->
-<!--            <el-button v-if="canUpdate" type="primary" @click="submitForm()">保 存</el-button>-->
+<!--            <el-button v-if="checkPer(['admin','systemConfig:edit'])" type="primary" @click="submitForm()">保 存</el-button>-->
 <!--          </el-form-item>-->
 <!--        </el-form>-->
 <!--      </el-tab-pane>-->
@@ -169,7 +169,7 @@
 <!--            </el-select>-->
 <!--          </el-form-item>-->
 <!--          <el-form-item>-->
-<!--            <el-button v-if="canUpdate" type="primary" @click="submitForm()">保 存</el-button>-->
+<!--            <el-button v-if="checkPer(['admin','systemConfig:edit'])" type="primary" @click="submitForm()">保 存</el-button>-->
 <!--          </el-form-item>-->
 <!--        </el-form>-->
 <!--      </el-tab-pane>-->
@@ -203,7 +203,7 @@
       <!--          </el-form-item>-->
 
       <!--          <el-form-item>-->
-      <!--            <el-button v-if="canUpdate" type="primary" @click="submitForm()">保 存</el-button>-->
+      <!--            <el-button v-if="checkPer(['admin','systemConfig:edit'])" type="primary" @click="submitForm()">保 存</el-button>-->
       <!--          </el-form-item>-->
 
       <!--        </el-form>-->
@@ -224,7 +224,7 @@
           />
         </div>
         <div style="margin-top: 5px; margin-left: 10px;text-align: center">
-          <el-button v-if="canUpdate" type="primary" @click="submitForm()">保 存</el-button>
+          <el-button v-if="checkPer(['admin','systemConfig:edit'])" type="primary" @click="submitForm()">保 存</el-button>
         </div>
       </el-tab-pane>
 
@@ -260,18 +260,13 @@ export default {
         email: [
           { pattern: /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/, message: '请输入正确的邮箱' }
         ]
+      },
+      permission: {
+        edit: ['admin', 'systemConfig:edit']
       }
     }
   },
   watch: {},
-  computed: {
-    ...mapGetters([
-      'pres'
-    ]),
-    canUpdate: function() {
-      return hasAuth(this.pres, 'systemConfig:edit')
-    }
-  },
   created() {
     // 获取字典
     this.getDictList()

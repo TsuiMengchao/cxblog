@@ -14,7 +14,7 @@
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button
-          v-if="canDelBatch"
+          v-if="checkPer(['admin','tipsoonComment:deleteBatch'])"
           :disabled="!multipleSelection.length"
           type="danger"
           icon="el-icon-delete"
@@ -37,7 +37,7 @@
         </el-table-column>
         <el-table-column prop="nickname" align="center" width="200" label="评论用户" />
         <el-table-column prop="replyNickname" align="center" width="200" label="回复用户" />
-        <el-table-column prop="articleTitle" align="center" width="250" label="所属文章" />
+        <el-table-column prop="articleTitle" align="center" width="250" label="所属讨论" />
         <el-table-column prop="content" align="center" width="300" label="内容">
           <template slot-scope="scope">
             <span class="comment-content" v-html="scope.row.content" />
@@ -51,7 +51,7 @@
         <el-table-column align="center" label="操作" class-name="small-padding fixed-width">
           <template slot-scope="scope">
             <el-button
-              v-if="canDelBatch"
+              v-if="checkPer(['admin','tipsoonComment:deleteBatch'])"
               size="mini"
               type="danger"
               @click="handleDeleteBatch(scope.row.id)"
@@ -77,10 +77,8 @@
   </div>
 </template>
 <script>
-import { fetchComment, deleteBatch } from '@/api/news/comment'
+import { fetchComment, deleteBatch } from '@/api/news/tipsoonComment'
 import { parseTime } from '@/utils'
-import { mapGetters } from 'vuex'
-import { hasAuth } from '@/utils/auth'
 
 export default {
   data() {
@@ -95,20 +93,15 @@ export default {
         keywords: null,
         pageNo: 1,
         pageSize: 10
+      },
+      permission: {
+        del: ['admin', 'tipsoonComment:deleteBatch']
       }
     }
   },
   created: function() {
     this.openLoading()
     this.fetchComment()
-  },
-  computed: {
-    ...mapGetters([
-      'pres'
-    ]),
-    canDelBatch: function() {
-      return hasAuth(this.pres, 'comment:deleteBatch')
-    }
   },
   methods: {
     fetchComment: function() {

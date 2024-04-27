@@ -14,7 +14,7 @@
 
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
-        <el-button v-if="canAdd" type="primary" icon="el-icon-plus" size="small" @click="handleAdd">新增
+        <el-button v-if="checkPer(['admin','navigation:add'])" type="primary" icon="el-icon-plus" size="small" @click="handleAdd">新增
         </el-button>
       </el-col>
       <el-col :span="1.5">
@@ -23,7 +23,7 @@
       </el-col>
       <el-col :span="1.5">
         <el-button
-          v-if="canDeleteBatch"
+          v-if="checkPer(['admin','navigation:deleteBatch'])"
           :disabled="!multipleSelection.length"
           type="danger"
           icon="el-icon-delete"
@@ -70,9 +70,9 @@
 
         <el-table-column label="操作" align="center">
           <template slot-scope="scope">
-            <el-button v-if="canUpdate" type="primary" size="mini" @click="handleEdit(scope.row)">编辑</el-button>
+            <el-button v-if="checkPer(['admin','navigation:edit'])" type="primary" size="mini" @click="handleEdit(scope.row)">编辑</el-button>
             <el-button
-              v-if="canDeleteBatch"
+              v-if="checkPer(['admin','navigation:deleteBatch'])"
               type="danger"
               size="mini"
               @click="handleDeleteBatch(scope.row)"
@@ -178,24 +178,12 @@ export default {
           { required: true, message: 'logo不能为空', trigger: 'blur' }
         ]
 
+      },
+      permission: {
+        add: ['admin', 'navigation:add'],
+        edit: ['admin', 'navigation:edit'],
+        deleteBatch: ['admin', 'navigation:deleteBatch']
       }
-    }
-  },
-  computed: {
-    ...mapGetters([
-      'pres'
-    ]),
-    canList: function() {
-      return hasAuth(this.pres, 'navigation:list')
-    },
-    canAdd: function() {
-      return hasAuth(this.pres, 'navigation:add')
-    },
-    canUpdate: function() {
-      return hasAuth(this.pres, 'navigation:edit')
-    },
-    canDeleteBatch: function() {
-      return hasAuth(this.pres, 'navigation:deleteBatch')
     }
   },
   created() {

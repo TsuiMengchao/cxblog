@@ -13,17 +13,17 @@
     <view>
       <view class="tn-strip-bottom">
         <view class="slideshow">
-          <view class="slideshow-image" style="background-image: url('https://cxblog.qiniu.zhaohaoyue.love/79a5a680d03d248be810f911661c2569.jpg')">
+          <view class="slideshow-image" style="background-image: url('https://cxblog.qiniu.zhaohaoyue.love/file/img/upload/resume/79a5a680d03d248be810f911661c2569.jpg')">
           </view>
-          <view class="slideshow-image" style="background-image: url('https://cxblog.qiniu.zhaohaoyue.love/f0046bbf8ca0b8a40d6ef50ac0632c3d.jpg')">
+          <view class="slideshow-image" style="background-image: url('https://cxblog.qiniu.zhaohaoyue.love/file/img/upload/resume/f0046bbf8ca0b8a40d6ef50ac0632c3d.jpg')">
           </view>
-          <view class="slideshow-image" style="background-image: url('https://cxblog.qiniu.zhaohaoyue.love/275f86a34a84962e3562f08274057264.jpg')">
+          <view class="slideshow-image" style="background-image: url('https://cxblog.qiniu.zhaohaoyue.love/file/img/upload/resume/275f86a34a84962e3562f08274057264.jpg')">
           </view>
-          <view class="slideshow-image" style="background-image: url('https://cxblog.qiniu.zhaohaoyue.love/54205885a4b4efe640cba25b964fe152.jpg')">
+          <view class="slideshow-image" style="background-image: url('https://cxblog.qiniu.zhaohaoyue.love/file/img/upload/resume/54205885a4b4efe640cba25b964fe152.jpg')">
           </view>
         </view>
         <view class="beibei">
-          <view class="beibei2" style="background-image: url('https://cxblog.qiniu.zhaohaoyue.love/54205885a4b4efe640cba25b964fe152.jpg')"></view>
+          <view class="beibei2" style="background-image: url('https://cxblog.qiniu.zhaohaoyue.love/file/img/upload/resume/54205885a4b4efe640cba25b964fe152.jpg')"></view>
         </view>
         <view class='tn-margin tn-padding-top-sm'>
           <view class="tn-text-bold">

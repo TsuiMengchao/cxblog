@@ -66,7 +66,7 @@
           </view>
         </view>
       </view>
-	  
+
 	  <view class="tn-flex-1 tn-padding-sm tn-margin-xs tn-radius">
 	    <view class="tn-flex tn-flex-direction-column tn-flex-row-center tn-flex-col-center" @click="handleMessageNotice(4)">
 	      <view class="icon1__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-shadow-blur tn-bg-cyan tn-color-white">
@@ -81,7 +81,7 @@
 	      </view>
 	    </view>
 	  </view>
-	  
+
 	  <view class="tn-flex-1 tn-padding-sm tn-margin-xs tn-radius">
 	    <view class="tn-flex tn-flex-direction-column tn-flex-row-center tn-flex-col-center" @click="handleMessageNotice(5)">
 	      <view class="icon1__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-shadow-blur tn-bg-cyan tn-color-white">
@@ -128,7 +128,7 @@
 	              <view class="logo-image">
 	                <view v-if="params.type" class="tn-shadow-blur" :style="'background-image:url(' + item.fromUserAvatar + ');width: 110rpx;height: 110rpx;background-size: cover;'">
 	                </view>
-					<view v-else class="tn-shadow-blur" style="background-image:url(https://cxblog.qiniu.zhaohaoyue.love/9cf1222617fd4fa197991476a53cc883.jpg);width: 110rpx;height: 110rpx;background-size: cover;">
+					<view v-else class="tn-shadow-blur" style="background-image:url(https://cxblog.qiniu.zhaohaoyue.love/web/9cf1222617fd4fa197991476a53cc883.jpg);width: 110rpx;height: 110rpx;background-size: cover;">
 					</view>
 	              </view>
 	            </view>

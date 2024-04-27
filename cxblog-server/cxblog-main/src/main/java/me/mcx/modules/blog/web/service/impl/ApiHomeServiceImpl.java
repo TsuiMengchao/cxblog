@@ -90,11 +90,11 @@ public class ApiHomeServiceImpl implements ApiHomeService {
     public ResponseResult getWebSiteInfo() {
         //网站信息
         WebConfig webConfig = webConfigMapper.selectOne(new LambdaQueryWrapper<WebConfig>()
-                .select(WebConfig::getId,WebConfig::getAuthorAvatar,WebConfig::getIsMusicPlayer,WebConfig::getAuthorInfo,WebConfig::getTouristAvatar,WebConfig::getBulletin,
+                .select(WebConfig::getId,WebConfig::getAuthorAvatar,WebConfig::getIsMusicPlayer,WebConfig::getAuthorInfo,WebConfig::getTouristAvatar,WebConfig::getBulletin,WebConfig::getShowBulletin,
                         WebConfig::getQqNumber,WebConfig::getGitee,WebConfig::getGithub,WebConfig::getLogo,WebConfig::getWechat,
                         WebConfig::getAboutMe,WebConfig::getEmail,WebConfig::getShowList,WebConfig::getLoginTypeList,
                         WebConfig::getRecordNum,WebConfig::getAuthor,WebConfig::getAliPay,WebConfig::getWeixinPay,
-                        WebConfig::getQqGroup,WebConfig::getWebUrl, WebConfig::getSummary,WebConfig::getName,WebConfig::getKeyword));
+                        WebConfig::getQqGroup,WebConfig::getWebUrl, WebConfig::getSummary,WebConfig::getName,WebConfig::getKeyword,WebConfig::getCopyright,WebConfig::getReleaseTime));
 
         //获取访问量
         Object count = redisService.getCacheObject(RedisConstants.BLOG_VIEWS_COUNT);

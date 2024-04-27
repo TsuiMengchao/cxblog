@@ -9,7 +9,7 @@ export default {
   name: 'Doc',
   methods: {
     click() {
-      window.open('http://赵浩悦.我爱你/pages/010101/', '_blank')
+      window.open('https://doc.cxblog.zhaohaoyue.love/pages/010101/', '_blank')
     }
   }
 }

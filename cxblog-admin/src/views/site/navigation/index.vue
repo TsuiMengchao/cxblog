@@ -14,11 +14,11 @@
 
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
-        <el-button v-if="canAdd" type="primary" icon="el-icon-plus" size="small" @click="handleAdd">新增
+        <el-button v-if="checkPer(['admin','siteClass:add'])" type="primary" icon="el-icon-plus" size="small" @click="handleAdd">新增
         </el-button>
       </el-col> <el-col :span="1.5">
         <el-button
-          v-if="canDeleteBatch"
+          v-if="checkPer(['admin','siteClass:deleteBatch'])"
           :disabled="!multipleSelection.length"
           type="danger"
           icon="el-icon-delete"
@@ -53,9 +53,9 @@
         <el-table-column label="操作" align="center">
           <template slot-scope="scope">
             <el-button type="success" size="mini" @click="handleNavigationList(scope.row.id)">列表</el-button>
-            <el-button v-if="canUpdate" type="primary" size="mini" @click="handleEdit(scope.row)">编辑</el-button>
+            <el-button v-if="checkPer(['admin','siteClass:edit'])" type="primary" size="mini" @click="handleEdit(scope.row)">编辑</el-button>
             <el-button
-              v-if="canDeleteBatch"
+              v-if="checkPer(['admin','siteClass:deleteBatch'])"
               type="danger"
               size="mini"
               @click="handleDeleteBatch(scope.row)"
@@ -132,25 +132,12 @@ export default {
           { required: true, message: '排序字段不能为空', trigger: 'blur' },
           { pattern: /^[0-9]\d*$/, message: '排序字段只能为自然数' }
         ]
+      },
+      permission: {
+        add: ['admin', 'siteClass:add'],
+        edit: ['admin', 'siteClass:edit'],
+        deleteBatch: ['admin', 'siteClass:deleteBatch']
       }
-    }
-  },
-  computed: {
-    ...mapGetters([
-      'pres'
-    ]),
-    canList() {
-      return hasAuth(this.pres, 'siteClass:list')
-    },
-    canAdd() {
-      return hasAuth(this.pres, 'siteClass:add')
-    },
-    canUpdate() {
-      return hasAuth(this.pres, 'siteClass:edit')
-    },
-
-    canDeleteBatch() {
-      return hasAuth(this.pres, 'siteClass:deleteBatch')
     }
   },
   created() {

@@ -54,12 +54,12 @@
     </el-form>
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
-        <el-button v-if="canAdd" size="small" class="filter-item" type="primary" icon="el-icon-plus" @click="handleAdd">添加
+        <el-button v-if="checkPer(['admin','article:add'])" size="small" class="filter-item" type="primary" icon="el-icon-plus" @click="handleAdd">添加
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-          v-if="canReptile"
+          v-if="checkPer(['admin','article:reptile'])"
           size="small"
           class="filter-item"
           type="primary"
@@ -70,7 +70,7 @@
       </el-col>
       <el-col :span="1.5">
         <el-button
-          v-if="canUpdate"
+          v-if="checkPer(['admin','article:edit'])"
           size="small"
           :disabled="!multipleSelection.length"
           class="filter-item"
@@ -82,7 +82,7 @@
       </el-col>
       <el-col :span="1.5">
         <el-button
-          v-if="canDelBatch"
+          v-if="checkPer(['admin','article:deleteBatch'])"
           size="small"
           :disabled="!multipleSelection.length"
           class="filter-item"
@@ -139,7 +139,7 @@
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column v-if="canTop" prop="isStick" align="center" width="120" label="置顶">
+        <el-table-column v-if="checkPer(['admin','article:top'])" prop="isStick" align="center" width="120" label="置顶">
           <template slot-scope="scope">
             <el-switch
               v-model="scope.row.isStick"
@@ -168,14 +168,14 @@
         </el-table-column>
         <el-table-column width="220" fixed="right" align="center" label="操作">
           <template slot-scope="scope">
-            <el-button v-if="canUpdate && (scope.row.isPublish === 1 || scope.row.isPublish === 2)" type="info" size="mini" @click="offShelf(scope)">
+            <el-button v-if="checkPer(['admin','article:edit']) && (scope.row.isPublish === 1 || scope.row.isPublish === 2)" type="info" size="mini" @click="offShelf(scope)">
               下架
             </el-button>
-            <el-button v-if="canUpdate && (scope.row.isPublish === 0 || scope.row.isPublish === 2)" type="success" size="mini" @click="release(scope)">
+            <el-button v-if="checkPer(['admin','article:edit']) && (scope.row.isPublish === 0 || scope.row.isPublish === 2)" type="success" size="mini" @click="release(scope)">
               发布
             </el-button>
-            <el-button v-if="canUpdate" type="primary" size="mini" @click="handleUpdate(scope)">编辑</el-button>
-            <el-button v-if="canDel" size="mini" type="danger" @click="handleDelete(scope)">删除</el-button>
+            <el-button v-if="checkPer(['admin','article:edit'])" type="primary" size="mini" @click="handleUpdate(scope)">编辑</el-button>
+            <el-button v-if="checkPer(['admin','article:del'])" size="mini" type="danger" @click="handleDelete(scope)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -404,7 +404,7 @@
         </el-form>
         <span slot="footer" class="dialog-footer">
           <el-button @click="centerDialogVisible = false">取 消</el-button>
-          <el-button v-if="canAdd || canUpdate" type="primary" @click="submit">确定</el-button>
+          <el-button v-if="checkPer(['admin','article:add', 'article:edit'])" type="primary" @click="submit">确定</el-button>
         </span>
       </el-dialog>
     </div>
@@ -523,6 +523,14 @@ export default {
         isPublish: null,
         pageNo: 1,
         pageSize: 10
+      },
+      permission: {
+        add: ['admin', 'article:add'],
+        edit: ['admin', 'article:edit'],
+        del: ['admin', 'article:del'],
+        deleteBatch: ['admin', 'article:deleteBatch'],
+        reptile: ['admin', 'article:reptile'],
+        top: ['admin', 'article:top']
       }
     }
   },
@@ -536,28 +544,6 @@ export default {
     this.queryList()
   },
   computed: {
-    ...mapGetters([
-      'pres'
-    ]),
-    canAdd: function() {
-      console.log(this.pres)
-      return hasAuth(this.pres, 'article:add')
-    },
-    canDel: function() {
-      return hasAuth(this.pres, 'article:del')
-    },
-    canDelBatch: function() {
-      return hasAuth(this.pres, 'article:deleteBatch')
-    },
-    canUpdate: function() {
-      return hasAuth(this.pres, 'article:edit')
-    },
-    canReptile: function() {
-      return hasAuth(this.pres, 'article:reptile')
-    },
-    canTop: function() {
-      return hasAuth(this.pres, 'article:top')
-    },
     tagClass() {
       return function(item) {
         const index = this.article.tags.indexOf(item.name)

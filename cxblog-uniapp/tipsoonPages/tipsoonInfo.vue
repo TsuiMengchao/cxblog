@@ -179,7 +179,7 @@ export default {
           id: "0",
           title: "感谢您阅读完所有内容！",
           content: "您已成功获取全部信息。如果您有任何问题或需要进一步的帮助，请随时提问。我们很乐意为您提供支持！",
-          imgUrl: "https://cxblog.qiniu.zhaohaoyue.love/780.jpg",
+          imgUrl: "https://cxblog.qiniu.zhaohaoyue.love/file/img/upload/tipsoon/780.jpg",
           site: {
             title: "简讯官网",
             url: "https://www.tipsoon.com"

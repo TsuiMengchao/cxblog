@@ -25,7 +25,7 @@
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button
-          v-if="canAdd"
+          v-if="checkPer(['admin','blogDataDict:add'])"
           type="primary"
           icon="el-icon-plus"
           size="small"
@@ -44,7 +44,7 @@
       </el-col>
       <el-col :span="1.5">
         <el-button
-          v-if="canDeleteBatch"
+          v-if="checkPer(['admin','blogDataDict:deleteBatch'])"
           :disabled="!multipleSelection.length"
           type="danger"
           icon="el-icon-delete"
@@ -125,8 +125,8 @@
 
         <el-table-column label="操作" align="center" min-width="200">
           <template slot-scope="scope">
-            <el-button v-if="canUpdate" type="primary" size="mini" @click="handleEdit(scope.row)">编辑</el-button>
-            <el-button v-if="canDelete" type="danger" size="mini" @click="handleDelete(scope.row)">删除</el-button>
+            <el-button v-if="checkPer(['admin','blogDataDict:edit'])" type="primary" size="mini" @click="handleEdit(scope.row)">编辑</el-button>
+            <el-button v-if="checkPer(['admin','blogDataDict:del'])" type="danger" size="mini" @click="handleDelete(scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -281,27 +281,13 @@ export default {
           { required: true, message: '排序字段不能为空', trigger: 'blur' },
           { pattern: /^[0-9]\d*$/, message: '排序字段只能为自然数' }
         ]
+      },
+      permission: {
+        add: ['admin', 'blogDataDict:add'],
+        edit: ['admin', 'blogDataDict:edit'],
+        del: ['admin', 'blogDataDict:del'],
+        deleteBatch: ['admin', 'blogDataDict:deleteBatch']
       }
-    }
-  },
-  computed: {
-    ...mapGetters([
-      'pres'
-    ]),
-    canList: function() {
-      return hasAuth(this.pres, 'blogDataDict:list')
-    },
-    canAdd: function() {
-      return hasAuth(this.pres, 'blogDataDict:add')
-    },
-    canUpdate: function() {
-      return hasAuth(this.pres, 'blogDataDict:edit')
-    },
-    canDelete: function() {
-      return hasAuth(this.pres, 'blogDataDict:del')
-    },
-    canDeleteBatch: function() {
-      return hasAuth(this.pres, 'blogDataDict:deleteBatch')
     }
   },
   created() {

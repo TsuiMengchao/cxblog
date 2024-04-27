@@ -53,30 +53,8 @@ router.beforeEach((to, from, next) => {
 
 export const loadMenus = (next, to) => {
   buildMenus().then(res => {
-    const btnList = []
-
-    const menuArr = JSON.parse(JSON.stringify(res))
-    menuArr.forEach(item => {
-      item.children.forEach(item1 => {
-        const children = item1.children
-        if (children != null) {
-          var isBtn = false
-          item1.children.forEach(item2 => {
-            if (item2.type === 2 && item2.permission != null) {
-              btnList.push(item2.permission)
-              isBtn = true
-            }
-          })
-          if (isBtn) {
-            delete item1.children
-          }
-        }
-      })
-    })
-    store.dispatch('SetPres', btnList)
-
-    const sdata = JSON.parse(JSON.stringify(menuArr))
-    const rdata = JSON.parse(JSON.stringify(menuArr))
+    const sdata = JSON.parse(JSON.stringify(res))
+    const rdata = JSON.parse(JSON.stringify(res))
     const sidebarRoutes = filterAsyncRouter(sdata)
     const rewriteRoutes = filterAsyncRouter(rdata, false, true)
     rewriteRoutes.push({ path: '*', redirect: '/404', hidden: true })

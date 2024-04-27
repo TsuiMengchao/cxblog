@@ -7,8 +7,7 @@ const user = {
     user: {},
     roles: [],
     // 第一次加载菜单时用到
-    loadMenus: false,
-    pres: []
+    loadMenus: false
   },
 
   mutations: {

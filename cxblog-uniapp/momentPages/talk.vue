@@ -273,7 +273,7 @@
       // 预览圈子管理员微信图片
       previewQRCodeImage() {
         wx.previewImage({
-          urls: ['https://cxblog.qiniu.zhaohaoyue.love/cc8f7aa6d14b1751ea2da620d2e3c6d7.bmp']
+          urls: ['https://cxblog.qiniu.zhaohaoyue.love/web/cc8f7aa6d14b1751ea2da620d2e3c6d7.bmp']
         })
       },
       // 弹出模态框

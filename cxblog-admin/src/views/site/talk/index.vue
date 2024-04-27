@@ -14,11 +14,11 @@
 
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
-        <el-button v-if="canAdd" type="primary" icon="el-icon-plus" size="small" @click="handleAdd">新增
+        <el-button v-if="checkPer(['admin','talk:add'])" type="primary" icon="el-icon-plus" size="small" @click="handleAdd">新增
         </el-button>
       </el-col> <el-col :span="1.5">
         <el-button
-          v-if="canDeleteBatch"
+          v-if="checkPer(['admin','talk:del'])"
           :disabled="!multipleSelection.length"
           type="danger"
           icon="el-icon-delete"
@@ -52,9 +52,9 @@
 
         <el-table-column label="操作" align="center">
           <template slot-scope="scope">
-            <el-button v-if="canUpdate" type="primary" size="mini" @click="handleEdit(scope.row)">编辑</el-button>
+            <el-button v-if="checkPer(['admin','talk:edit'])" type="primary" size="mini" @click="handleEdit(scope.row)">编辑</el-button>
             <el-button
-              v-if="canDeleteBatch"
+              v-if="checkPer(['admin','talk:del'])"
               type="danger"
               size="mini"
               @click="handleDeleteBatch(scope.row)"
@@ -131,25 +131,12 @@ export default {
           { required: true, message: '名称不能为空', trigger: 'blur' },
           { min: 1, max: 20, message: '长度在1到10个字符' }
         ]
+      },
+      permission: {
+        add: ['admin', 'talk:add'],
+        edit: ['admin', 'talk:edit'],
+        deleteBatch: ['admin', 'talk:del']
       }
-    }
-  },
-  computed: {
-    ...mapGetters([
-      'pres'
-    ]),
-    canList() {
-      return hasAuth(this.pres, 'talk:list')
-    },
-    canAdd() {
-      return hasAuth(this.pres, 'talk:add')
-    },
-    canUpdate() {
-      return hasAuth(this.pres, 'talk:edit')
-    },
-
-    canDeleteBatch() {
-      return hasAuth(this.pres, 'talk:del')
     }
   },
   created() {

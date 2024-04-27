@@ -14,7 +14,7 @@
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button
-          v-if="canDelBatch"
+          v-if="checkPer(['admin','message:deleteBatch'])"
           :disabled="!multipleSelection.length"
           type="danger"
           icon="el-icon-delete"
@@ -25,7 +25,7 @@
       </el-col>
       <el-col :span="1.5">
         <el-button
-          v-if="canPassBatch"
+          v-if="checkPer(['admin','message:passBatch'])"
           :disabled="!multipleSelection.length"
           type="success"
           icon="el-icon-circle-check"
@@ -63,12 +63,12 @@
         <el-table-column align="center" label="操作" width="160" class-name="small-padding fixed-width">
           <template slot-scope="scope">
             <el-button
-              v-if="canPassBatch && !scope.row.status"
+              v-if="checkPer(['admin','message:passBatch']) && !scope.row.status"
               type="primary"
               size="mini"
               @click="handlePassBatch(scope)"
             >通过</el-button>
-            <el-button v-if="canDel" size="mini" type="danger" @click="remove(scope)">删除</el-button>
+            <el-button v-if="checkPer(['admin','message:del'])" size="mini" type="danger" @click="remove(scope)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -108,26 +108,17 @@ export default {
         name: null,
         pageNo: 1,
         pageSize: 10
+      },
+      permission: {
+        del: ['admin', 'message:del'],
+        deleteBatch: ['admin', 'message:deleteBatch'],
+        passBatch: ['admin', 'message:passBatch']
       }
     }
   },
   created: function() {
     this.openLoading()
     this.fetchMessage()
-  },
-  computed: {
-    ...mapGetters([
-      'pres'
-    ]),
-    canDel: function() {
-      return hasAuth(this.pres, 'message:del')
-    },
-    canDelBatch: function() {
-      return hasAuth(this.pres, 'message:deleteBatch')
-    },
-    canPassBatch: function() {
-      return hasAuth(this.pres, 'message:passBatch')
-    }
   },
   methods: {
     fetchMessage: function() {
