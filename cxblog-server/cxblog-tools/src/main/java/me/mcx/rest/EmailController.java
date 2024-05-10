@@ -37,7 +37,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/email")
 @Api(tags = "工具：邮件管理")
 public class EmailController {
-
     private final EmailService emailService;
 
     @GetMapping

@@ -23,7 +23,7 @@
         <dependency>
             <groupId>me.mcx</groupId>
             <artifactId>cxblog-generator</artifactId>
-            <version>${cxblog.version}</version>
+            <version>1.1.1</version>
             <exclusions>
                 <exclusion>
                     <groupId>me.mcx</groupId>
@@ -36,7 +36,7 @@
         <dependency>
             <groupId>me.mcx</groupId>
             <artifactId>cxblog-tools</artifactId>
-            <version>1.1</version>
+            <version>1.1.1</version>
         </dependency>
 
         <!-- Spring boot websocket -->

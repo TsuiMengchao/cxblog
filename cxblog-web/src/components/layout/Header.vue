@@ -65,7 +65,7 @@
                     </el-dropdown>
                 </li>
 
-              <li :class="path == '/forum' || path == '/say' || path == '/tipsoon'
+              <li :class="path == '/forum' || path == '/say' || path == '/tipsoon' || path == '/message'
                     ? 'active' : ''">
                 <el-dropdown trigger="hover">
                         <span class="el-dropdown-link">
@@ -82,12 +82,20 @@
                         <i class="el-icon-menu"></i>{{ $t('components.layout.header.say') }}
                       </el-dropdown-item>
                     </router-link>
-
                     <router-link style="text-decoration: none;color: #71777c;" :to="'/tipsoon'">
                       <el-dropdown-item>
                         <i class="el-icon-collection-tag"></i>{{ $t('components.layout.header.tipsoon') }}
                       </el-dropdown-item>
                     </router-link>
+
+
+                    <router-link style="text-decoration: none;color: #71777c;" :to="'/message'">
+                      <el-dropdown-item>
+                        <i class="el-icon-collection-tag"></i>{{ $t('components.layout.header.message') }}
+                      </el-dropdown-item>
+                    </router-link>
+
+
                   </el-dropdown-menu>
                 </el-dropdown>
               </li>
@@ -112,13 +120,6 @@
                     <span>
                         <router-link :to="'/hot'">
                             <svg-icon icon-class="hot2"></svg-icon> {{ $t('components.layout.header.hot') }}
-                        </router-link>
-                    </span>
-                </li>
-                <li :class="path == '/message' ? 'active' : ''">
-                    <span>
-                        <router-link :to="'/message'">
-                            <svg-icon icon-class="message"></svg-icon> {{ $t('components.layout.header.message') }}
                         </router-link>
                     </span>
                 </li>
@@ -671,7 +672,7 @@ export default {
 
             .searchBox {
                 position: absolute;
-                right: 370px;
+                right: 350px;
                 top: 0;
                 display: flex;
                 -ms-flex-direction: column;
@@ -764,7 +765,7 @@ export default {
 
             .articleBtn {
                 position: absolute;
-                right: 300px;
+                right: 230px;
                 top: 0;
 
                 .sendBtn {
@@ -779,7 +780,7 @@ export default {
 
             .noticeBtn {
                 position: absolute;
-                right: 250px;
+                right: 190px;
                 top: 0;
 
                 svg {
@@ -802,7 +803,7 @@ export default {
 
             .switch-language {
               position: absolute;
-              right: 170px;
+              right: 90px;
               top: 0;
               .sendBtn {
                 display: inline-block;
@@ -816,7 +817,7 @@ export default {
 
             .userInfo {
                 position: absolute;
-                right: 120px;
+                right: 40px;
                 top: 0;
 
                 /deep/ .el-dropdown {

@@ -20,7 +20,7 @@
         <dependency>
             <groupId>me.mcx</groupId>
             <artifactId>cxblog-common</artifactId>
-            <version>${cxblog.version}</version>
+            <version>1.1.1</version>
         </dependency>
 
         <!--模板引擎-->

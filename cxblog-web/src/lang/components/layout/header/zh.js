@@ -21,7 +21,7 @@ export default {
     compose: '创作',
     publishArticle: '发布文章',
     publishSay: '发布说说',
-    publishForum: '发布说说',
+    publishForum: '发布讨论',
     noticeList: ["系统通知", "评论", "关注", "点赞", "收藏", "私信"],
     loginTips: ["登录网站，获取以下权益", "参与互动评论", "发表优质文章"],
     login: '立即登录',
