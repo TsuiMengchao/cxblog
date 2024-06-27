@@ -1,7 +1,7 @@
 # 基础镜像
 FROM  openjdk:8-jre
 # author
-MAINTAINER cxblog
+MAINTAINER mcx(https://zhaohaoyue.love)
 
 # 挂载目录
 VOLUME /home/mcx/cxblog
@@ -10,6 +10,6 @@ RUN mkdir -p /home/mcx/cxblog
 # 指定路径
 WORKDIR /home/mcx/cxblog
 # 复制jar文件到路径
-COPY ./jar/cxblog-main.jar /home/main/cxblog/cxblog-main.jar
-# 启动认证服务
-ENTRYPOINT ["java","-jar","cxblog-main.jar"]
+COPY ./jar/server.jar /home/mcx/cxblog/server.jar
+# 启动网关服务
+ENTRYPOINT ["java","-jar","server.jar"]

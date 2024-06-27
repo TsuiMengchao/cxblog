@@ -18,7 +18,7 @@ spring:
   freemarker:
     check-template-location: false
   profiles:
-    active: dev
+    active: @profiles.active@
   data:
     redis:
       repositories:
@@ -28,14 +28,7 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
-  redis:
-    #数据库索引
-    database: ${REDIS_DB:1}
-    host: ${REDIS_HOST:127.0.0.1}
-    port: ${REDIS_PORT:6379}
-    password: ${REDIS_PWD:}
-    #连接超时时间
-    timeout: 5000
+
 
 #==============================线程池配置==============================
 task:
@@ -72,11 +65,11 @@ wx:
     config:
       appId: wx7964a1d966592b1a
       # 公众号AppSecret
-      secret:
+      secret: 3a6396080f1e7664ca674ab070af2ce7
       # 公众号Token
       token: cxblog
       # 公众号AES Key
-      aesKey:
+      aesKey: AckJBxYXEozLjS5aJMpOUdSq2cwV19q4NAXesLonQgl
 
 #百度推送
 baidu:

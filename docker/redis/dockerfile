@@ -1,7 +1,7 @@
 # 基础镜像
 FROM redis
 # author
-MAINTAINER cxblog
+MAINTAINER mcx(https://zhaohaoyue.love)
 
 # 挂载目录
 VOLUME /home/mcx/cxblog/redis
