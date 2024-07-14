@@ -1,0 +1,196 @@
+{
+    "name": "ssxm",
+    "appid": "",
+    "description": "",
+    "versionName": "1.0.11",
+    "versionCode": 121,
+    "transformPx": false,
+    "app-plus": {
+        "nvueCompiler": "uni-app",
+        "compilerVersion": 3,
+        "modules": {
+            "VideoPlayer": {},
+            "LivePusher": {}
+        },
+        "distribute": {
+            "android": {
+                "schemes": [
+                    "test"
+                ],
+                "permissions": [
+                    "<uses-feature android:name=\"android.hardware.camera\"/>",
+                    "<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
+                    "<uses-permission android:name=\"android.permission.CAMERA\"/>",
+                    "<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
+                    "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>",
+                    "<uses-permission android:name=\"android.permission.INTERNET\"/>",
+                    "<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
+                    "<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>",
+                    "<uses-permission android:name=\"android.permission.VIBRATE\"/>",
+                    "<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
+                    "<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>",
+                    "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
+                    "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
+                ],
+                "abiFilters": [
+                    "armeabi-v7a",
+                    "arm64-v8a",
+                    "x86"
+                ]
+            },
+            "ios": {
+                "capabilities": {
+                    "entitlements": {
+                        "com.apple.developer.associated-domains": [
+                            "",
+                            "applinks:",
+                            "applinks:x"
+                        ]
+                    }
+                }
+            },
+            "sdkConfigs": {
+                "ad": {},
+                "oauth": {
+                    "qq": {
+                        "appid": "",
+                        "UniversalLinks": "https://baidu.com"
+                    }
+                },
+                "payment": {
+                    "alipay": {
+                        "__platform__": [
+                            "android"
+                        ]
+                    },
+                    "appleiap": {}
+                },
+                "share": {
+                    "weixin": {
+                        "appid": "",
+                        "UniversalLinks": "https://baidu.com"
+                    },
+                    "qq": {
+                        "appid": "",
+                        "UniversalLinks": "https://baidu.com"
+                    }
+                },
+                "geolocation": {
+                    "baidu": {
+                        "__platform__": [
+                            "ios",
+                            "android"
+                        ],
+                        "appkey_ios": "",
+                        "appkey_android": ""
+                    }
+                },
+                "push": {
+                    "unipush": {}
+                },
+                "maps": {
+                    "amap": {
+                        "appkey_ios": "",
+                        "appkey_android": ""
+                    }
+                }
+            },
+            "icons": {
+                "android": {
+                    "hdpi": "C:/Users/Administrator/Desktop/微信图片_20220515023820_副本.png",
+                    "xhdpi": "C:/Users/Administrator/Desktop/92.png",
+                    "xxhdpi": "C:/Users/Administrator/Desktop/144.png",
+                    "xxxhdpi": "C:/Users/Administrator/Desktop/192.png"
+                },
+                "ios": {
+                    "appstore": "C:/Users/Administrator/Desktop/logo11.png",
+                    "ipad": {
+                        "app": "C:/Users/Administrator/Desktop/76.png",
+                        "app@2x": "C:/Users/Administrator/Desktop/152.png",
+                        "notification": "C:/Users/Administrator/Desktop/20.png",
+                        "notification@2x": "C:/Users/Administrator/Desktop/40.png",
+                        "proapp@2x": "C:/Users/Administrator/Desktop/167.png",
+                        "settings": "C:/Users/Administrator/Desktop/29.png",
+                        "settings@2x": "C:/Users/Administrator/Desktop/58.png",
+                        "spotlight": "C:/Users/Administrator/Desktop/40.png",
+                        "spotlight@2x": "C:/Users/Administrator/Desktop/80.png"
+                    },
+                    "iphone": {
+                        "app@2x": "C:/Users/Administrator/Desktop/120.png",
+                        "app@3x": "C:/Users/Administrator/Desktop/180.png",
+                        "notification@2x": "C:/Users/Administrator/Desktop/40.png",
+                        "notification@3x": "C:/Users/Administrator/Desktop/60.png",
+                        "settings@2x": "C:/Users/Administrator/Desktop/58.png",
+                        "settings@3x": "C:/Users/Administrator/Desktop/87.png",
+                        "spotlight@2x": "C:/Users/Administrator/Desktop/80.png",
+                        "spotlight@3x": "C:/Users/Administrator/Desktop/120.png"
+                    }
+                }
+            },
+            "splashscreen": {
+                "androidStyle": "common",
+                "iosStyle": "common"
+            }
+        },
+        "splashscreen": {
+            "waiting": false,
+            "alwaysShowBeforeRender": true
+        }
+    },
+    "quickapp": {},
+    "mp-weixin": {
+        "appid": "",
+        "setting": {
+            "urlCheck": true,
+            "minified": true,
+            "es6": true
+        },
+        "usingComponents": true,
+        "permission": {
+            "scope.userLocation": {
+                "desc": "获取用户位置信息"
+            }
+        }
+    },
+    "mp-alipay": {
+        "usingComponents": true
+    },
+    "mp-baidu": {
+        "usingComponents": true
+    },
+    "mp-toutiao": {
+        "usingComponents": true
+    },
+    "h5": {
+        "title": "jintu",
+        "domain": "pro.ymeoo.cn",
+        "router": {
+            "base": "./",
+            "mode": "hash"
+        },
+        "optimization": {
+            "treeShaking": {
+                "enable": true
+            }
+        }
+    },
+    "mp-qq": {
+        "appid": "",
+        "setting": {
+            "minified": true
+        }
+    },
+    "_spaceID": "",
+    "_qq_spaceID": ""
+}

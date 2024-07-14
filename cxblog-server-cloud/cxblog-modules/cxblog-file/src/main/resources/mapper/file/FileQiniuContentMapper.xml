@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.mcx.file.mapper.FileQiniuContentMapper">
+    
+    <resultMap type="FileQiniuContent" id="FileQiniuContentResult">
+        <result property="contentId"    column="content_id"    />
+        <result property="bucket"    column="bucket"    />
+        <result property="name"    column="name"    />
+        <result property="size"    column="size"    />
+        <result property="type"    column="type"    />
+        <result property="url"    column="url"    />
+        <result property="suffix"    column="suffix"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectFileQiniuContentVo">
+        select content_id, bucket, name, size, type, url, suffix, update_time from file_qiniu_content
+    </sql>
+
+    <select id="selectFileQiniuContentList" parameterType="FileQiniuContent" resultMap="FileQiniuContentResult">
+        <include refid="selectFileQiniuContentVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="updateTime != null "> and update_time = #{updateTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectFileQiniuContentByContentId" parameterType="Long" resultMap="FileQiniuContentResult">
+        <include refid="selectFileQiniuContentVo"/>
+        where content_id = #{contentId}
+    </select>
+        
+    <insert id="insertFileQiniuContent" parameterType="FileQiniuContent" useGeneratedKeys="true" keyProperty="contentId">
+        insert into file_qiniu_content
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="bucket != null">bucket,</if>
+            <if test="name != null">name,</if>
+            <if test="size != null">size,</if>
+            <if test="type != null">type,</if>
+            <if test="url != null">url,</if>
+            <if test="suffix != null">suffix,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="bucket != null">#{bucket},</if>
+            <if test="name != null">#{name},</if>
+            <if test="size != null">#{size},</if>
+            <if test="type != null">#{type},</if>
+            <if test="url != null">#{url},</if>
+            <if test="suffix != null">#{suffix},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateFileQiniuContent" parameterType="FileQiniuContent">
+        update file_qiniu_content
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="bucket != null">bucket = #{bucket},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="size != null">size = #{size},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="url != null">url = #{url},</if>
+            <if test="suffix != null">suffix = #{suffix},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where content_id = #{contentId}
+    </update>
+
+    <delete id="deleteFileQiniuContentByContentId" parameterType="Long">
+        delete from file_qiniu_content where content_id = #{contentId}
+    </delete>
+
+    <delete id="deleteFileQiniuContentByContentIds" parameterType="String">
+        delete from file_qiniu_content where content_id in 
+        <foreach item="contentId" collection="array" open="(" separator="," close=")">
+            #{contentId}
+        </foreach>
+    </delete>
+</mapper>

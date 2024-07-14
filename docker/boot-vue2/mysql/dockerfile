@@ -1,0 +1,7 @@
+# 基础镜像
+FROM mysql:5.7
+# author
+MAINTAINER mcx(https://zhaohaoyue.love)
+
+# 复制sql脚本到docker-entrypoint-initdb.d目录
+ADD ./db/*.sql /docker-entrypoint-initdb.d/

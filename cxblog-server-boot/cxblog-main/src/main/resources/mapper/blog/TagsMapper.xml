@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.mcx.modules.blog.mapper.TagsMapper">
+
+    <delete id="deleteByArticleIds">
+        DELETE FROM blog_article_tag WHERE article_id in
+            <foreach collection="ids" item="id" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+    </delete>
+
+    <select id="selectByArticleId" resultType="java.lang.String">
+        select name from blog_tags where id in(select tag_id from blog_article_tag where article_id=#{articleId})
+    </select>
+
+
+    <select id="selectPageRecord" resultType="me.mcx.modules.blog.domain.vo.SystemTagListVo">
+        select a.id,a.name,a.sort,a.click_volume,a.create_time,b.articleCount from blog_tags a
+            left join (select tag_id,count(id) as articleCount from blog_article_tag GROUP BY tag_id) b on a.id=b.tag_id
+        <where>
+            <if test="name != null">
+                a.name like concat('%',#{name},'%')
+            </if>
+        </where>
+    </select>
+
+    <insert id="saveArticleTags">
+        insert ignore into  blog_article_tag(article_id,tag_id, create_time) values
+        <foreach collection="tags" item="tagsId" index="index" separator=",">
+            ( #{articleId},#{tagsId}, Now())
+        </foreach>
+    </insert>
+
+    <select id="countTags" resultType="java.util.Map">
+        select id,name from blog_tags
+    </select>
+
+    <select id="selectTagByArticleId" resultType="me.mcx.modules.blog.domain.Tags">
+        select * from blog_tags where id in (select tag_id from blog_article_tag where article_id=#{articleId})
+    </select>
+    <select id="validateTagIdIsExistArticle" resultType="java.lang.Integer" parameterType="java.lang.Long">
+        select count(id) from blog_article_tag where tag_id=#{id}
+    </select>
+
+</mapper>

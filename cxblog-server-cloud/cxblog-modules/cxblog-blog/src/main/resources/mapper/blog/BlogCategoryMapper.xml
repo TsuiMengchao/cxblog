@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.mcx.blog.mapper.BlogCategoryMapper">
+    
+    <resultMap type="BlogCategory" id="BlogCategoryResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="clickVolume"    column="click_volume"    />
+        <result property="sort"    column="sort"    />
+        <result property="icon"    column="icon"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectBlogCategoryVo">
+        select id, name, click_volume, sort, icon, create_by, create_time, update_by, update_time, remark from blog_category
+    </sql>
+
+    <select id="selectBlogCategoryList" parameterType="BlogCategory" resultMap="BlogCategoryResult">
+        <include refid="selectBlogCategoryVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="clickVolume != null "> and click_volume = #{clickVolume}</if>
+            <if test="sort != null "> and sort = #{sort}</if>
+            <if test="icon != null  and icon != ''"> and icon = #{icon}</if>
+        </where>
+    </select>
+    
+    <select id="selectBlogCategoryById" parameterType="Long" resultMap="BlogCategoryResult">
+        <include refid="selectBlogCategoryVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertBlogCategory" parameterType="BlogCategory" useGeneratedKeys="true" keyProperty="id">
+        insert into blog_category
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">name,</if>
+            <if test="clickVolume != null">click_volume,</if>
+            <if test="sort != null">sort,</if>
+            <if test="icon != null">icon,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="clickVolume != null">#{clickVolume},</if>
+            <if test="sort != null">#{sort},</if>
+            <if test="icon != null">#{icon},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBlogCategory" parameterType="BlogCategory">
+        update blog_category
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="clickVolume != null">click_volume = #{clickVolume},</if>
+            <if test="sort != null">sort = #{sort},</if>
+            <if test="icon != null">icon = #{icon},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBlogCategoryById" parameterType="Long">
+        delete from blog_category where id = #{id}
+    </delete>
+
+    <delete id="deleteBlogCategoryByIds" parameterType="String">
+        delete from blog_category where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+<!--    ======================================-->
+    <select id="countArticle" resultType="me.mcx.blog.domain.vo.category.SystemCategoryCountVO">
+        select a.name, count(b.id) as value
+        from blog_category a left join blog_article b
+        on a.id=b.category_id
+        GROUP BY a.id
+    </select>
+
+    <select id="selectCategory" resultType="me.mcx.blog.domain.vo.category.SystemCategoryListVO">
+        select a.id,a.name,a.sort,a.create_time,a.click_volume,a.icon,b.articleCount from blog_category a
+        left join (select category_id,count(id) as articleCount from blog_article group by category_id) b on
+        a.id=b.category_id
+        <where>
+            <if test="name != null">
+                a.name like concat('%',#{name},'%')
+            </if>
+        </where>
+    </select>
+    <select id="selectCategoryListApi" resultType="me.mcx.blog.domain.vo.category.ApiCategoryListVO">
+        SELECT
+            c.id,
+            c.name,
+            c.icon,
+            count( a.id ) AS articleNum
+        FROM
+            blog_category c
+                LEFT JOIN blog_article a ON c.id = a.category_id
+        GROUP BY
+            c.id
+        ORDER BY
+            c.sort
+                desc
+    </select>
+</mapper>

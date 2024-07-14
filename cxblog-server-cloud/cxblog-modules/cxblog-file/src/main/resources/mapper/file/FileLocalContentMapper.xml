@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.mcx.file.mapper.FileLocalContentMapper">
+    
+    <resultMap type="FileLocalContent" id="FileLocalContentResult">
+        <result property="storageId"    column="storage_id"    />
+        <result property="realName"    column="real_name"    />
+        <result property="name"    column="name"    />
+        <result property="suffix"    column="suffix"    />
+        <result property="path"    column="path"    />
+        <result property="type"    column="type"    />
+        <result property="size"    column="size"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectFileLocalContentVo">
+        select storage_id, real_name, name, suffix, path, type, size, create_by, update_by, create_time, update_time from file_local_content
+    </sql>
+
+    <select id="selectFileLocalContentList" parameterType="FileLocalContent" resultMap="FileLocalContentResult">
+        <include refid="selectFileLocalContentVo"/>
+        <where>  
+            <if test="realName != null  and realName != ''"> and real_name like concat('%', #{realName}, '%')</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="suffix != null  and suffix != ''"> and suffix = #{suffix}</if>
+            <if test="path != null  and path != ''"> and path = #{path}</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="size != null  and size != ''"> and size = #{size}</if>
+        </where>
+    </select>
+    
+    <select id="selectFileLocalContentByStorageId" parameterType="Long" resultMap="FileLocalContentResult">
+        <include refid="selectFileLocalContentVo"/>
+        where storage_id = #{storageId}
+    </select>
+        
+    <insert id="insertFileLocalContent" parameterType="FileLocalContent" useGeneratedKeys="true" keyProperty="storageId">
+        insert into file_local_content
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="realName != null">real_name,</if>
+            <if test="name != null">name,</if>
+            <if test="suffix != null">suffix,</if>
+            <if test="path != null">path,</if>
+            <if test="type != null">type,</if>
+            <if test="size != null">size,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="realName != null">#{realName},</if>
+            <if test="name != null">#{name},</if>
+            <if test="suffix != null">#{suffix},</if>
+            <if test="path != null">#{path},</if>
+            <if test="type != null">#{type},</if>
+            <if test="size != null">#{size},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateFileLocalContent" parameterType="FileLocalContent">
+        update file_local_content
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="realName != null">real_name = #{realName},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="suffix != null">suffix = #{suffix},</if>
+            <if test="path != null">path = #{path},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="size != null">size = #{size},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where storage_id = #{storageId}
+    </update>
+
+    <delete id="deleteFileLocalContentByStorageId" parameterType="Long">
+        delete from file_local_content where storage_id = #{storageId}
+    </delete>
+
+    <delete id="deleteFileLocalContentByStorageIds" parameterType="String">
+        delete from file_local_content where storage_id in 
+        <foreach item="storageId" collection="array" open="(" separator="," close=")">
+            #{storageId}
+        </foreach>
+    </delete>
+</mapper>

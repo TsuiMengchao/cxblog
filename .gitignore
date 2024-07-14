@@ -1,9 +1,9 @@
-files/file/*
+files/file
 docker/**/*.jar
 docker/mysql/**/*.sql
-docker/mysql/data/*
-docker/cxblog/html/*
-docker/redis/data/*
+docker/mysql/data
+docker/cxblog/html
+docker/redis/data
 **/logs
 
 !docker/**/readme.txt

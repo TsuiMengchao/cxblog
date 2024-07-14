@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.mcx.blog.mapper.BlogWebConfigMapper">
+    
+    <resultMap type="BlogWebConfig" id="BlogWebConfigResult">
+        <result property="id"    column="id"    />
+        <result property="logo"    column="logo"    />
+        <result property="name"    column="name"    />
+        <result property="summary"    column="summary"    />
+        <result property="keyword"    column="keyword"    />
+        <result property="author"    column="author"    />
+        <result property="recordNum"    column="record_num"    />
+        <result property="webUrl"    column="web_url"    />
+        <result property="aliPay"    column="ali_pay"    />
+        <result property="weixinPay"    column="weixin_pay"    />
+        <result property="github"    column="github"    />
+        <result property="gitee"    column="gitee"    />
+        <result property="qqNumber"    column="qq_number"    />
+        <result property="qqGroup"    column="qq_group"    />
+        <result property="email"    column="email"    />
+        <result property="wechat"    column="wechat"    />
+        <result property="showList"    column="show_list"    />
+        <result property="loginTypeList"    column="login_type_list"    />
+        <result property="openComment"    column="open_comment"    />
+        <result property="openAdmiration"    column="open_admiration"    />
+        <result property="touristAvatar"    column="tourist_avatar"    />
+        <result property="bulletin"    column="bulletin"    />
+        <result property="authorInfo"    column="author_info"    />
+        <result property="authorAvatar"    column="author_avatar"    />
+        <result property="aboutMe"    column="about_me"    />
+        <result property="isMusicPlayer"    column="is_music_player"    />
+        <result property="showBulletin"    column="show_bulletin"    />
+        <result property="copyright"    column="copyright"    />
+        <result property="releaseTime"    column="release_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectBlogWebConfigVo">
+        select id, logo, name, summary, keyword, author, record_num, web_url, ali_pay, weixin_pay, github, gitee, qq_number, qq_group, email, wechat, show_list, login_type_list, open_comment, open_admiration, tourist_avatar, bulletin, author_info, author_avatar, about_me, is_music_player, show_bulletin, copyright, release_time, create_by, create_time, update_by, update_time, remark from blog_web_config
+    </sql>
+
+    <select id="selectBlogWebConfigList" parameterType="BlogWebConfig" resultMap="BlogWebConfigResult">
+        <include refid="selectBlogWebConfigVo"/>
+        <where>  
+            <if test="logo != null  and logo != ''"> and logo = #{logo}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="summary != null  and summary != ''"> and summary = #{summary}</if>
+            <if test="keyword != null  and keyword != ''"> and keyword = #{keyword}</if>
+            <if test="author != null  and author != ''"> and author = #{author}</if>
+            <if test="recordNum != null  and recordNum != ''"> and record_num = #{recordNum}</if>
+            <if test="webUrl != null  and webUrl != ''"> and web_url = #{webUrl}</if>
+            <if test="aliPay != null  and aliPay != ''"> and ali_pay = #{aliPay}</if>
+            <if test="weixinPay != null  and weixinPay != ''"> and weixin_pay = #{weixinPay}</if>
+            <if test="github != null  and github != ''"> and github = #{github}</if>
+            <if test="gitee != null  and gitee != ''"> and gitee = #{gitee}</if>
+            <if test="qqNumber != null  and qqNumber != ''"> and qq_number = #{qqNumber}</if>
+            <if test="qqGroup != null  and qqGroup != ''"> and qq_group = #{qqGroup}</if>
+            <if test="email != null  and email != ''"> and email = #{email}</if>
+            <if test="wechat != null  and wechat != ''"> and wechat = #{wechat}</if>
+            <if test="showList != null  and showList != ''"> and show_list = #{showList}</if>
+            <if test="loginTypeList != null  and loginTypeList != ''"> and login_type_list = #{loginTypeList}</if>
+            <if test="openComment != null  and openComment != ''"> and open_comment = #{openComment}</if>
+            <if test="openAdmiration != null "> and open_admiration = #{openAdmiration}</if>
+            <if test="touristAvatar != null  and touristAvatar != ''"> and tourist_avatar = #{touristAvatar}</if>
+            <if test="bulletin != null  and bulletin != ''"> and bulletin = #{bulletin}</if>
+            <if test="authorInfo != null  and authorInfo != ''"> and author_info = #{authorInfo}</if>
+            <if test="authorAvatar != null  and authorAvatar != ''"> and author_avatar = #{authorAvatar}</if>
+            <if test="aboutMe != null  and aboutMe != ''"> and about_me = #{aboutMe}</if>
+            <if test="isMusicPlayer != null "> and is_music_player = #{isMusicPlayer}</if>
+            <if test="showBulletin != null "> and show_bulletin = #{showBulletin}</if>
+            <if test="copyright != null  and copyright != ''"> and copyright = #{copyright}</if>
+            <if test="releaseTime != null "> and release_time = #{releaseTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectBlogWebConfigById" parameterType="Long" resultMap="BlogWebConfigResult">
+        <include refid="selectBlogWebConfigVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertBlogWebConfig" parameterType="BlogWebConfig" useGeneratedKeys="true" keyProperty="id">
+        insert into blog_web_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="logo != null and logo != ''">logo,</if>
+            <if test="name != null and name != ''">name,</if>
+            <if test="summary != null and summary != ''">summary,</if>
+            <if test="keyword != null and keyword != ''">keyword,</if>
+            <if test="author != null and author != ''">author,</if>
+            <if test="recordNum != null and recordNum != ''">record_num,</if>
+            <if test="webUrl != null">web_url,</if>
+            <if test="aliPay != null">ali_pay,</if>
+            <if test="weixinPay != null">weixin_pay,</if>
+            <if test="github != null">github,</if>
+            <if test="gitee != null">gitee,</if>
+            <if test="qqNumber != null">qq_number,</if>
+            <if test="qqGroup != null">qq_group,</if>
+            <if test="email != null">email,</if>
+            <if test="wechat != null">wechat,</if>
+            <if test="showList != null">show_list,</if>
+            <if test="loginTypeList != null">login_type_list,</if>
+            <if test="openComment != null">open_comment,</if>
+            <if test="openAdmiration != null">open_admiration,</if>
+            <if test="touristAvatar != null">tourist_avatar,</if>
+            <if test="bulletin != null">bulletin,</if>
+            <if test="authorInfo != null">author_info,</if>
+            <if test="authorAvatar != null">author_avatar,</if>
+            <if test="aboutMe != null">about_me,</if>
+            <if test="isMusicPlayer != null">is_music_player,</if>
+            <if test="showBulletin != null">show_bulletin,</if>
+            <if test="copyright != null">copyright,</if>
+            <if test="releaseTime != null">release_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="logo != null and logo != ''">#{logo},</if>
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="summary != null and summary != ''">#{summary},</if>
+            <if test="keyword != null and keyword != ''">#{keyword},</if>
+            <if test="author != null and author != ''">#{author},</if>
+            <if test="recordNum != null and recordNum != ''">#{recordNum},</if>
+            <if test="webUrl != null">#{webUrl},</if>
+            <if test="aliPay != null">#{aliPay},</if>
+            <if test="weixinPay != null">#{weixinPay},</if>
+            <if test="github != null">#{github},</if>
+            <if test="gitee != null">#{gitee},</if>
+            <if test="qqNumber != null">#{qqNumber},</if>
+            <if test="qqGroup != null">#{qqGroup},</if>
+            <if test="email != null">#{email},</if>
+            <if test="wechat != null">#{wechat},</if>
+            <if test="showList != null">#{showList},</if>
+            <if test="loginTypeList != null">#{loginTypeList},</if>
+            <if test="openComment != null">#{openComment},</if>
+            <if test="openAdmiration != null">#{openAdmiration},</if>
+            <if test="touristAvatar != null">#{touristAvatar},</if>
+            <if test="bulletin != null">#{bulletin},</if>
+            <if test="authorInfo != null">#{authorInfo},</if>
+            <if test="authorAvatar != null">#{authorAvatar},</if>
+            <if test="aboutMe != null">#{aboutMe},</if>
+            <if test="isMusicPlayer != null">#{isMusicPlayer},</if>
+            <if test="showBulletin != null">#{showBulletin},</if>
+            <if test="copyright != null">#{copyright},</if>
+            <if test="releaseTime != null">#{releaseTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBlogWebConfig" parameterType="BlogWebConfig">
+        update blog_web_config
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="logo != null and logo != ''">logo = #{logo},</if>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="summary != null and summary != ''">summary = #{summary},</if>
+            <if test="keyword != null and keyword != ''">keyword = #{keyword},</if>
+            <if test="author != null and author != ''">author = #{author},</if>
+            <if test="recordNum != null and recordNum != ''">record_num = #{recordNum},</if>
+            <if test="webUrl != null">web_url = #{webUrl},</if>
+            <if test="aliPay != null">ali_pay = #{aliPay},</if>
+            <if test="weixinPay != null">weixin_pay = #{weixinPay},</if>
+            <if test="github != null">github = #{github},</if>
+            <if test="gitee != null">gitee = #{gitee},</if>
+            <if test="qqNumber != null">qq_number = #{qqNumber},</if>
+            <if test="qqGroup != null">qq_group = #{qqGroup},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="wechat != null">wechat = #{wechat},</if>
+            <if test="showList != null">show_list = #{showList},</if>
+            <if test="loginTypeList != null">login_type_list = #{loginTypeList},</if>
+            <if test="openComment != null">open_comment = #{openComment},</if>
+            <if test="openAdmiration != null">open_admiration = #{openAdmiration},</if>
+            <if test="touristAvatar != null">tourist_avatar = #{touristAvatar},</if>
+            <if test="bulletin != null">bulletin = #{bulletin},</if>
+            <if test="authorInfo != null">author_info = #{authorInfo},</if>
+            <if test="authorAvatar != null">author_avatar = #{authorAvatar},</if>
+            <if test="aboutMe != null">about_me = #{aboutMe},</if>
+            <if test="isMusicPlayer != null">is_music_player = #{isMusicPlayer},</if>
+            <if test="showBulletin != null">show_bulletin = #{showBulletin},</if>
+            <if test="copyright != null">copyright = #{copyright},</if>
+            <if test="releaseTime != null">release_time = #{releaseTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBlogWebConfigById" parameterType="Long">
+        delete from blog_web_config where id = #{id}
+    </delete>
+
+    <delete id="deleteBlogWebConfigByIds" parameterType="String">
+        delete from blog_web_config where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

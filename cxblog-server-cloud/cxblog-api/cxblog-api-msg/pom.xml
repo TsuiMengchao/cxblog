@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>me.mcx</groupId>
+        <artifactId>cxblog-api</artifactId>
+        <version>2.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    
+    <artifactId>cxblog-api-msg</artifactId>
+
+    <description>
+        cxblog-api-msg通讯接口模块
+    </description>
+
+    <dependencies>
+
+        <!-- CXBlog Common Core-->
+        <dependency>
+            <groupId>me.mcx</groupId>
+            <artifactId>cxblog-common-core</artifactId>
+        </dependency>
+
+    </dependencies>
+
+</project>

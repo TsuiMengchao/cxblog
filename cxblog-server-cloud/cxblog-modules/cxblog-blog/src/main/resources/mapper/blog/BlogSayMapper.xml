@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.mcx.blog.mapper.BlogSayMapper">
+    
+    <resultMap type="BlogSay" id="BlogSayResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="imgUrl"    column="img_url"    />
+        <result property="content"    column="content"    />
+        <result property="address"    column="address"    />
+        <result property="isPublic"    column="is_public"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectBlogSayVo">
+        select id, user_id, img_url, content, address, is_public, create_by, create_time, update_by, update_time, remark from blog_say
+    </sql>
+
+    <select id="selectBlogSayList" parameterType="BlogSay" resultMap="BlogSayResult">
+        <include refid="selectBlogSayVo"/>
+        <where>  
+            <if test="userId != null  and userId != ''"> and user_id = #{userId}</if>
+            <if test="imgUrl != null  and imgUrl != ''"> and img_url = #{imgUrl}</if>
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+            <if test="isPublic != null "> and is_public = #{isPublic}</if>
+        </where>
+    </select>
+    
+    <select id="selectBlogSayById" parameterType="String" resultMap="BlogSayResult">
+        <include refid="selectBlogSayVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertBlogSay" parameterType="BlogSay">
+        insert into blog_say
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="userId != null and userId != ''">user_id,</if>
+            <if test="imgUrl != null">img_url,</if>
+            <if test="content != null and content != ''">content,</if>
+            <if test="address != null">address,</if>
+            <if test="isPublic != null">is_public,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="userId != null and userId != ''">#{userId},</if>
+            <if test="imgUrl != null">#{imgUrl},</if>
+            <if test="content != null and content != ''">#{content},</if>
+            <if test="address != null">#{address},</if>
+            <if test="isPublic != null">#{isPublic},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBlogSay" parameterType="BlogSay">
+        update blog_say
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null and userId != ''">user_id = #{userId},</if>
+            <if test="imgUrl != null">img_url = #{imgUrl},</if>
+            <if test="content != null and content != ''">content = #{content},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="isPublic != null">is_public = #{isPublic},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBlogSayById" parameterType="String">
+        delete from blog_say where id = #{id}
+    </delete>
+
+    <delete id="deleteBlogSayByIds" parameterType="String">
+        delete from blog_say where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+<!--    ===================================-->
+    <select id="selectPublicSayList" resultType="me.mcx.blog.domain.vo.say.ApiSayVO">
+        select id, user_id as userId, content, address, is_public, create_time as createTime from blog_say s
+        <if test="!showPrivate">
+            where s.is_public = 1
+        </if>
+        order by s.create_time desc
+    </select>
+</mapper>

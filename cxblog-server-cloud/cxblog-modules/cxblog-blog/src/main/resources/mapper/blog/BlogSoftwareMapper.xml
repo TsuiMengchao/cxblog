@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.mcx.blog.mapper.BlogSoftwareMapper">
+    
+    <resultMap type="BlogSoftware" id="BlogSoftwareResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="info"    column="info"    />
+        <result property="codeUrl"    column="code_url"    />
+        <result property="coverImg"    column="cover_img"    />
+        <result property="demoUrl"    column="demo_url"    />
+        <result property="detailUrl"    column="detail_url"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectBlogSoftwareVo">
+        select id, name, info, code_url, cover_img, demo_url, detail_url, create_time from blog_software
+    </sql>
+
+    <select id="selectBlogSoftwareList" parameterType="BlogSoftware" resultMap="BlogSoftwareResult">
+        <include refid="selectBlogSoftwareVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="info != null  and info != ''"> and info = #{info}</if>
+            <if test="codeUrl != null  and codeUrl != ''"> and code_url = #{codeUrl}</if>
+            <if test="coverImg != null  and coverImg != ''"> and cover_img = #{coverImg}</if>
+            <if test="demoUrl != null  and demoUrl != ''"> and demo_url = #{demoUrl}</if>
+            <if test="detailUrl != null  and detailUrl != ''"> and detail_url = #{detailUrl}</if>
+        </where>
+    </select>
+    
+    <select id="selectBlogSoftwareById" parameterType="Long" resultMap="BlogSoftwareResult">
+        <include refid="selectBlogSoftwareVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertBlogSoftware" parameterType="BlogSoftware" useGeneratedKeys="true" keyProperty="id">
+        insert into blog_software
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">name,</if>
+            <if test="info != null">info,</if>
+            <if test="codeUrl != null">code_url,</if>
+            <if test="coverImg != null">cover_img,</if>
+            <if test="demoUrl != null">demo_url,</if>
+            <if test="detailUrl != null">detail_url,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="info != null">#{info},</if>
+            <if test="codeUrl != null">#{codeUrl},</if>
+            <if test="coverImg != null">#{coverImg},</if>
+            <if test="demoUrl != null">#{demoUrl},</if>
+            <if test="detailUrl != null">#{detailUrl},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBlogSoftware" parameterType="BlogSoftware">
+        update blog_software
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="info != null">info = #{info},</if>
+            <if test="codeUrl != null">code_url = #{codeUrl},</if>
+            <if test="coverImg != null">cover_img = #{coverImg},</if>
+            <if test="demoUrl != null">demo_url = #{demoUrl},</if>
+            <if test="detailUrl != null">detail_url = #{detailUrl},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBlogSoftwareById" parameterType="Long">
+        delete from blog_software where id = #{id}
+    </delete>
+
+    <delete id="deleteBlogSoftwareByIds" parameterType="String">
+        delete from blog_software where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.mcx.blog.mapper.BlogMessageMapper">
+    
+    <resultMap type="BlogMessage" id="BlogMessageResult">
+        <result property="id"    column="id"    />
+        <result property="content"    column="content"    />
+        <result property="nickname"    column="nickname"    />
+        <result property="avatar"    column="avatar"    />
+        <result property="ipAddress"    column="ip_address"    />
+        <result property="ipSource"    column="ip_source"    />
+        <result property="time"    column="time"    />
+        <result property="status"    column="status"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectBlogMessageVo">
+        select id, content, nickname, avatar, ip_address, ip_source, time, status, create_by, create_time, update_by, update_time, remark from blog_message
+    </sql>
+
+    <select id="selectBlogMessageList" parameterType="BlogMessage" resultMap="BlogMessageResult">
+        <include refid="selectBlogMessageVo"/>
+        <where>  
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+            <if test="nickname != null  and nickname != ''"> and nickname like concat('%', #{nickname}, '%')</if>
+            <if test="avatar != null  and avatar != ''"> and avatar = #{avatar}</if>
+            <if test="ipAddress != null  and ipAddress != ''"> and ip_address = #{ipAddress}</if>
+            <if test="ipSource != null  and ipSource != ''"> and ip_source = #{ipSource}</if>
+            <if test="time != null "> and time = #{time}</if>
+            <if test="status != null "> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectBlogMessageById" parameterType="Long" resultMap="BlogMessageResult">
+        <include refid="selectBlogMessageVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertBlogMessage" parameterType="BlogMessage" useGeneratedKeys="true" keyProperty="id">
+        insert into blog_message
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="content != null and content != ''">content,</if>
+            <if test="nickname != null">nickname,</if>
+            <if test="avatar != null">avatar,</if>
+            <if test="ipAddress != null">ip_address,</if>
+            <if test="ipSource != null">ip_source,</if>
+            <if test="time != null">time,</if>
+            <if test="status != null">status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="content != null and content != ''">#{content},</if>
+            <if test="nickname != null">#{nickname},</if>
+            <if test="avatar != null">#{avatar},</if>
+            <if test="ipAddress != null">#{ipAddress},</if>
+            <if test="ipSource != null">#{ipSource},</if>
+            <if test="time != null">#{time},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBlogMessage" parameterType="BlogMessage">
+        update blog_message
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="content != null and content != ''">content = #{content},</if>
+            <if test="nickname != null">nickname = #{nickname},</if>
+            <if test="avatar != null">avatar = #{avatar},</if>
+            <if test="ipAddress != null">ip_address = #{ipAddress},</if>
+            <if test="ipSource != null">ip_source = #{ipSource},</if>
+            <if test="time != null">time = #{time},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBlogMessageById" parameterType="Long">
+        delete from blog_message where id = #{id}
+    </delete>
+
+    <delete id="deleteBlogMessageByIds" parameterType="String">
+        delete from blog_message where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

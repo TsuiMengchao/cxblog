@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.mcx.system.mapper.SysUserInfoMapper">
+    
+    <resultMap type="SysUserInfo" id="SysUserInfoResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="intro"    column="intro"    />
+        <result property="webSite"    column="web_site"    />
+        <result property="bjCover"    column="bj_cover"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectSysUserInfoVo">
+        select id,user_id, intro, web_site, bj_cover, create_by, create_time, update_by, update_time, remark from sys_user_info
+    </sql>
+
+    <select id="selectSysUserInfoList" parameterType="SysUserInfo" resultMap="SysUserInfoResult">
+        <include refid="selectSysUserInfoVo"/>
+        <where>
+            <if test="intro != null  and intro != ''"> and intro = #{intro}</if>
+            <if test="webSite != null  and webSite != ''"> and web_site = #{webSite}</if>
+            <if test="bjCover != null  and bjCover != ''"> and bj_cover = #{bjCover}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysUserInfoById" parameterType="Long" resultMap="SysUserInfoResult">
+        <include refid="selectSysUserInfoVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSysUserInfo" parameterType="SysUserInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_user_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="intro != null">intro,</if>
+            <if test="webSite != null">web_site,</if>
+            <if test="bjCover != null">bj_cover,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="intro != null">#{intro},</if>
+            <if test="webSite != null">#{webSite},</if>
+            <if test="bjCover != null">#{bjCover},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysUserInfo" parameterType="SysUserInfo">
+        update sys_user_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="intro != null">intro = #{intro},</if>
+            <if test="webSite != null">web_site = #{webSite},</if>
+            <if test="bjCover != null">bj_cover = #{bjCover},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSysUserInfoById" parameterType="Long">
+        delete from sys_user_info where id = #{id}
+    </delete>
+
+    <delete id="deleteSysUserInfoByIds" parameterType="String">
+        delete from sys_user_info where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+<!--    ==============-->
+    <delete id="deleteByUserIds" >
+        DELETE FROM sys_user_info WHERE user_id IN
+        <foreach collection="ids" item="userId" open="(" separator="," close=")">
+            #{userId}
+        </foreach>
+    </delete>
+
+    <select id="getByUserId" resultType="me.mcx.system.api.model.user.UserInfoVO">
+        SELECT u.user_id AS id, u.nick_name AS nickname, u.email, u.avatar, ui.web_site AS webSite, ui.intro
+        FROM sys_user u
+                 LEFT JOIN sys_user_info ui ON ui.user_id = u.user_id
+        WHERE u.user_id = #{loginId}
+    </select>
+
+    <select id="selectUserInfoByUserId" resultType="me.mcx.system.api.model.user.UserInfoVO">
+        SELECT ui.web_site AS webSite, u.user_id AS id, u.nick_name AS nickname, u.email, u.avatar, ui.intro, ui.bj_cover, uui.user_info_id, u.login_ip AS address, u.login_date AS lastLoginTime, u.create_time AS registerTime
+        FROM sys_user u
+                 LEFT JOIN sys_user_info ui ON ui.user_id = u.user_id
+        WHERE u.user_id = #{userId}
+    </select>
+
+    <!--	=================================================-->
+
+    <select id="selectByUserName" resultType="me.mcx.system.api.model.user.UserInfoVO">
+        select a.id,a.login_type as loginType,a.status,a.nick_name as nickname,a.avatar,a.email, b.id as userInfoId,b.intro,b.web_site as webSite from sys_user a
+                                                                                                                                                           left join (select id,intro,web_site from sys_user_info) b on a.user_id=b.user_id
+        where a.user_name=#{username}
+    </select>
+    <select id="selectInfoByUserId" resultType="me.mcx.system.api.model.user.UserInfoVO">
+        SELECT
+            u.user_id as id,
+            ui.nickname,
+            ui.avatar,
+            ui.intro,
+            ui.web_site,
+            ui.bj_cover,
+            count( DISTINCT a.id ) AS articleCount,
+            count( DISTINCT fans.id ) AS fansCount,
+            count( DISTINCT watch.id ) AS watchCount
+        FROM
+            sys_user u
+                LEFT JOIN sys_user_info ui ON u.user_id = ui.user_id
+                LEFT JOIN blog_article a ON u.user_id = a.user_id
+                LEFT JOIN blog_followed fans on fans.followed_user_id = u.user_id
+                LEFT JOIN blog_followed watch on watch.user_id = u.user_id
+        WHERE u.user_id = #{userId} group by u.user_id
+    </select>
+
+    <select id="selectInfoByUserIdTwo" resultType="me.mcx.system.api.model.user.UserInfoVO">
+        SELECT
+            u.user_id as id,
+            u.nick_name as nickname,
+            u.avatar,
+            ui.intro,
+            ui.web_site as webSite,
+            ui.bj_cover as bjCover
+        FROM
+            sys_user u
+                LEFT JOIN sys_user_info ui ON u.user_id = ui.user_id
+        WHERE u.user_id = #{userId}
+    </select>
+
+    <select id="selectInfoByUserIdNew" resultType="me.mcx.system.api.model.user.UserInfoVO">
+        SELECT
+            u.user_id as id,
+            ui.id as userInfoId,
+            u.nick_name as nickname,
+            u.avatar,
+            ui.intro,
+            ui.web_site as webSite,
+            ui.bj_cover as bjCover
+        FROM
+            sys_user u
+                LEFT JOIN sys_user_info ui ON u.user_id = ui.user_id
+        WHERE u.user_id = #{userId}
+    </select>
+</mapper>

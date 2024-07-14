@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.mcx.modules.blog.mapper.CommentMapper">
+
+    <select id="selectPageList" resultType="me.mcx.modules.blog.domain.vo.SystemCommentVO">
+        SELECT
+        c.id,
+        au.avatar,
+        au.nickname,
+        IF(rau.nickname is null,'无',rau.nickname) as replyNickname,
+        a.title as articleTitle,
+        c.content,
+        c.create_time
+        FROM
+        blog_article_comment c
+        LEFT JOIN ( SELECT user_id, user_info_id FROM sys_user ) u ON c.user_id = u.user_id
+        LEFT JOIN ( SELECT id, avatar, nickname FROM blog_user_info ) au ON u.user_info_id = au.id
+        LEFT JOIN ( SELECT id, title FROM blog_article ) a ON c.article_id = a.id
+        LEFT JOIN ( SELECT user_id, user_info_id FROM sys_user ) ru ON c.reply_user_id = ru.user_id
+        LEFT JOIN ( SELECT id, avatar, nickname FROM blog_user_info ) rau ON ru.user_info_id = rau.id
+        <where>
+            <if test="keywords != null and keywords != ''">
+                au.nickname like concat('%',#{keywords},'%') or rau.nickname like concat('%',#{keywords},'%')
+            </if>
+        </where>
+        order by c.create_time desc
+    </select>
+
+
+    <select id="selectCommentPage" resultType="me.mcx.modules.blog.domain.vo.ApiCommentListVO">
+        select c.*, ui.nickname as nickname, ui.web_site as webSite, ui.avatar as avatar
+        from blog_article_comment c
+                 left join sys_user u on c.user_id = u.user_id
+                 left join blog_user_info ui on u.user_info_id = ui.id
+        where c.article_id = #{articleId}
+          and c.parent_id is null
+        order by c.create_time desc
+    </select>
+
+    <select id="selectMyComment" resultType="me.mcx.modules.blog.domain.vo.ApiArticleListVO">
+        select c.content as commentContent,c.create_time,a.title,a.id
+        from blog_article_comment c left join blog_article a on c.article_id = a.id where c.user_id = #{userId} order by c.create_time desc
+    </select>
+
+</mapper>

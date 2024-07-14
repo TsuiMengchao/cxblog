@@ -1,0 +1,277 @@
+:root {
+    /* font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale; */
+
+    --theme-color: #3a8ee6;
+    --background-color: #fff;
+    --body-color: linear-gradient(90deg, rgba(247, 149, 51, .1), rgba(243, 112, 85, .1) 15%, rgba(239, 78, 123, .1) 30%, rgba(161, 102, 171, .1) 44%, rgba(80, 115, 184, .1) 58%, rgba(16, 152, 173, .1) 72%, rgba(7, 179, 155, .1) 86%, rgba(109, 186, 130, .1));
+    --text-color: #000;
+    --text-color1: #272222;
+    --text-color2: #c5bdbd;
+    --border-line: #e4e7ed;
+    --header-back-color: hsla(0, 0%, 100%, .65);
+    --article-color: #303133;
+    --box-title_color: #333333;
+    --text-color3: #f2f6fc;
+    --comment-box: #f5f5f5;
+    --im-user-box-backgroudColor: #1DE9B6;
+    --im-box-backgroudColor: #a6c6f7;
+    --im-backgroudColor: #dcdfe6;
+    --hover-color: #dcdfe6;
+    --tips-backgroud-color: #ecf8ff;
+    --article-structure-backcolor: #ecf5ff;
+    --friend-tip-color: #f5f5f5;
+    --article-srect-background: repeating-linear-gradient(145deg, #f2f6fc, #f2f6fc 15px, #fff 0, #fff 25px);
+    --say-background: #f7f7f7;
+    --footer-background-color: rgba(255, 255, 255, 0.8);
+    --forum-background-color: #f2f3f5;
+    --article-table-border-color: #fffdf9;
+    --article-table-back-color: #fff3e0;
+    --pagination-background-color: #fff;
+    --pagination-border-color: #e4e7ed;
+    --pagination-hover-color: #f5f7fa;
+    --article-share-color: #f2f6fc;
+    --hover-color: rgb(238, 243, 243);
+}
+
+html[data-theme='dark'] {
+    --theme-color: #9999FF;
+    --background-color: #232323;
+    --body-color: #2b2b2b;
+    --text-color: #909399;
+    --text-color1: #fff;
+    --text-color2: #c5bdbd;
+    --border-line: #414243;
+    --header-back-color: rgb(15, 15, 15);
+    --article-color: rgb(153, 153, 153);
+    --box-title_color: #BDBDBD;
+    --text-color3: #303030;
+    --comment-box: #303030;
+    --im-user-box-backgroudColor: #FF80AB;
+    --im-box-backgroudColor: #9CCC65;
+    --im-backgroudColor: #323644;
+    --hover-color: #414349;
+    --tips-backgroud-color: #414349;
+    --article-structure-backcolor: #606266;
+    --friend-tip-color: #606266;
+    --article-srect-background: repeating-linear-gradient(145deg, #000, #000 15px, #303133 0, #303133 25px);
+    --say-background: #303133;
+    --footer-background-color: #232323e0;
+    --forum-background-color: #303133;
+    --article-table-back-color: #000;
+    --article-table-border-color: #303133;
+    --pagination-background-color: #303133;
+    --pagination-border-color: #60626657;
+    --pagination-hover-color: #606266;
+    --article-share-color: #303030;
+    --hover-color: rgb(56, 58, 58);
+}
+
+
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "font";
+}
+
+html {
+    cursor: url(https://cxblog.qiniu.zhaohaoyue.love/web/normal1.cur), default;
+}
+
+
+/* 设置鼠标小手样式 */
+.hand-style {
+    cursor: url(https://cxblog.qiniu.zhaohaoyue.love/web/link1.cur), pointer;
+}
+
+
+
+.el-tabs__nav-scroll {
+    overflow-x: scroll !important;
+
+}
+
+.el-tabs__nav-scroll::-webkit-scrollbar {
+    display: none !important;
+}
+
+@font-face {
+    font-family: 'font';
+    src: url('./assets/font/2.woff2');
+}
+
+
+
+.el-upload--picture-card {
+    background-color: var(--background-color) !important;
+}
+
+.el-dropdown,
+.el-dropdown * {
+    outline: none;
+}
+
+.el-dropdown {
+    line-height: inherit !important;
+}
+
+.el-dropdown:hover {
+    border: none !important;
+}
+
+.el-dropdown .el-dropdown-link {
+    display: flex;
+    align-items: center;
+}
+
+.el-dropdown-menu {
+    background-color: var(--background-color) !important;
+    color: var(--text-color) !important;
+    border: 0 !important;
+
+}
+
+.el-dropdown-menu .popper__arrow::after {
+    border-bottom-color: var(--background-color) !important;
+}
+
+.el-dropdown-menu .el-dropdown-menu__item {
+    transition: transform .35s !important;
+
+
+}
+
+.el-dropdown-menu .el-dropdown-menu__item:hover {
+    background-color: rgb(0, 0, 0, 0) !important;
+    transform: translateX(6px);
+}
+
+/* 修改滚动条宽度 */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+/* 修改滚动条颜色 */
+::-webkit-scrollbar-thumb {
+    background-color: rgb(187, 187, 187);
+    border-radius: 5px;
+}
+
+/* 修改滚动条轨道颜色 */
+::-webkit-scrollbar-track {
+    background-color: #f5f5f5;
+    border-radius: 5px;
+}
+
+::selection {
+    color: #fff;
+    background-color: #d17598;
+}
+
+.el-card__body {
+    padding: 0 !important;
+}
+
+.el-card {
+    border: 0 !important;
+    border-radius: 5px;
+}
+
+.el-dialog {
+    background-color: var(--background-color) !important;
+    color: var(--article-color) !important;
+    border-radius: 10px;
+}
+
+.el-dialog .el-dialog__title {
+    color: var(--article-color) !important;
+}
+
+.el-input__inner {
+    background-color: var(--background-color) !important;
+    border-color: var(--border-line) !important;
+}
+
+.el-input__inner:focus {
+    border-color: var(--theme-color) !important;
+}
+
+.box-shadow-top {
+    transition: box-shadow .35s, transform .35s !important;
+}
+
+.box-shadow-top:hover {
+    box-shadow: 1px 1px 5px 5px rgba(49, 211, 162, 0.322) !important;
+    transform: translateY(-2px) !important;
+}
+
+.box-shadow {
+    transition: box-shadow .35s;
+}
+
+.box-shadow:hover {
+    box-shadow: 1px 1px 5px 5px rgba(49, 211, 162, 0.322) !important;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.xiahuaxian {
+    background: linear-gradient(to right, #9459c5, #4cbec2) no-repeat right bottom;
+    background-size: 0px 2px;
+    transition: background-size .35s;
+}
+
+.xiahuaxian:hover {
+    background-size: 100% 2px;
+    background-position: left bottom;
+}
+
+.tag-item {
+    display: inline-block;
+    border-radius: 5px;
+    padding: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    color: #fff;
+    transition: all .3s;
+}
+
+.tag-item:hover {
+    border-radius: 0;
+    background-color: #000 !important;
+}
+
+@media screen and (max-width: 1118px) {
+    .el-dialog {
+        width: 90% !important;
+    }
+}
+
+.no-select {
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.el-tabs__item {
+  color: var(--article-color) !important;
+}
+
+.is-active {
+    color: #409eff !important;
+  }
+#app {
+    background: var(--body-color) !important;
+}
+
+.sy-display-flex-center{
+    display: flex;
+    align-items: center;
+}

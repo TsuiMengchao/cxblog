@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.mcx.blog.mapper.BlogNavigationMapper">
+    
+    <resultMap type="BlogNavigation" id="BlogNavigationResult">
+        <result property="id"    column="id"    />
+        <result property="siteClassId"    column="site_class_id"    />
+        <result property="name"    column="name"    />
+        <result property="url"    column="url"    />
+        <result property="logo"    column="logo"    />
+        <result property="info"    column="info"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectBlogNavigationVo">
+        select id, site_class_id, name, url, logo, info, create_by, create_time, update_by, update_time, remark from blog_navigation
+    </sql>
+
+    <select id="selectBlogNavigationList" parameterType="BlogNavigation" resultMap="BlogNavigationResult">
+        <include refid="selectBlogNavigationVo"/>
+        <where>  
+            <if test="siteClassId != null "> and site_class_id = #{siteClassId}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="url != null  and url != ''"> and url = #{url}</if>
+            <if test="logo != null  and logo != ''"> and logo = #{logo}</if>
+            <if test="info != null  and info != ''"> and info = #{info}</if>
+        </where>
+    </select>
+    
+    <select id="selectBlogNavigationById" parameterType="Long" resultMap="BlogNavigationResult">
+        <include refid="selectBlogNavigationVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertBlogNavigation" parameterType="BlogNavigation" useGeneratedKeys="true" keyProperty="id">
+        insert into blog_navigation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="siteClassId != null">site_class_id,</if>
+            <if test="name != null and name != ''">name,</if>
+            <if test="url != null">url,</if>
+            <if test="logo != null">logo,</if>
+            <if test="info != null">info,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="siteClassId != null">#{siteClassId},</if>
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="url != null">#{url},</if>
+            <if test="logo != null">#{logo},</if>
+            <if test="info != null">#{info},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBlogNavigation" parameterType="BlogNavigation">
+        update blog_navigation
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="siteClassId != null">site_class_id = #{siteClassId},</if>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="url != null">url = #{url},</if>
+            <if test="logo != null">logo = #{logo},</if>
+            <if test="info != null">info = #{info},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBlogNavigationById" parameterType="Long">
+        delete from blog_navigation where id = #{id}
+    </delete>
+
+    <delete id="deleteBlogNavigationByIds" parameterType="String">
+        delete from blog_navigation where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

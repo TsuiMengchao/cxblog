@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.mcx.modules.blog.mapper.TipsoonMapper">
+    <select id="selectTipsoon" resultType="me.mcx.modules.blog.domain.vo.tipsoon.ApiTipsoonVO">
+        SELECT
+            tipsoon.id,
+            tipsoon.title,
+            tipsoon.content,
+            tipsoon.site,
+            tipsoon.img_url,
+            tipsoon.user_id,
+            tipsoon.create_time,
+            user.nick_name
+        FROM
+            blog_tipsoon tipsoon
+                LEFT JOIN
+            sys_user user ON tipsoon.user_id = user.user_id
+        WHERE
+            tipsoon.id NOT IN (
+            SELECT
+            tipsoon_id
+            FROM
+            blog_tipsoon_readed
+            WHERE
+            user_id = #{userId}
+            )
+        ORDER BY
+            RAND()
+            LIMIT 1;
+    </select>
+
+    <select id="select10Tipsoon" resultType="me.mcx.modules.blog.domain.vo.tipsoon.ApiTipsoonVO">
+        SELECT
+            tipsoon.id,
+            tipsoon.title,
+            tipsoon.content,
+            tipsoon.site,
+            tipsoon.img_url,
+            tipsoon.user_id,
+            tipsoon.create_time,
+            user.nick_name
+        FROM
+            blog_tipsoon tipsoon
+                LEFT JOIN
+            sys_user user ON tipsoon.user_id = user.user_id
+        WHERE
+            tipsoon.id NOT IN (
+            SELECT
+            tipsoon_id
+            FROM
+            blog_tipsoon_readed
+            WHERE
+            user_id = #{userId}
+            )
+        ORDER BY
+            RAND()
+            LIMIT 10;
+    </select>
+
+    <select id="selectTipsoonById" resultType="me.mcx.modules.blog.domain.vo.tipsoon.ApiTipsoonVO">
+        SELECT
+            tipsoon.id,
+            tipsoon.title,
+            tipsoon.content,
+            tipsoon.site,
+            tipsoon.img_url,
+            tipsoon.user_id,
+            tipsoon.create_time,
+            user.nick_name
+        FROM
+            blog_tipsoon tipsoon
+                LEFT JOIN
+            sys_user user ON tipsoon.user_id = user.user_id
+        WHERE
+            tipsoon.id IN (
+            SELECT
+            tipsoon_id
+            FROM
+            blog_tipsoon_readed
+            WHERE
+            user_id = #{userId}
+            ) and tipsoon.id = #{tipsoonId};
+    </select>
+
+    <select id="selectTipsoonUserIsLike" resultType="java.lang.Integer">
+        select count(id) from blog_tipsoon_like where user_id = #{userId} and  tipsoon_id = #{tipsoonId}
+    </select>
+
+    <select id="selectTipsoonUserIsCollect" resultType="java.lang.Integer">
+        select count(id) from blog_tipsoon_collect where user_id = #{userId} and  tipsoon_id = #{tipsoonId}
+    </select>
+
+    <select id="selectTipsoonUserIsRead" resultType="java.lang.Integer">
+        select count(id) from blog_tipsoon_readed where user_id = #{userId} and  tipsoon_id = #{tipsoonId}
+    </select>
+
+    <select id="countTipsoonLike" resultType="java.lang.Integer">
+        select count(id) from blog_tipsoon_like where tipsoon_id = #{tipsoonId}
+    </select>
+
+    <select id="countTipsoonCollect" resultType="java.lang.Integer">
+        select count(id) from blog_tipsoon_collect where tipsoon_id = #{tipsoonId}
+    </select>
+
+    <select id="selectTipsoonLikeList" resultType="me.mcx.modules.blog.domain.vo.tipsoon.ApiTipsoonLikeListVO">
+        select fl.id,fl.user_id,info.avatar,info.intro,info.nickname from blog_tipsoon_like fl
+        left join sys_user u on u.user_id=fl.user_id
+        left join blog_user_info info on info.id=u.user_info_id
+        where fl.tipsoon_id = #{tipsoonId} order by fl.create_time desc
+    </select>
+
+    <insert id="insertTipsoonLike">
+        insert into blog_tipsoon_like (user_id, tipsoon_id, create_time)
+        values (#{userId}, #{tipsoonId}, Now())
+    </insert>
+
+    <insert id="insertTipsoonCollect">
+        insert into blog_tipsoon_collect (user_id, tipsoon_id, create_time)
+        values (#{userId}, #{tipsoonId}, Now())
+    </insert>
+
+    <insert id="insertTipsoonReaded">
+        insert into blog_tipsoon_readed (user_id, tipsoon_id, create_time)
+        values (#{userId}, #{tipsoonId}, Now())
+    </insert>
+
+    <delete id="deleteTipsoonLikeByUerIdAndTipsoonId">
+        delete from blog_tipsoon_like where user_id = #{userId} and  tipsoon_id = #{tipsoonId}
+    </delete>
+
+    <delete id="deleteTipsoonCollectByUerIdAndTipsoonId">
+        delete from blog_tipsoon_collect where user_id = #{userId} and  tipsoon_id = #{tipsoonId}
+    </delete>
+</mapper>

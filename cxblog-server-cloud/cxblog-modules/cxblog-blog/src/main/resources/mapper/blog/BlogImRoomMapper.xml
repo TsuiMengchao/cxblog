@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.mcx.blog.mapper.BlogImRoomMapper">
+    
+    <resultMap type="BlogImRoom" id="BlogImRoomResult">
+        <result property="id"    column="id"    />
+        <result property="type"    column="type"    />
+        <result property="fromUserId"    column="from_user_id"    />
+        <result property="toUserId"    column="to_user_id"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectBlogImRoomVo">
+        select id, type, from_user_id, to_user_id, create_by, create_time, update_by, update_time, remark from blog_im_room
+    </sql>
+
+    <select id="selectBlogImRoomList" parameterType="BlogImRoom" resultMap="BlogImRoomResult">
+        <include refid="selectBlogImRoomVo"/>
+        <where>  
+            <if test="type != null "> and type = #{type}</if>
+            <if test="fromUserId != null  and fromUserId != ''"> and from_user_id = #{fromUserId}</if>
+            <if test="toUserId != null  and toUserId != ''"> and to_user_id = #{toUserId}</if>
+        </where>
+    </select>
+    
+    <select id="selectBlogImRoomById" parameterType="String" resultMap="BlogImRoomResult">
+        <include refid="selectBlogImRoomVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertBlogImRoom" parameterType="BlogImRoom">
+        insert into blog_im_room
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="type != null">type,</if>
+            <if test="fromUserId != null and fromUserId != ''">from_user_id,</if>
+            <if test="toUserId != null">to_user_id,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="type != null">#{type},</if>
+            <if test="fromUserId != null and fromUserId != ''">#{fromUserId},</if>
+            <if test="toUserId != null">#{toUserId},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBlogImRoom" parameterType="BlogImRoom">
+        update blog_im_room
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="type != null">type = #{type},</if>
+            <if test="fromUserId != null and fromUserId != ''">from_user_id = #{fromUserId},</if>
+            <if test="toUserId != null">to_user_id = #{toUserId},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBlogImRoomById" parameterType="String">
+        delete from blog_im_room where id = #{id}
+    </delete>
+
+    <delete id="deleteBlogImRoomByIds" parameterType="String">
+        delete from blog_im_room where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,194 @@
+version : '3.8'
+services:
+  cxblog-nacos:
+    container_name: cxblog-nacos
+    image: nacos/nacos-server
+    build:
+      context: ./nacos
+      dockerfile: dockerfile
+    environment:
+      - MODE=standalone
+    volumes:
+      - ./nacos/logs/:/home/nacos/logs
+      - ./nacos/conf/application.properties:/home/nacos/conf/application.properties
+    ports:
+      - "8182:8848"
+      - "8183:9848"
+      - "8184:9849"
+    depends_on:
+      - cxblog-mysql
+  cxblog-mysql:
+    container_name: cxblog-mysql
+    image: mysql:5.7
+    build:
+      context: ./mysql
+      dockerfile: dockerfile
+    ports:
+      - "8180:3306"
+    volumes:
+      - ./mysql/conf:/etc/mysql/conf.d
+      - ./mysql/logs:/logs
+      - ./mysql/data:/var/lib/mysql
+    command: [
+          'mysqld',
+          '--innodb-buffer-pool-size=80M',
+          '--character-set-server=utf8mb4',
+          '--collation-server=utf8mb4_unicode_ci',
+          '--default-time-zone=+8:00',
+          '--lower-case-table-names=1'
+        ]
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: 'cxblog-cloud'
+  cxblog-redis:
+    container_name: cxblog-redis
+    image: redis
+    build:
+      context: ./redis
+      dockerfile: dockerfile
+    ports:
+      - "8181:6379"
+    volumes:
+      - ./redis/conf/redis.conf:/home/redis/redis.conf
+      - ./redis/data:/data
+    command: redis-server /home/redis/redis.conf
+  cxblog-nginx:
+    container_name: cxblog-nginx
+    image: nginx
+    build:
+      context: ./nginx
+      dockerfile: dockerfile
+    ports:
+      - "8150:8150"
+      - "8151:8151"
+      - "8152:8152"
+      - "8153:8153"
+    volumes:
+      - ./cxblog/html/admin:/home/mcx/cxblog/admin
+      - ./cxblog/html/web:/home/mcx/cxblog/web
+      - ./cxblog/html/h5:/home/mcx/cxblog/h5
+      - ./cxblog/html/doc:/home/mcx/cxblog/doc
+      - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/logs:/var/log/nginx
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - cxblog-gateway
+  cxblog-gateway:
+    container_name: cxblog-server
+    build:
+      context: ./cxblog/gateway
+      dockerfile: dockerfile
+    ports:
+      - "8100:8100"
+    depends_on:
+      - cxblog-redis
+    links:
+      - cxblog-redis
+  cxblog-auth:
+    container_name: cxblog-auth
+    build:
+      context: ./cxblog/auth
+      dockerfile: dockerfile
+    ports:
+      - "8105:8105"
+    depends_on:
+      - cxblog-redis
+    links:
+      - cxblog-redis
+  cxblog-modules-system:
+    container_name: cxblog-modules-system
+    build:
+      context: ./cxblog/modules/system
+      dockerfile: dockerfile
+    ports:
+      - "8101:8101"
+    depends_on:
+      - cxblog-redis
+      - cxblog-mysql
+    links:
+      - cxblog-redis
+      - cxblog-mysql
+  cxblog-modules-gen:
+    container_name: cxblog-modules-gen
+    build:
+      context: ./cxblog/modules/gen
+      dockerfile: dockerfile
+    ports:
+      - "8102:8102"
+    depends_on:
+      - cxblog-mysql
+    links:
+      - cxblog-mysql
+  cxblog-modules-job:
+    container_name: cxblog-modules-job
+    build:
+      context: ./cxblog/modules/job
+      dockerfile: dockerfile
+    ports:
+      - "8103:8103"
+    depends_on:
+      - cxblog-mysql
+    links:
+      - cxblog-mysql
+  cxblog-modules-file:
+    container_name: cxblog-modules-file
+    build:
+      context: ./cxblog/modules/file
+      dockerfile: dockerfile
+    ports:
+      - "8106:8106"
+    depends_on:
+      - cxblog-redis
+      - cxblog-mysql
+    links:
+      - cxblog-redis
+      - cxblog-mysql
+    volumes:
+    - ./cxblog/files:/home/mcx/cxblog/files
+  cxblog-visual-monitor:
+    container_name: cxblog-visual-monitor
+    build:
+      context: ./cxblog/visual/monitor
+      dockerfile: dockerfile
+    ports:
+      - "8104:8104"
+  cxblog-modules-blog:
+    container_name: cxblog-modules-blog
+    build:
+      context: ./cxblog/modules/blog
+      dockerfile: dockerfile
+    ports:
+      - "8107:8107"
+      - "8110:8110"
+    depends_on:
+      - cxblog-redis
+      - cxblog-mysql
+    links:
+      - cxblog-redis
+      - cxblog-mysql
+  cxblog-modules-msg:
+    container_name: cxblog-modules-msg
+    build:
+      context: ./cxblog/modules/msg
+      dockerfile: dockerfile
+    ports:
+      - "8108:8108"
+    depends_on:
+      - cxblog-redis
+      - cxblog-mysql
+    links:
+      - cxblog-redis
+      - cxblog-mysql
+  cxblog-modules-payment:
+    container_name: cxblog-modules-payment
+    build:
+      context: ./cxblog/modules/payment
+      dockerfile: dockerfile
+    ports:
+      - "8109:8109"
+    depends_on:
+      - cxblog-redis
+      - cxblog-mysql
+    links:
+      - cxblog-redis
+      - cxblog-mysql

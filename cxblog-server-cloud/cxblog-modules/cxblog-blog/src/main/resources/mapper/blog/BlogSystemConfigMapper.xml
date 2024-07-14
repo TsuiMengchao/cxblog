@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.mcx.blog.mapper.BlogSystemConfigMapper">
+    
+    <resultMap type="BlogSystemConfig" id="BlogSystemConfigResult">
+        <result property="id"    column="id"    />
+        <result property="qiNiuAccessKey"    column="qi_niu_access_key"    />
+        <result property="qiNiuSecretKey"    column="qi_niu_secret_key"    />
+        <result property="qiNiuArea"    column="qi_niu_area"    />
+        <result property="qiNiuBucket"    column="qi_niu_bucket"    />
+        <result property="qiNiuPictureBaseUrl"    column="qi_niu_picture_base_url"    />
+        <result property="uploadQiNiu"    column="upload_qi_niu"    />
+        <result property="openEmailActivate"    column="open_email_activate"    />
+        <result property="startEmailNotification"    column="start_email_notification"    />
+        <result property="openDashboardNotification"    column="open_dashboard_notification"    />
+        <result property="dashboardNotificationMd"    column="dashboard_notification_md"    />
+        <result property="dashboardNotification"    column="dashboard_notification"    />
+        <result property="searchModel"    column="search_model"    />
+        <result property="emailHost"    column="email_host"    />
+        <result property="emailUsername"    column="email_username"    />
+        <result property="emailPassword"    column="email_password"    />
+        <result property="emailPort"    column="email_port"    />
+        <result property="openEmail"    column="open_email"    />
+        <result property="localFileUrl"    column="local_file_url"    />
+        <result property="fileUploadWay"    column="file_upload_way"    />
+        <result property="aliYunAccessKey"    column="ali_yun_access_key"    />
+        <result property="aliYunSecretKey"    column="ali_yun_secret_key"    />
+        <result property="aliYunBucket"    column="ali_yun_bucket"    />
+        <result property="aliYunEndpoint"    column="ali_yun_endpoint"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectBlogSystemConfigVo">
+        select id, qi_niu_access_key, qi_niu_secret_key, qi_niu_area, qi_niu_bucket, qi_niu_picture_base_url, upload_qi_niu, open_email_activate, start_email_notification, open_dashboard_notification, dashboard_notification_md, dashboard_notification, search_model, email_host, email_username, email_password, email_port, open_email, local_file_url, file_upload_way, ali_yun_access_key, ali_yun_secret_key, ali_yun_bucket, ali_yun_endpoint, create_by, create_time, update_by, update_time, remark from blog_system_config
+    </sql>
+
+    <select id="selectBlogSystemConfigList" parameterType="BlogSystemConfig" resultMap="BlogSystemConfigResult">
+        <include refid="selectBlogSystemConfigVo"/>
+        <where>  
+            <if test="qiNiuAccessKey != null  and qiNiuAccessKey != ''"> and qi_niu_access_key = #{qiNiuAccessKey}</if>
+            <if test="qiNiuSecretKey != null  and qiNiuSecretKey != ''"> and qi_niu_secret_key = #{qiNiuSecretKey}</if>
+            <if test="qiNiuArea != null  and qiNiuArea != ''"> and qi_niu_area = #{qiNiuArea}</if>
+            <if test="qiNiuBucket != null  and qiNiuBucket != ''"> and qi_niu_bucket = #{qiNiuBucket}</if>
+            <if test="qiNiuPictureBaseUrl != null  and qiNiuPictureBaseUrl != ''"> and qi_niu_picture_base_url = #{qiNiuPictureBaseUrl}</if>
+            <if test="uploadQiNiu != null  and uploadQiNiu != ''"> and upload_qi_niu = #{uploadQiNiu}</if>
+            <if test="openEmailActivate != null  and openEmailActivate != ''"> and open_email_activate = #{openEmailActivate}</if>
+            <if test="startEmailNotification != null  and startEmailNotification != ''"> and start_email_notification = #{startEmailNotification}</if>
+            <if test="openDashboardNotification != null  and openDashboardNotification != ''"> and open_dashboard_notification = #{openDashboardNotification}</if>
+            <if test="dashboardNotificationMd != null  and dashboardNotificationMd != ''"> and dashboard_notification_md = #{dashboardNotificationMd}</if>
+            <if test="dashboardNotification != null  and dashboardNotification != ''"> and dashboard_notification = #{dashboardNotification}</if>
+            <if test="searchModel != null "> and search_model = #{searchModel}</if>
+            <if test="emailHost != null  and emailHost != ''"> and email_host = #{emailHost}</if>
+            <if test="emailUsername != null  and emailUsername != ''"> and email_username like concat('%', #{emailUsername}, '%')</if>
+            <if test="emailPassword != null  and emailPassword != ''"> and email_password = #{emailPassword}</if>
+            <if test="emailPort != null "> and email_port = #{emailPort}</if>
+            <if test="openEmail != null "> and open_email = #{openEmail}</if>
+            <if test="localFileUrl != null  and localFileUrl != ''"> and local_file_url = #{localFileUrl}</if>
+            <if test="fileUploadWay != null "> and file_upload_way = #{fileUploadWay}</if>
+            <if test="aliYunAccessKey != null  and aliYunAccessKey != ''"> and ali_yun_access_key = #{aliYunAccessKey}</if>
+            <if test="aliYunSecretKey != null  and aliYunSecretKey != ''"> and ali_yun_secret_key = #{aliYunSecretKey}</if>
+            <if test="aliYunBucket != null  and aliYunBucket != ''"> and ali_yun_bucket = #{aliYunBucket}</if>
+            <if test="aliYunEndpoint != null  and aliYunEndpoint != ''"> and ali_yun_endpoint = #{aliYunEndpoint}</if>
+        </where>
+    </select>
+    
+    <select id="selectBlogSystemConfigById" parameterType="Long" resultMap="BlogSystemConfigResult">
+        <include refid="selectBlogSystemConfigVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertBlogSystemConfig" parameterType="BlogSystemConfig" useGeneratedKeys="true" keyProperty="id">
+        insert into blog_system_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="qiNiuAccessKey != null">qi_niu_access_key,</if>
+            <if test="qiNiuSecretKey != null">qi_niu_secret_key,</if>
+            <if test="qiNiuArea != null">qi_niu_area,</if>
+            <if test="qiNiuBucket != null">qi_niu_bucket,</if>
+            <if test="qiNiuPictureBaseUrl != null">qi_niu_picture_base_url,</if>
+            <if test="uploadQiNiu != null">upload_qi_niu,</if>
+            <if test="openEmailActivate != null">open_email_activate,</if>
+            <if test="startEmailNotification != null and startEmailNotification != ''">start_email_notification,</if>
+            <if test="openDashboardNotification != null and openDashboardNotification != ''">open_dashboard_notification,</if>
+            <if test="dashboardNotificationMd != null">dashboard_notification_md,</if>
+            <if test="dashboardNotification != null">dashboard_notification,</if>
+            <if test="searchModel != null">search_model,</if>
+            <if test="emailHost != null">email_host,</if>
+            <if test="emailUsername != null">email_username,</if>
+            <if test="emailPassword != null">email_password,</if>
+            <if test="emailPort != null">email_port,</if>
+            <if test="openEmail != null">open_email,</if>
+            <if test="localFileUrl != null">local_file_url,</if>
+            <if test="fileUploadWay != null">file_upload_way,</if>
+            <if test="aliYunAccessKey != null">ali_yun_access_key,</if>
+            <if test="aliYunSecretKey != null">ali_yun_secret_key,</if>
+            <if test="aliYunBucket != null">ali_yun_bucket,</if>
+            <if test="aliYunEndpoint != null">ali_yun_endpoint,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="qiNiuAccessKey != null">#{qiNiuAccessKey},</if>
+            <if test="qiNiuSecretKey != null">#{qiNiuSecretKey},</if>
+            <if test="qiNiuArea != null">#{qiNiuArea},</if>
+            <if test="qiNiuBucket != null">#{qiNiuBucket},</if>
+            <if test="qiNiuPictureBaseUrl != null">#{qiNiuPictureBaseUrl},</if>
+            <if test="uploadQiNiu != null">#{uploadQiNiu},</if>
+            <if test="openEmailActivate != null">#{openEmailActivate},</if>
+            <if test="startEmailNotification != null and startEmailNotification != ''">#{startEmailNotification},</if>
+            <if test="openDashboardNotification != null and openDashboardNotification != ''">#{openDashboardNotification},</if>
+            <if test="dashboardNotificationMd != null">#{dashboardNotificationMd},</if>
+            <if test="dashboardNotification != null">#{dashboardNotification},</if>
+            <if test="searchModel != null">#{searchModel},</if>
+            <if test="emailHost != null">#{emailHost},</if>
+            <if test="emailUsername != null">#{emailUsername},</if>
+            <if test="emailPassword != null">#{emailPassword},</if>
+            <if test="emailPort != null">#{emailPort},</if>
+            <if test="openEmail != null">#{openEmail},</if>
+            <if test="localFileUrl != null">#{localFileUrl},</if>
+            <if test="fileUploadWay != null">#{fileUploadWay},</if>
+            <if test="aliYunAccessKey != null">#{aliYunAccessKey},</if>
+            <if test="aliYunSecretKey != null">#{aliYunSecretKey},</if>
+            <if test="aliYunBucket != null">#{aliYunBucket},</if>
+            <if test="aliYunEndpoint != null">#{aliYunEndpoint},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBlogSystemConfig" parameterType="BlogSystemConfig">
+        update blog_system_config
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="qiNiuAccessKey != null">qi_niu_access_key = #{qiNiuAccessKey},</if>
+            <if test="qiNiuSecretKey != null">qi_niu_secret_key = #{qiNiuSecretKey},</if>
+            <if test="qiNiuArea != null">qi_niu_area = #{qiNiuArea},</if>
+            <if test="qiNiuBucket != null">qi_niu_bucket = #{qiNiuBucket},</if>
+            <if test="qiNiuPictureBaseUrl != null">qi_niu_picture_base_url = #{qiNiuPictureBaseUrl},</if>
+            <if test="uploadQiNiu != null">upload_qi_niu = #{uploadQiNiu},</if>
+            <if test="openEmailActivate != null">open_email_activate = #{openEmailActivate},</if>
+            <if test="startEmailNotification != null and startEmailNotification != ''">start_email_notification = #{startEmailNotification},</if>
+            <if test="openDashboardNotification != null and openDashboardNotification != ''">open_dashboard_notification = #{openDashboardNotification},</if>
+            <if test="dashboardNotificationMd != null">dashboard_notification_md = #{dashboardNotificationMd},</if>
+            <if test="dashboardNotification != null">dashboard_notification = #{dashboardNotification},</if>
+            <if test="searchModel != null">search_model = #{searchModel},</if>
+            <if test="emailHost != null">email_host = #{emailHost},</if>
+            <if test="emailUsername != null">email_username = #{emailUsername},</if>
+            <if test="emailPassword != null">email_password = #{emailPassword},</if>
+            <if test="emailPort != null">email_port = #{emailPort},</if>
+            <if test="openEmail != null">open_email = #{openEmail},</if>
+            <if test="localFileUrl != null">local_file_url = #{localFileUrl},</if>
+            <if test="fileUploadWay != null">file_upload_way = #{fileUploadWay},</if>
+            <if test="aliYunAccessKey != null">ali_yun_access_key = #{aliYunAccessKey},</if>
+            <if test="aliYunSecretKey != null">ali_yun_secret_key = #{aliYunSecretKey},</if>
+            <if test="aliYunBucket != null">ali_yun_bucket = #{aliYunBucket},</if>
+            <if test="aliYunEndpoint != null">ali_yun_endpoint = #{aliYunEndpoint},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBlogSystemConfigById" parameterType="Long">
+        delete from blog_system_config where id = #{id}
+    </delete>
+
+    <delete id="deleteBlogSystemConfigByIds" parameterType="String">
+        delete from blog_system_config where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

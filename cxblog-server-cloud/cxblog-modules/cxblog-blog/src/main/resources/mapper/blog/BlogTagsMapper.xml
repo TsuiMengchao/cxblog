@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.mcx.blog.mapper.BlogTagsMapper">
+    
+    <resultMap type="BlogTags" id="BlogTagsResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="clickVolume"    column="click_volume"    />
+        <result property="sort"    column="sort"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectBlogTagsVo">
+        select id, name, click_volume, sort, create_by, create_time, update_by, update_time, remark from blog_tags
+    </sql>
+
+    <select id="selectBlogTagsList" parameterType="BlogTags" resultMap="BlogTagsResult">
+        <include refid="selectBlogTagsVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="clickVolume != null "> and click_volume = #{clickVolume}</if>
+            <if test="sort != null "> and sort = #{sort}</if>
+        </where>
+    </select>
+    
+    <select id="selectBlogTagsById" parameterType="Long" resultMap="BlogTagsResult">
+        <include refid="selectBlogTagsVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertBlogTags" parameterType="BlogTags" useGeneratedKeys="true" keyProperty="id">
+        insert into blog_tags
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">name,</if>
+            <if test="clickVolume != null">click_volume,</if>
+            <if test="sort != null">sort,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="clickVolume != null">#{clickVolume},</if>
+            <if test="sort != null">#{sort},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBlogTags" parameterType="BlogTags">
+        update blog_tags
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="clickVolume != null">click_volume = #{clickVolume},</if>
+            <if test="sort != null">sort = #{sort},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBlogTagsById" parameterType="Long">
+        delete from blog_tags where id = #{id}
+    </delete>
+
+    <delete id="deleteBlogTagsByIds" parameterType="String">
+        delete from blog_tags where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+<!--    =====================================-->
+    <delete id="deleteByArticleIds">
+        DELETE FROM blog_article_tag WHERE article_id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectByArticleId" resultType="java.lang.String">
+        select name from blog_tags where id in(select tag_id from blog_article_tag where article_id=#{articleId})
+    </select>
+
+
+    <select id="selectPageRecord" resultType="me.mcx.blog.domain.vo.tag.SystemTagListVo">
+        select a.id,a.name,a.sort,a.click_volume,a.create_time,b.articleCount from blog_tags a
+        left join (select tag_id,count(id) as articleCount from blog_article_tag GROUP BY tag_id) b on a.id=b.tag_id
+        <where>
+            <if test="name != null">
+                a.name like concat('%',#{name},'%')
+            </if>
+        </where>
+    </select>
+
+    <insert id="saveArticleTags">
+        insert ignore into  blog_article_tag(article_id,tag_id) values
+        <foreach collection="tags" item="tagsId" index="index" separator=",">
+            ( #{articleId},#{tagsId})
+        </foreach>
+    </insert>
+
+    <select id="countTags" resultType="java.util.Map">
+        select id,name from blog_tags
+    </select>
+
+    <select id="selectTagByArticleId" resultType="me.mcx.blog.domain.BlogTags">
+        select * from blog_tags where id in (select tag_id from blog_article_tag where article_id=#{articleId})
+    </select>
+    <select id="validateTagIdIsExistArticle" resultType="java.lang.Integer" parameterType="java.lang.Long">
+        select count(id) from blog_article_tag where tag_id=#{id}
+    </select>
+    <select id="selectTagListApi" resultType="me.mcx.blog.domain.vo.tag.ApiTagListVO">
+        SELECT
+            t.id,
+            t.NAME,
+            count( a.id ) AS articleNum
+        FROM
+            blog_tags t
+                LEFT JOIN blog_article_tag a ON t.id = a.tag_id
+        GROUP BY
+            t.id
+        ORDER BY
+            t.sort
+    </select>
+</mapper>

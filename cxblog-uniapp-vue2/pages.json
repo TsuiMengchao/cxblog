@@ -1,0 +1,260 @@
+{
+	"easycom": {
+		"^tn-(.*)": "@/tuniao-ui/components/tn-$1/tn-$1.vue"
+	},
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index",
+			"style": {
+				"mp-weixin": {
+					"disableScroll": true
+				},
+				"app-plus": {
+					"bounce": "none"
+				},
+				"mp-alipay": {
+					"allowsBounceVertical": "NO"
+				},
+				"mp-baidu": {
+					"disableScroll": true
+				}
+			}
+		}
+	],
+	"subPackages": [
+		{
+			"root": "articlePages",
+			"pages": [{
+					"path": "articleInfo",
+					"style": {
+						"navigationBarTitleText": "文章详情",
+						"enablePullDownRefresh": false
+					}
+				},
+
+				{
+					"path": "search",
+					"style": {
+						"navigationBarTitleText": "全局搜索",
+						"enablePullDownRefresh": false
+					}
+				}
+			]
+		},
+		{
+			"root": "tipsoonPages",
+			"pages": [
+
+				{
+					"path": "tipsoonInfo",
+					"style": {
+						"navigationBarTitleText": "简讯",
+						"enablePullDownRefresh": false
+					}
+				},
+				{
+					"path": "addTipsoon",
+					"style": {
+						"navigationBarTitleText": "发布简讯",
+						"enablePullDownRefresh": false
+					}
+				}
+			]
+		},
+		{
+			"root": "activityPages",
+			"pages": []
+		},
+		{
+			"root": "momentPages",
+			"pages": [
+				{
+					"path": "blogger",
+					"style": {
+						"navigationBarTitleText": "博主",
+						"enablePullDownRefresh": false
+					}
+				},
+				{
+					"path": "addSay",
+					"style": {
+						"navigationBarTitleText": "发布说说",
+						"enablePullDownRefresh": false
+					}
+				},
+
+				{
+					"path": "talk",
+					"style": {
+						"navigationBarTitleText": "讨论话题",
+						"enablePullDownRefresh": false
+					}
+				},
+				{
+					"path": "forumDetails",
+					"style": {
+						"navigationBarTitleText": "讨论详情",
+						"enablePullDownRefresh": false
+					}
+				},
+				{
+					"path": "addForum",
+					"style": {
+						"navigationBarTitleText": "发布讨论",
+						"enablePullDownRefresh": false
+					}
+				}
+			]
+		},
+		{
+			"root": "minePages",
+			"pages": [
+				{
+					"path": "myArticle",
+					"style": {
+						"navigationBarTitleText": "我的文章",
+						"enablePullDownRefresh": false
+					}
+				},{
+					"path": "resume",
+					"style": {
+						"navigationBarTitleText": "个人简历",
+						"enablePullDownRefresh": false
+					}
+				}, {
+					"path": "protocol",
+					"style": {
+						"navigationBarTitleText": "使用协议",
+						"enablePullDownRefresh": false
+					}
+				}, {
+					"path": "privacyInfo",
+					"style": {
+						"navigationBarTitleText": "隐私政策",
+						"enablePullDownRefresh": false
+					}
+				},
+				{
+					"path": "login",
+					"style": {
+						"navigationBarTitleText": "授权登录",
+						"enablePullDownRefresh": false
+					}
+				},
+				{
+					"path": "about",
+					"style": {
+						"navigationBarTitleText": "关于我们",
+						"enablePullDownRefresh": false
+					}
+				},
+				{
+					"path": "message",
+					"style": {
+						"navigationBarTitleText": "消息通知",
+						"enablePullDownRefresh": false
+					}
+				},
+				{
+					"path": "set",
+					"style": {
+						"navigationBarTitleText": "全局设置",
+						"enablePullDownRefresh": false
+					}
+				},
+				{
+					"path": "start",
+					"style": {
+						"navigationBarTitleText": "立即体验",
+						"enablePullDownRefresh": false
+					}
+				},
+				{
+					"path": "thanks",
+					"style": {
+						"navigationBarTitleText": "感谢名单",
+						"enablePullDownRefresh": false
+					}
+				},
+				{
+					"path": "version",
+					"style": {
+						"navigationBarTitleText": "版本更新",
+						"enablePullDownRefresh": false
+					}
+				},
+				{
+					"path": "help",
+					"style": {
+						"navigationBarTitleText": "帮助中心",
+						"enablePullDownRefresh": false
+					}
+				},
+				{
+					"path": "avatar",
+					"style": {
+						"navigationBarTitleText": "头像上传",
+						"enablePullDownRefresh": false
+					}
+				},
+				{
+					"path": "collect",
+					"style": {
+						"navigationBarTitleText": "我的收藏",
+						"enablePullDownRefresh": false
+					}
+				},
+				{
+					"path": "like",
+					"style": {
+						"navigationBarTitleText": "我的喜欢",
+						"enablePullDownRefresh": false
+					}
+				},
+				{
+					"path": "reward",
+					"style": {
+						"navigationBarTitleText": "赞赏作者",
+						"enablePullDownRefresh": false
+					}
+				},
+				{
+					"path": "photo",
+					"style": {
+						"navigationBarTitleText": "我的相册",
+						"enablePullDownRefresh": false
+					}
+				},
+				{
+					"path": "safety",
+					"style": {
+						"navigationBarTitleText": "账号安全",
+						"enablePullDownRefresh": false
+					}
+				},
+				{
+					"path": "default",
+					"style": {
+						"navigationBarTitleText": "缺省页",
+						"enablePullDownRefresh": false
+					}
+				},
+				{
+					"path": "content",
+					"style": {
+						"navigationBarTitleText": "富文本",
+						"enablePullDownRefresh": false
+					}
+				}
+			]
+		}
+	],
+	"globalStyle": {
+		"navigationStyle": "custom",
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "辰雪博客",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	}
+
+}
