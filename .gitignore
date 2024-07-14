@@ -4,6 +4,7 @@ docker/mysql/**/*.sql
 docker/mysql/data/*
 docker/cxblog/html/*
 docker/redis/data/*
+**/logs
 
 !docker/**/readme.txt
 # Editor directories and files
