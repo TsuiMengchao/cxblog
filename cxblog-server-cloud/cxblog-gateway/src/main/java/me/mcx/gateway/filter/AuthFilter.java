@@ -46,21 +46,24 @@ public class AuthFilter implements GlobalFilter, Ordered
         ServerHttpRequest.Builder mutate = request.mutate();
 
         String url = request.getURI().getPath();
-        // 跳过不需要验证且不带token的路径
+
         String token = getToken(request);
         if (StringUtils.matches(url, ignoreWhite.getWhites()))
         {
+            // 跳过不需要验证且不带token的路径
             if (StringUtils.isEmpty(token)) {
                 return chain.filter(exchange);
             }
         } else {
-
+            // 无token不能访问
             if (StringUtils.isEmpty(token)) {
                 return unauthorizedResponse(exchange, "令牌不能为空");
             }
         }
 
+        // 处理token
         Claims claims = JwtUtils.parseToken(token);
+        // 即使是白名单也不能带无效token访问
         if (claims == null)
         {
             return unauthorizedResponse(exchange, "令牌已过期或验证不正确！");
@@ -71,6 +74,7 @@ public class AuthFilter implements GlobalFilter, Ordered
         {
             return unauthorizedResponse(exchange, "登录状态已过期");
         }
+        // 解析token内数据
         String userid = JwtUtils.getUserId(claims);
         String username = JwtUtils.getUserName(claims);
         if (StringUtils.isEmpty(userid) || StringUtils.isEmpty(username))
